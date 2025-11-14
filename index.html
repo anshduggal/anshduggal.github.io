@@ -1,3 +1,4 @@
+<!-- PART 1/2 -->
 <!--
   portfolio_index.html
   Single-file responsive portfolio ready for GitHub Pages.
@@ -57,7 +58,87 @@
     .muted{color:var(--muted);font-size:13px}
 
     .tag{font-size:12px;padding:4px 8px;border-radius:999px;background:rgba(255,255,255,0.03)}
+
+    /* ========== ADDED STYLES ========== */
+    /* smooth scrolling */
+    html { scroll-behavior: smooth; }
+
+    /* Fade-in utility for sections */
+    .fade { 
+      opacity: 0; 
+      transform: translateY(8px); 
+      transition: opacity .6s ease, transform .6s ease;
+    }
+    .fade.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Project card hover lift */
+    .project.card {
+      transition: transform .18s ease, box-shadow .18s ease;
+    }
+    .project.card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 18px 40px rgba(2,6,23,0.7);
+    }
+
+    /* Thumbnail wrapper for consistent look */
+    .thumb {
+      display:inline-block;
+      position:relative;
+      width:100px;
+      height:70px;
+      border-radius:8px;
+      overflow:hidden;
+      margin-right:12px;
+      flex: 0 0 auto;
+    }
+    .thumb img {
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      filter: contrast(.9) saturate(.85) brightness(.9);
+      display:block;
+    }
+    /* dark overlay on thumbnails */
+    .thumb::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      background: linear-gradient(180deg, rgba(0,0,0,0.12), rgba(0,0,0,0.18));
+      pointer-events:none;
+    }
+
+    /* SVG placeholders slightly dimmer */
+    .project img[src^="data:image/svg+xml"] {
+      filter: grayscale(.05) contrast(.85) brightness(.85);
+    }
+
+    /* Tag hover enhancements */
+    .project .tag {
+      transition: background .18s ease, color .18s ease, transform .12s ease;
+    }
+    .project .tag:hover {
+      background: rgba(125,211,252,0.08);
+      color:#bff0ff;
+      transform: translateY(-2px);
+    }
+
+    /* Stagger reveal setup */
+    .project.card[data-idx] { 
+      opacity:0; 
+      transform:translateY(10px); 
+      transition:opacity .45s ease, transform .45s ease; 
+    }
+    .project.card.visible { 
+      opacity:1; 
+      transform:translateY(0); 
+    }
+    /* ========== END ADDED STYLES ========== */
+
   </style>
+
 </head>
 <body>
   <div class="container">
@@ -105,17 +186,19 @@
           </div>
         </section>
 
-        <section id="projects" style="margin-top:18px">
+        <section id="projects" ="margin-top:18px">
           <h2 style="color:white">Projects</h2>
           <div class="projects-list">
             <!-- Project 1 — Exoskeleton -->
 <article class="project card">
+  <div class="thumb">
   <img src="data:image/svg+xml;utf8,
   <svg xmlns='http://www.w3.org/2000/svg' width='400' height='300'>
   <rect width='100%' height='100%' fill='%23011227'/>
   <text x='50%' y='50%' fill='%23ffffff' font-size='18' font-family='Arial' text-anchor='middle' dy='.3em'>
   Exoskeleton
   </text></svg>" alt="exoskeleton">
+  </div>
   <div>
     <h3>Upper-limb Rehabilitation Exoskeleton</h3>
     <p>Design and prototype of an elbow &amp; wrist flexion exoskeleton. Focus: ergonomic linkages, PID control for assisted movement, and Arduino-based actuation. Includes user studies and documentation.</p>
@@ -128,12 +211,14 @@
 
 <!-- Project 2 — Arduino stepper/servo rig -->
 <article class="project card">
+  <div class="thumb">
   <img src="data:image/svg+xml;utf8,
   <svg xmlns='http://www.w3.org/2000/svg' width='400' height='300'>
   <rect width='100%' height='100%' fill='%23011227'/>
   <text x='50%' y='50%' fill='%23ffffff' font-size='18' font-family='Arial' text-anchor='middle' dy='.3em'>
   Arduino Rig
   </text></svg>" alt="arduino rig">
+  </div>
   <div>
     <h3>Arduino-controlled stepper/servo rig</h3>
     <p>Custom Arduino UNO R4 WiFi project to control servo and stepper motors for repeatable trajectories. Integrated simple web UI for manual control via WiFi.</p>
@@ -146,12 +231,14 @@
 
 <!-- Project 3 — Airbus A350 RC Aircraft -->
 <article class="project card">
+  <div class="thumb">
   <img src="data:image/svg+xml;utf8,
   <svg xmlns='http://www.w3.org/2000/svg' width='400' height='300'>
   <rect width='100%' height='100%' fill='%23011227'/>
   <text x='50%' y='50%' fill='%23ffffff' font-size='18' font-family='Arial' text-anchor='middle' dy='.3em'>
   A350 RC Aircraft
   </text></svg>" alt="A350 RC">
+  </div>
   <div>
     <h3>7ft Airbus A350 RC Aircraft</h3>
     <p>Designed and built a 7-ft wingspan A350 RC aircraft using Depron foam, carbon fibre, EDF propulsion and ATmega328P flight control. Achieved 20% weight reduction through optimized structural design.</p>
@@ -164,12 +251,14 @@
 
 <!-- Project 4 — STM32 Snake Game -->
 <article class="project card">
+  <div class="thumb">
   <img src="data:image/svg+xml;utf8,
   <svg xmlns='http://www.w3.org/2000/svg' width='400' height='300'>
   <rect width='100%' height='100%' fill='%23011227'/>
   <text x='50%' y='50%' fill='%23ffffff' font-size='18' font-family='Arial' text-anchor='middle' dy='.3em'>
   STM32 Snake Game
   </text></svg>" alt="STM32 Snake Game">
+  </div>
   <div>
     <h3>Snake Game on STM32 Nucleo-L476RG</h3>
     <p>Built an embedded Snake game using C++ on STM32 with joystick input, LCD display, buzzer control, and real-time interrupt-driven logic. Fully hardware-timed gameplay.</p>
@@ -182,12 +271,14 @@
 
 <!-- Project 5 — FPGA Dice Game -->
 <article class="project card">
+  <div class="thumb">
   <img src="data:image/svg+xml;utf8,
   <svg xmlns='http://www.w3.org/2000/svg' width='400' height='300'>
   <rect width='100%' height='100%' fill='%23011227'/>
   <text x='50%' y='50%' fill='%23ffffff' font-size='18' font-family='Arial' text-anchor='middle' dy='.3em'>
   FPGA Dice Game
   </text></svg>" alt="FPGA Dice Game">
+  </div>
   <div>
     <h3>FPGA-Based Dice Game</h3>
     <p>Designed a digital dice game using Verilog, finite-state logic, and modular test benches. Simulated using ModelSim and synthesized timing with Intel Quartus Prime.</p>
@@ -200,12 +291,14 @@
 
 <!-- Project 6 — Washing Machine Controller -->
 <article class="project card">
+  <div class="thumb">
   <img src="data:image/svg+xml;utf8,
   <svg xmlns='http://www.w3.org/2000/svg' width='400' height='300'>
   <rect width='100%' height='100%' fill='%23011227'/>
   <text x='50%' y='50%' fill='%23ffffff' font-size='18' font-family='Arial' text-anchor='middle' dy='.3em'>
   Washing Controller
   </text></svg>" alt="Washing Machine Controller">
+  </div>
   <div>
     <h3>Microcontroller-Controlled Washing Machine</h3>
     <p>Developed a washing machine control interface using STM32 with cycle selection, serial monitoring, power control, and fail-safe logic for real-time embedded systems.</p>
@@ -234,7 +327,6 @@
           </form>
           <p class="muted" style="margin-top:8px">Or reach me at: <a href="mailto:anshduggal10@gmail.com" style="color:var(--accent);text-decoration:none">anshduggal10@gmail.com</a></p>
         </div>
-
         <div class="card" style="margin-top:12px">
           <h3 style="margin-top:0">Quick links</h3>
           <p style="margin:8px 0 0"><a href="#projects">Projects</a><br><a href="/resume.pdf">Resume (PDF)</a><br><a href="https://github.com/">GitHub</a></p>
@@ -246,9 +338,37 @@
       
     </footer>
   </div>
+  <!-- PART 2/2 — Scripts + closing tags -->
 
+  <!-- Animation + Stagger Reveal Scripts -->
   <script>
-    // Minimal contact form handler: opens mailto with prefilled body.
+    // Fade-in general sections
+    window.addEventListener('load', () => {
+      document.querySelectorAll('.fade').forEach(el => el.classList.add('visible'));
+    });
+
+    // Stagger project cards
+    document.addEventListener('DOMContentLoaded', () => {
+      const cards = Array.from(document.querySelectorAll('.project.card'));
+      cards.forEach((c,i) => c.setAttribute('data-idx', i));
+
+      const obs = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if(entry.isIntersecting){
+            const card = entry.target;
+            const idx = parseInt(card.getAttribute('data-idx')) || 0;
+            setTimeout(() => card.classList.add('visible'), idx * 100);
+            obs.unobserve(card);
+          }
+        });
+      }, {threshold: 0.2});
+
+      cards.forEach(c => obs.observe(c));
+    });
+  </script>
+
+  <!-- Minimal contact mailto handler -->
+  <script>
     function sendEmail(e){
       e.preventDefault();
       const name = document.getElementById('name').value;
@@ -259,5 +379,7 @@
       window.location.href = 'mailto:anshduggal10@gmail.com?subject='+subject+'&body='+body;
     }
   </script>
+
 </body>
 </html>
+
