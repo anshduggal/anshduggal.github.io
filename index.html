@@ -246,3 +246,95 @@ input,textarea {
 
       <div class="node">
         <h3>Upper-Limb Exoskeleton</h
+                                            <p>Dual-joint powered system for elbow & wrist rehabilitation with PID,
+           ergonomic linkage design, material optimisation and embedded safety logic.</p>
+        <a class="tag" href="project_exoskeleton.html">View Module</a>
+        <a class="tag" href="project summary.pdf">Report</a>
+      </div>
+
+      <div class="node">
+        <h3>Arduino Stepper/Servo Rig</h3>
+        <p>UNO R4 WiFi based motion control platform for trajectory playback,
+           browser UI and actuator tuning.</p>
+        <a class="tag" href="project_motor_rig.html">View Module</a>
+        <a class="tag" href="#">Demo</a>
+      </div>
+
+      <div class="node">
+        <h3>7ft Airbus A350 RC</h3>
+        <p>Large-scale RC airliner using EDF propulsion, carbon reinforcement,
+           mass-optimised structure and embedded flight systems.</p>
+        <a class="tag" href="project_a350.html">View Module</a>
+        <a class="tag" href="#">Build Log</a>
+      </div>
+
+      <div class="node">
+        <h3>STM32 Snake Game</h3>
+        <p>Real-time embedded Snake using ISR loop, joystick inputs, LCD graphics
+           and deterministic hardware timing.</p>
+        <a class="tag" href="project_snake.html">View Module</a>
+        <a class="tag" href="#">Code</a>
+      </div>
+
+      <div class="node">
+        <h3>FPGA Dice Game</h3>
+        <p>Modular Verilog dice generator with FSM logic, test benches,
+           ModelSim waveforms and Quartus synthesis.</p>
+        <a class="tag" href="project_fpga.html">View Module</a>
+        <a class="tag" href="#">Simulation</a>
+      </div>
+
+      <div class="node">
+        <h3>Washing Machine Controller</h3>
+        <p>Cycle-controlled washing system with UART feedback, safety states,
+           real-time drivers and embedded routines.</p>
+        <a class="tag" href="project_washing.html">View Module</a>
+        <a class="tag" href="#">Code</a>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- CONTACT PANEL -->
+  <div class="panel" id="contact">
+    <h2>Contact Interface</h2>
+    <p style="color:#9ca3af; margin-bottom:20px;">
+      Send a direct message—this will open your email client pre-filled with your input.
+    </p>
+
+    <form onsubmit="sendMail(event)">
+      <input id="name" placeholder="Your Name" required />
+      <input id="email" placeholder="Your Email" required />
+      <textarea id="msg" placeholder="Message"></textarea>
+      <button class="btn" type="submit">Transmit Message</button>
+    </form>
+  </div>
+
+  <footer style="text-align:center;color:#64748b;padding:40px;">
+    SYSTEM TERMINATED • © 2025 ANSH DUGGAL — PORTFOLIO OS v1.0
+  </footer>
+
+</div> <!-- END MAIN -->
+
+<script>
+  function scrollToSection(id){
+    document.getElementById(id).scrollIntoView({behavior:'smooth'});
+  }
+
+  function sendMail(e){
+    e.preventDefault();
+    const n = document.getElementById('name').value;
+    const em = document.getElementById('email').value;
+    const m = document.getElementById('msg').value;
+
+    const subject = encodeURIComponent("Portfolio OS Message from " + n);
+    const body = encodeURIComponent("Name: " + n + "\\nEmail: " + em + "\\n\\n" + m);
+
+    window.location.href =
+      "mailto:anshduggal10@gmail.com?subject=" + subject + "&body=" + body;
+  }
+</script>
+
+</body>
+</html>
+
