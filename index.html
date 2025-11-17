@@ -1,341 +1,248 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Ansh Duggal — OMEGA MODE Portfolio</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet" />
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Ansh Duggal — CONTROL PANEL PORTFOLIO OS</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&display=swap" rel="stylesheet" />
 
-  <style>
-    /* ========================================================= */
-    /*   🔥 OMEGA MODE: FULL NEXT‑GEN ENGINEERING PORTFOLIO 🔥    */
-    /*   3D tilt • Parallax • Glass UI • Particle grid • HUD UI   */
-    /* ========================================================= */
+<style>
+/* ===================================================================== */
+/*   🧩 LEVEL INFINITY — PORTFOLIO OS CONTROL PANEL INTERFACE (F MODE)   */
+/* ===================================================================== */
+* {margin:0;padding:0;box-sizing:border-box;}
+body {
+  font-family:Inter, sans-serif;
+  background:#020617;
+  color:#e2e8f0;
+  overflow-x:hidden;
+  height:100vh;
+  display:flex;
+}
 
-    * { margin:0; padding:0; box-sizing:border-box; }
-    body {
-      font-family:Inter, sans-serif;
-      background:#020617;
-      color:#e2e8f0;
-      overflow-x:hidden;
-      perspective:2000px;
-    }
+:root {
+  --cyan:#00edff;
+  --purple:#a855f7;
+  --panel:#0a0f1f;
+  --panel-border:rgba(255,255,255,0.08);
+  --glow:0 0 18px rgba(0,237,255,0.4);
+}
 
-    :root {
-      --accent:#00eaff;
-      --accent2:#a855f7;
-      --bg:#030712;
-      --glass:rgba(255,255,255,0.05);
-      --border:rgba(255,255,255,0.12);
-    }
+/* SIDEBAR OS PANEL */
+.sidebar {
+  width:270px;
+  background:var(--panel);
+  height:100vh;
+  border-right:1px solid var(--panel-border);
+  padding:30px 20px;
+  display:flex;
+  flex-direction:column;
+  gap:30px;
+}
+.brand {
+  font-size:26px;
+  font-weight:900;
+  color:var(--cyan);
+  text-shadow:var(--glow);
+}
+.nav-item {
+  padding:12px 0;
+  font-size:15px;
+  color:#9ca3af;
+  cursor:pointer;
+  transition:.2s;
+}
+.nav-item:hover {
+  color:var(--cyan);
+  transform:translateX(6px);
+}
 
-    /* === BACKGROUND ENGINE === */
-    .bg-grid {
-      position:fixed;
-      inset:0;
-      background-image:linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
-                       linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
-      background-size:40px 40px;
-      opacity:0.08;
-      z-index:-3;
-      animation:bgMove 40s linear infinite;
-    }
-    @keyframes bgMove { from{transform:translateY(0);} to{transform:translateY(40px);} }
+/* MAIN CONTROL PANEL LAYOUT */
+.main {
+  flex:1;
+  padding:40px;
+  overflow-y:auto;
+}
 
-    .parallax {
-      position:fixed; inset:0; pointer-events:none;
-      background:radial-gradient(circle at 50% 0%, rgba(0,234,255,0.15), rgba(0,0,0,0));
-      z-index:-2;
-    }
+.panel {
+  background:rgba(255,255,255,0.03);
+  border:1px solid var(--panel-border);
+  padding:30px;
+  border-radius:14px;
+  margin-bottom:34px;
+  backdrop-filter:blur(10px);
+}
+.panel h2 {
+  font-size:28px;
+  color:var(--cyan);
+  margin-bottom:16px;
+  text-shadow:var(--glow);
+}
 
-    /* === HUD SCANLINES === */
-    .scanlines {
-      pointer-events:none;
-      position:fixed; inset:0;
-      background:repeating-linear-gradient(180deg, rgba(255,255,255,0.015) 0px, rgba(255,255,255,0.015) 2px, transparent 2px, transparent 4px);
-      z-index:200;
-      opacity:.3;
-    }
+/* HERO OS WIDGET */
+.hero-os {
+  display:flex;
+  align-items:center;
+  gap:30px;
+}
+.avatar {
+  width:120px;
+  height:120px;
+  border-radius:18px;
+  background:linear-gradient(135deg,var(--cyan),var(--purple));
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:48px;
+  color:white;
+  box-shadow:var(--glow);
+  animation:float 6s infinite ease-in-out;
+}
+@keyframes float {
+  0% {transform:translateY(0);} 
+  50% {transform:translateY(-14px);} 
+  100% {transform:translateY(0);} 
+}
 
-    /* === NAVBAR === */
-    nav {
-      position:fixed; top:0; left:0; width:100%; padding:20px 40px;
-      display:flex; justify-content:space-between; align-items:center;
-      backdrop-filter:blur(12px);
-      background:rgba(0,0,0,0.45);
-      border-bottom:1px solid var(--border);
-      z-index:999;
-    }
-    nav a {
-      margin:0 14px; color:#cbd5e1; text-decoration:none; font-size:14px;
-      transition:.2s;
-    }
-    nav a:hover { color:var(--accent); }
+/* SKILLS HUD MODULE */
+.skills-grid {
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(180px,1fr));
+  gap:12px;
+}
+.skill-box {
+  padding:14px;
+  background:rgba(255,255,255,0.04);
+  border:1px solid var(--panel-border);
+  border-radius:10px;
+  font-size:14px;
+  transition:.25s;
+}
+.skill-box:hover {
+  background:var(--cyan);
+  color:#001219;
+  transform:translateY(-6px) scale(1.05);
+  box-shadow:0 0 24px rgba(0,237,255,0.5);
+}
 
-    /* === HERO === */
-    .hero {
-      padding:200px 20px 130px;
-      text-align:center;
-      position:relative;
-    }
-    .avatar {
-      width:170px; height:170px; border-radius:24px; margin:0 auto 28px;
-      background:linear-gradient(135deg, var(--accent), var(--accent2));
-      display:flex; align-items:center; justify-content:center;
-      color:white; font-size:54px;
-      animation:float 5s infinite ease-in-out;
-      box-shadow:0 0 40px rgba(0,234,255,0.35);
-    }
-    @keyframes float { 0%{transform:translateY(0);} 50%{transform:translateY(-16px);} 100%{transform:translateY(0);} }
+/* PROJECT CONTROL NODES */
+.project-grid {
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(320px,1fr));
+  gap:20px;
+}
+.node {
+  background:rgba(255,255,255,0.04);
+  border:1px solid var(--panel-border);
+  padding:20px;
+  border-radius:16px;
+  transition:.3s;
+  transform-style:preserve-3d;
+}
+.node:hover {
+  transform:translateY(-10px) rotateX(6deg) rotateY(-4deg);
+  border-color:var(--cyan);
+  box-shadow:0 20px 60px rgba(0,0,0,0.5);
+}
+.node h3 {font-size:20px;margin-bottom:8px;color:var(--cyan);} 
+.node p {font-size:14px;color:#9ca3af;margin-bottom:10px;}
+.tag {
+  font-size:12px;
+  padding:6px 10px;
+  border-radius:6px;
+  background:rgba(255,255,255,0.08);
+  color:var(--cyan);
+  margin-right:6px;
+  text-decoration:none;
+  transition:.2s;
+}
+.tag:hover {background:var(--cyan);color:#001219;}
 
-    .hero h1 { font-size:65px; font-weight:700; margin-bottom:12px; letter-spacing:1px; }
-    .hero p { max-width:900px; margin:0 auto; color:#9db0c8; font-size:20px; line-height:1.6; }
+/* CONTACT MODULE */
+input,textarea {
+  width:100%;padding:14px;
+  border-radius:10px;
+  background:rgba(255,255,255,0.05);
+  border:1px solid var(--panel-border);
+  margin-bottom:12px;
+  color:white;
+  font-size:15px;
+}
+.btn {
+  padding:14px 20px;
+  background:var(--cyan);
+  border:none;
+  border-radius:10px;
+  color:#001219;
+  font-weight:700;
+  cursor:pointer;
+  transition:.25s;
+}
+.btn:hover {
+  background:var(--purple);
+  color:white;
+  transform:translateY(-4px);
+  box-shadow:0 0 22px rgba(168,85,247,.5);
+}
 
-    /* === TITLES === */
-    .section-title {
-      margin-top:100px;
-      text-align:center;
-      font-size:40px;
-      font-weight:700;
-      background:linear-gradient(90deg,var(--accent),var(--accent2));
-      -webkit-background-clip:text;
-      color:transparent;
-    }
-
-    /* === SKILLS === */
-    .skills {
-      max-width:1200px;
-      margin:35px auto;
-      display:flex;
-      flex-wrap:wrap;
-      gap:16px;
-      justify-content:center;
-    }
-    .chip {
-      padding:12px 18px;
-      border-radius:999px;
-      background:var(--glass);
-      border:1px solid var(--border);
-      font-size:15px;
-      transition:.25s;
-    }
-    .chip:hover {
-      background:var(--accent);
-      color:#001219;
-      transform:translateY(-5px) scale(1.05);
-      box-shadow:0 6px 30px rgba(0,234,255,0.55);
-    }
-
-    /* === PROJECTS GRID === */
-    .projects {
-      max-width:1350px;
-      margin:0 auto;
-      padding:40px;
-      display:grid;
-      grid-template-columns:repeat(auto-fill,minmax(350px,1fr));
-      gap:34px;
-    }
-
-    .project {
-      background:rgba(255,255,255,0.03);
-      border:1px solid rgba(255,255,255,0.1);
-      border-radius:22px;
-      padding:24px;
-      transition:.3s;
-      position:relative;
-      transform-style:preserve-3d;
-    }
-
-    .project:hover {
-      transform:translateY(-12px) rotateX(5deg) rotateY(-3deg) scale(1.03);
-      box-shadow:0 30px 80px rgba(0,0,0,0.65);
-      border-color:var(--accent);
-    }
-
-    .thumb {
-      width:100%; height:230px;
-      border-radius:14px;
-      background:#111827;
-      overflow:hidden;
-      margin-bottom:16px;
-    }
-    .thumb img {
-      width:100%; height:100%; object-fit:cover;
-      filter:brightness(.8);
-      transition:.3s;
-    }
-    .project:hover .thumb img { filter:brightness(1); }
-
-    .project h3 { font-size:22px; margin-bottom:10px; }
-    .project p { font-size:15px; color:#94a3b8; margin-bottom:16px; }
-
-    .tag {
-      padding:7px 13px;
-      background:rgba(255,255,255,0.08);
-      border-radius:8px;
-      color:var(--accent);
-      text-decoration:none;
-      font-size:13px;
-      margin-right:6px;
-      transition:.2s;
-    }
-    .tag:hover { background:var(--accent); color:#001219; }
-
-    /* === CONTACT === */
-    .contact {
-      max-width:800px; margin:40px auto 180px; text-align:center;
-      padding:20px;
-    }
-    .contact input, .contact textarea {
-      width:100%; padding:15px; border-radius:12px;
-      background:rgba(255,255,255,0.06);
-      border:1px solid rgba(255,255,255,0.15);
-      margin-bottom:12px;
-      color:white; font-size:16px;
-    }
-    .btn-primary {
-      background:var(--accent);
-      color:#001219;
-      padding:14px 26px;
-      border-radius:10px;
-      border:none;
-      cursor:pointer;
-      font-size:17px;
-      font-weight:700;
-      transition:.25s;
-    }
-    .btn-primary:hover {
-      background:var(--accent2);
-      color:white;
-      transform:translateY(-4px);
-      box-shadow:0 0 26px rgba(168,85,247,.6);
-    }
-
-    footer{
-      text-align:center;
-      padding:60px;
-      color:#64748b;
-      font-size:15px;
-    }
-
-  </style>
+</style>
 </head>
 <body>
 
-  <!-- BACKGROUND ENGINE -->
-  <div class="bg-grid"></div>
-  <div class="parallax"></div>
-  <div class="scanlines"></div>
+<!-- SIDEBAR -->
+<div class="sidebar">
+  <div class="brand">PORTFOLIO OS</div>
+  <div class="nav-item" onclick="scrollToSection('about')">About</div>
+  <div class="nav-item" onclick="scrollToSection('skills')">Skills</div>
+  <div class="nav-item" onclick="scrollToSection('projects')">Projects</div>
+  <div class="nav-item" onclick="scrollToSection('contact')">Contact</div>
+  <div class="nav-item"><a href="resume.pdf" style="color:var(--cyan);text-decoration:none">Download CV</a></div>
+</div>
 
-  <!-- NAVBAR -->
-  <nav>
-    <div style="font-weight:700;font-size:22px;color:var(--accent);">AD</div>
-    <div>
-      <a href="#about">About</a>
-      <a href="#skills">Skills</a>
-      <a href="#projects">Projects</a>
-      <a href="#contact">Contact</a>
+<!-- MAIN -->
+<div class="main">
+
+  <!-- ABOUT MODULE -->
+  <div class="panel" id="about">
+    <h2>Engineer Profile</h2>
+    <div class="hero-os">
+      <div class="avatar">AD</div>
+      <div>
+        <h3 style="font-size:32px;margin-bottom:6px;">Ansh Duggal</h3>
+        <p style="color:#9ca3af;line-height:1.6;max-width:700px;">
+          BEng Mechatronics & Robotics Engineer specializing in embedded systems,
+          robotic actuation, motion control, and electromechanical prototypes.
+          I build precision hardware + firmware for exoskeletons, autonomous rigs,
+          FPGA-based logic systems, and real-time microcontroller applications.
+        </p>
+      </div>
     </div>
-  </nav>
-
-  <!-- HERO -->
-  <section class="hero" id="about">
-    <div class="avatar">AD</div>
-    <h1>Ansh Duggal</h1>
-    <p>
-      BEng Mechatronics & Robotics — building high‑performance embedded systems, assistive exoskeletons,
-      autonomous rigs, and precision‑controlled electromechanical devices. My work blends CAD, controls,
-      firmware, motion physics, and system engineering.
-    </p>
-  </section>
-
-  <!-- SKILLS -->
-  <h2 class="section-title" id="skills">Skills</h2>
-  <div class="skills">
-    <span class="chip">Python (NumPy, Pandas)</span>
-    <span class="chip">C++ / Embedded C</span>
-    <span class="chip">Arduino / STM32 / Raspberry Pi</span>
-    <span class="chip">Control Systems (PID)</span>
-    <span class="chip">Mechanism Kinematics</span>
-    <span class="chip">SolidWorks (CAD + CAE)</span>
-    <span class="chip">3D Printing (FDM)</span>
-    <span class="chip">Digital Logic & Verilog</span>
-    <span class="chip">FPGA (Quartus, ModelSim)</span>
-    <span class="chip">Sensors & Actuators</span>
-    <span class="chip">Prototyping & Manufacturing</span>
-    <span class="chip">Git & GitHub</span>
-    <span class="chip">Technical Documentation</span>
   </div>
 
-  <!-- PROJECTS -->
-  <h2 class="section-title" id="projects">Projects</h2>
-
-  <div class="projects">
-
-    <!-- EXOSKELETON -->
-    <div class="project">
-      <div class="thumb"><img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='600' height='300'><rect width='100%25' height='100%25' fill='%23011227'/><text x='50%25' y='50%25' fill='white' font-size='26' text-anchor='middle'>Exoskeleton</text></svg>"></div>
-      <h3>Upper‑Limb Rehabilitation Exoskeleton</h3>
-      <p>Dual‑joint powered exoskeleton for elbow & wrist flexion with PID control, linkage optimization and 20% structural weight reduction.</p>
-      <a class="tag" href="project_exoskeleton.html">View Project</a>
-      <a class="tag" href="project summary.pdf">Report</a>
+  <!-- SKILLS MODULE -->
+  <div class="panel" id="skills">
+    <h2>System Capabilities</h2>
+    <div class="skills-grid">
+      <div class="skill-box">Python (NumPy, Pandas)</div>
+      <div class="skill-box">Embedded C / C++</div>
+      <div class="skill-box">Arduino / STM32 / ATmega328P</div>
+      <div class="skill-box">FPGA • Verilog • Quartus</div>
+      <div class="skill-box">ModelSim Simulation</div>
+      <div class="skill-box">Control Systems • PID</div>
+      <div class="skill-box">Sensors & Actuators</div>
+      <div class="skill-box">SolidWorks CAD</div>
+      <div class="skill-box">3D Printing • Prototyping</div>
+      <div class="skill-box">Kinematics & Dynamics</div>
+      <div class="skill-box">Embedded Debugging</div>
+      <div class="skill-box">Git & GitHub</div>
+      <div class="skill-box">Technical Documentation</div>
     </div>
-
-    <!-- ARDUINO RIG -->
-    <div class="project">
-      <div class="thumb"><img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='600' height='300'><rect width='100%25' height='100%25' fill='%23011227'/><text x='50%25' y='50%25' fill='white' font-size='26' text-anchor='middle'>Arduino Rig</text></svg>"></div>
-      <h3>Arduino Stepper/Servo Trajectory Rig</h3>
-      <p>UNO R4 WiFi rig enabling browser‑based motion control, trajectory playback, and actuator testing.</p>
-      <a class="tag" href="project_motor_rig.html">View Project</a>
-      <a class="tag" href="#">Demo</a>
-    </div>
-
-    <!-- A350 RC -->
-    <div class="project">
-      <div class="thumb"><img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='600' height='300'><rect width='100%25' height='100%25' fill='%23011227'/><text x='50%25' y='50%25' fill='white' font-size='26' text-anchor='middle'>A350 RC</text></svg>"></div>
-      <h3>7ft Airbus A350 RC Aircraft</h3>
-      <p>Large‑scale RC airliner with EDF propulsion, carbon‑reinforced wingbox and optimised structural mass.</p>
-      <a class="tag" href="project_a350.html">View Project</a>
-      <a class="tag" href="#">Build Log</a>
-    </div>
-
-    <!-- STM32 SNAKE -->
-    <div class="project">
-      <div class="thumb"><img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='600' height='300'><rect width='100%25' height='100%25' fill='%23011227'/><text x='50%25' y='50%25' fill='white' font-size='26' text-anchor='middle'>STM32 Snake</text></svg>"></div>
-      <h3>Snake Game on STM32</h3>
-      <p>Real‑time embedded Snake with joystick input, buzzer alerts, LCD graphics, and deterministic ISR loop.</p>
-      <a class="tag" href="project_snake.html">View Project</a>
-      <a class="tag" href="#">Code</a>
-    </div>
-
-    <!-- FPGA -->
-    <div class="project">
-      <div class="thumb"><img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='600' height='300'><rect width='100%25' height='100%25' fill='%23011227'/><text x='50%25' y='50%25' fill='white' font-size='26' text-anchor='middle'>FPGA Dice</text></svg>"></div>
-      <h3>FPGA‑Based Dice Game</h3>
-      <p>Verilog dice generator with modular benches, FSM control, ModelSim simulation and Quartus synthesis.</p>
-      <a class="tag" href="project_fpga.html">View Project</a>
-      <a class="tag" href="#">Simulation</a>
-    </div>
-
-    <!-- WASHING CONTROLLER -->
-    <div class="project">
-      <div class="thumb"><img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='600' height='300'><rect width='100%25' height='100%25' fill='%23011227'/><text x='50%25' y='50%25' fill='white' font-size='26' text-anchor='middle'>Washing Ctrl</text></svg>"></div>
-      <h3>Microcontroller Washing Machine</h3>
-      <p>Cycle‑based wash controller with power drivers, safety interrupts, and real‑time UART feedback.</p>
-      <a class="tag" href="project_washing.html">View Project</a>
-      <a class="tag" href="#">Code</a>
-    </div>
-
   </div>
 
-  <!-- CONTACT -->
-  <h2 class="section-title" id="contact">Contact</h2>
-  <div class="contact">
-    <p>Open to engineering roles, robotics work and embedded system projects.</p>
-    <form onsubmit="sendMail(event)">
-      <input id="name" placeholder="Your Name" required />
-      <input id="email" placeholder="Your Email" required />
-      <textarea id="msg" placeholder="Message"></textarea>
-      <button class="btn-primary" type="submit">Send Message</button>
-    </form>
-    <p style="margin-top:14px; color:#94a
+  <!-- PROJECT NODE GRID -->
+  <div class="panel" id="projects">
+    <h2>Project Nodes</h2>
+    <div class="project-grid">
+
+      <div class="node">
+        <h3>Upper-Limb Exoskeleton</h
