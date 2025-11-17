@@ -3,131 +3,181 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Ansh Duggal — Portfolio 2.0</title>
+  <title>Ansh Duggal — GOD MODE Portfolio</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet" />
+
   <style>
-    /* === GLOBAL RESET === */
+    /* ========================= */
+    /*  🔱  GOD MODE: VISUAL CORE  */
+    /* ========================= */
+
     *{margin:0;padding:0;box-sizing:border-box}
     body{
       font-family:Inter, sans-serif;
-      background:#030712;
+      background:#000;
       color:#e2e8f0;
       overflow-x:hidden;
     }
 
-    /* === THEME COLORS === */
-    :root{
-      --accent:#00eaff;
-      --accent2:#8b5cf6;
-      --glass:rgba(255,255,255,0.06);
-      --border:rgba(255,255,255,0.08);
+    /* --- 3D Scene & Parallax Engine --- */
+    .layer{
+      position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;
+      transform-style:preserve-3d;
+    }
+    .stars{
+      background:url('https://raw.githubusercontent.com/anshduggal10/placeholder-stars/main/stars.png') repeat;
+      opacity:.15;
+      animation:starFloat 60s linear infinite;
+    }
+    @keyframes starFloat{from{background-position:0 0} to{background-position:0 2000px}}
+
+    .circuits{
+      background:url('https://raw.githubusercontent.com/anshduggal10/placeholder-circuits/main/circuit.png') repeat;
+      mix-blend-mode:screen;
+      opacity:.06;
+      animation:circuitMove 120s linear infinite;
+    }
+    @keyframes circuitMove{from{background-position:0 0} to{background-position:2000px 0}}
+
+    /* --- Shimmer gradient --- */
+    .shimmer{
+      position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;
+      background:radial-gradient(circle at 50% 0%,rgba(0,238,255,0.15),transparent 70%);
     }
 
-    /* === ANIMATIONS === */
-    @keyframes fadeUp {from{opacity:0;transform:translateY(40px)} to{opacity:1;transform:translateY(0)}}
-    @keyframes fade {from{opacity:0} to{opacity:1}}
-    @keyframes float {0%{transform:translateY(0)} 50%{transform:translateY(-12px)} 100%{transform:translateY(0)}}
-    @keyframes glow {0%{box-shadow:0 0 20px var(--accent)} 100%{box-shadow:0 0 40px var(--accent2)}}
-
-    .fadeUp{opacity:0;animation:fadeUp 1s forwards}
-
-    /* === NAVBAR === */
+    /* ========================= */
+    /*           NAVBAR          */
+    /* ========================= */
     nav{
-      width:100%;padding:18px 40px;position:fixed;top:0;z-index:999;
+      width:100%;padding:20px 40px;position:fixed;top:0;z-index:999;
       display:flex;justify-content:space-between;align-items:center;
-      background:rgba(3,7,18,0.65);backdrop-filter:blur(14px);
-      border-bottom:1px solid var(--border);
+      background:rgba(0,0,0,0.55);backdrop-filter:blur(12px);
+      border-bottom:1px solid rgba(255,255,255,0.08);
     }
-    nav a{color:#cbd5e1;text-decoration:none;margin:0 14px;font-size:14px;transition:.2s}
-    nav a:hover{color:var(--accent)}
+    nav a{margin:0 14px;color:#cbd5e1;text-decoration:none;font-size:14px;transition:.2s}
+    nav a:hover{color:#00eaff}
 
-    /* === HERO === */
+    /* ========================= */
+    /*            HERO           */
+    /* ========================= */
     .hero{
-      padding:180px 20px 130px;text-align:center;
-      background:radial-gradient(circle at 50% 0%,rgba(0,234,255,0.25),transparent 70%);
+      padding:200px 20px 140px;text-align:center;position:relative;z-index:5;
     }
     .avatar{
-      width:140px;height:140px;border-radius:22px;margin:0 auto 22px;
-      background:linear-gradient(135deg,var(--accent),var(--accent2));
-      display:flex;align-items:center;justify-content:center;color:white;font-size:48px;
-      animation:float 4.5s ease-in-out infinite;
+      width:150px;height:150px;border-radius:24px;margin:0 auto 26px;
+      background:linear-gradient(135deg,#00eaff,#a855f7);
+      display:flex;align-items:center;justify-content:center;
+      font-size:50px;color:white;
+      animation:float 5s infinite ease-in-out;
     }
-    .hero h1{font-size:52px;font-weight:700;margin-bottom:10px}
-    .hero p{max-width:860px;margin:0 auto;color:#94a3b8;font-size:18px}
 
-    /* === SECTION TITLES === */
+    @keyframes float{0%{transform:translateY(0)} 50%{transform:translateY(-14px)} 100%{transform:translateY(0)}}
+
+    .hero h1{font-size:60px;font-weight:700;margin-bottom:12px}
+    .hero p{max-width:900px;margin:0 auto;font-size:20px;color:#9fb3c8;line-height:1.6}
+
+    /* ========================= */
+    /*           SKILLS          */
+    /* ========================= */
     .section-title{
-      text-align:center;font-size:34px;margin:70px 0 25px;font-weight:700;
-      background:linear-gradient(90deg,var(--accent),var(--accent2));
+      text-align:center;font-size:38px;margin:80px 0 26px;font-weight:700;
+      background:linear-gradient(90deg,#00eaff,#a855f7);
       -webkit-background-clip:text;color:transparent;
+      letter-spacing:1px;
     }
 
-    /* === SKILLS === */
     .skills{
-      max-width:1100px;margin:0 auto;padding:10px;
-      display:flex;flex-wrap:wrap;gap:14px;justify-content:center;
+      max-width:1200px;display:flex;flex-wrap:wrap;gap:16px;
+      justify-content:center;margin:0 auto;padding:20px;
     }
+
     .chip{
-      padding:10px 16px;background:var(--glass);border:1px solid var(--border);
-      border-radius:999px;font-size:15px;transition:.25s;cursor:default;
+      padding:12px 18px;border-radius:999px;font-size:15px;
+      background:rgba(255,255,255,0.05);
+      border:1px solid rgba(255,255,255,0.1);
+      transition:.25s;
+      cursor:default;
     }
     .chip:hover{
-      background:var(--accent);color:#001219;transform:translateY(-4px);
-      box-shadow:0 4px 20px rgba(0,234,255,0.35);
+      background:#00eaff;color:#001219;transform:translateY(-6px) scale(1.04);
+      box-shadow:0 8px 30px rgba(0,238,255,0.45);
     }
 
-    /* === PROJECTS GRID === */
+    /* ========================= */
+    /*          PROJECTS         */
+    /* ========================= */
     .projects{
-      max-width:1200px;margin:0 auto;padding:20px 30px 150px;
-      display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:26px;
+      max-width:1300px;margin:0 auto;padding:30px 40px 160px;
+      display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:30px;
     }
+
     .project{
-      background:var(--glass);border:1px solid var(--border);border-radius:18px;padding:20px;
-      backdrop-filter:blur(10px);transition:.3s;position:relative;overflow:hidden;
+      background:rgba(255,255,255,0.03);
+      border:1px solid rgba(255,255,255,0.08);
+      padding:22px;border-radius:20px;backdrop-filter:blur(14px);
+      transition:.3s;position:relative;overflow:hidden;
+      transform-style:preserve-3d;
     }
+
     .project:hover{
-      transform:translateY(-10px) scale(1.02);
-      box-shadow:0 25px 60px rgba(0,0,0,0.55);
-      border-color:var(--accent);
+      transform:translateY(-12px) scale(1.03) rotateX(6deg);
+      box-shadow:0 30px 70px rgba(0,0,0,0.55);
+      border-color:#00eaff;
     }
+
     .thumb{
-      width:100%;height:200px;border-radius:12px;overflow:hidden;margin-bottom:14px;position:relative;
+      width:100%;height:220px;border-radius:14px;overflow:hidden;margin-bottom:16px;
+      background:#020617;
     }
-    .thumb img{width:100%;height:100%;object-fit:cover;filter:brightness(.83)}
+    .thumb img{
+      width:100%;height:100%;object-fit:cover;filter:brightness(.82);
+      transition:.3s;
+    }
+    .project:hover .thumb img{filter:brightness(1)}
 
-    .project h3{font-size:20px;margin-bottom:8px}
-    .project p{color:#94a3b8;font-size:15px;margin-bottom:14px}
+    .project h3{font-size:22px;margin-bottom:10px}
+    .project p{font-size:15px;color:#9fb3c8;margin-bottom:14px}
+
     .tag{
-      display:inline-block;padding:7px 12px;margin-right:8px;margin-bottom:6px;
-      background:rgba(255,255,255,0.04);border-radius:8px;font-size:13px;
-      color:var(--accent);text-decoration:none;border:1px solid transparent;transition:.2s;
+      padding:7px 13px;background:rgba(255,255,255,0.08);
+      color:#00eaff;border-radius:8px;margin-right:6px;margin-bottom:6px;
+      display:inline-block;text-decoration:none;font-size:13px;
+      transition:.2s;
     }
-    .tag:hover{background:var(--accent);color:#001219;border-color:var(--accent)}
+    .tag:hover{background:#00eaff;color:#001219}
 
-    /* === CONTACT === */
-    .contact{max-width:700px;margin:0 auto 140px;text-align:center;padding:20px}
+    /* ========================= */
+    /*          CONTACT          */
+    /* ========================= */
+    .contact{max-width:750px;margin:0 auto 150px;text-align:center;padding:20px;color:#cbd5e1}
     .contact input,.contact textarea{
-      width:100%;padding:14px;margin-bottom:14px;border-radius:10px;
-      background:rgba(255,255,255,0.06);border:1px solid var(--border);
-      color:#e2e8f0;font-size:15px;
+      width:100%;padding:14px;border-radius:10px;margin-bottom:12px;
+      background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.16);
+      color:white;font-size:15px;
     }
     .btn-primary{
-      background:var(--accent);color:#001219;padding:12px 22px;border-radius:10px;
-      font-weight:700;border:none;cursor:pointer;font-size:16px;transition:.22s;
+      background:#00eaff;color:#001219;padding:14px 24px;border-radius:10px;
+      cursor:pointer;font-weight:700;font-size:16px;border:none;
+      transition:.25s;
     }
     .btn-primary:hover{
-      background:var(--accent2);color:white;transform:translateY(-4px)
+      background:#a855f7;color:white;transform:translateY(-4px);
+      box-shadow:0 0 22px rgba(168,85,247,.6);
     }
 
-    footer{text-align:center;color:#64748b;padding:50px 0;font-size:15px}
-
+    footer{text-align:center;color:#64748b;padding:60px 0;font-size:15px}
   </style>
 </head>
 <body>
 
-  <!-- NAVIGATION -->
+  <!-- PARALLAX LAYERS -->
+  <div class="layer stars"></div>
+  <div class="layer circuits"></div>
+  <div class="shimmer"></div>
+
+  <!-- NAV -->
   <nav>
-    <div style="font-weight:700;color:var(--accent);font-size:20px">AD</div>
+    <div style="font-weight:700;color:#00eaff;font-size:22px">AD</div>
     <div>
       <a href="#about">About</a>
       <a href="#skills">Skills</a>
@@ -140,84 +190,82 @@
   <section class="hero fadeUp" id="about">
     <div class="avatar">AD</div>
     <h1>Ansh Duggal</h1>
-    <p>BEng Mechatronics & Robotics — building control systems, wearable rehabilitation devices, CAD-driven mechanisms, and intelligent embedded systems. I specialise in prototyping robotics concepts rapidly: motors, sensors, firmware, PCBs, and integrated mechanical systems.</p>
+    <p>BEng Mechatronics & Robotics — designing intelligent machines, human-assistive exoskeletons, embedded systems, and precision-controlled electromechanical devices. I build systems end-to-end: CAD → Control → Embedded → Testing.</p>
   </section>
 
   <!-- SKILLS -->
-  <h2 class="section-title">Skills</h2>
+  <h2 class="section-title" id="skills">Skills</h2>
   <div class="skills fadeUp">
     <span class="chip">Python (automation, NumPy, Pandas)</span>
     <span class="chip">C++ (real-time)</span>
     <span class="chip">Embedded C</span>
     <span class="chip">Arduino / STM32 / Raspberry Pi</span>
-    <span class="chip">Serial Communication</span>
     <span class="chip">Control Systems (PID, modelling)</span>
-    <span class="chip">Kinematics & Dynamics</span>
-    <span class="chip">SolidWorks (CAD + simulation)</span>
-    <span class="chip">3D Printing & Additive Manufacturing</span>
+    <span class="chip">Mechanism Kinematics & Dynamics</span>
+    <span class="chip">SolidWorks (CAD, FEA)</span>
+    <span class="chip">3D Printing (FDM)</span>
     <span class="chip">Digital Logic & Verilog</span>
-    <span class="chip">ModelSim / Quartus</span>
-    <span class="chip">FPGA Design & Simulation</span>
+    <span class="chip">FPGA: ModelSim / Quartus</span>
     <span class="chip">Sensors & Actuators Integration</span>
-    <span class="chip">Mbed / Keil Studio</span>
+    <span class="chip">Machine Learning (basic forecasting)</span>
     <span class="chip">Git & GitHub</span>
-    <span class="chip">Documentation & Technical Reporting</span>
+    <span class="chip">Technical Reporting</span>
   </div>
 
   <!-- PROJECTS -->
   <h2 class="section-title" id="projects">Projects</h2>
   <div class="projects fadeUp">
 
-    <!-- EXOSKELETON -->
+    <!-- Exoskeleton -->
     <div class="project">
-      <div class="thumb"><img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='500' height='300'><rect width='100%25' height='100%25' fill='%23011227'/><text x='50%25' y='50%25' fill='white' font-size='24' text-anchor='middle' dy='.3em'>Exoskeleton</text></svg>"></div>
-      <h3>Upper-limb Rehabilitation Exoskeleton</h3>
-      <p>Low-cost powered exoskeleton for elbow + wrist flexion featuring linkage optimisation, a 20% weight reduction, PID assistance and fail-safe embedded control firmware.</p>
+      <div class="thumb"><img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='400' height='220'><rect width='100%25' height='100%25' fill='%23011227'/><text x='50%25' y='50%25' fill='white' font-size='26' text-anchor='middle'>Exoskeleton</text></svg>"></div>
+      <h3>Upper-Limb Rehabilitation Exoskeleton</h3>
+      <p>Lightweight dual-joint powered exoskeleton for elbow + wrist flexion. 20% structure weight reduction, PID-assisted motion control, and safe-interrupt firmware.</p>
       <a class="tag" href="project_exoskeleton.html">View Project</a>
-      <a class="tag" href="project summary.pdf" target="_blank">Report (PDF)</a>
+      <a class="tag" href="project summary.pdf">Report</a>
     </div>
 
-    <!-- Arduino rig -->
+    <!-- Arduino Rig -->
     <div class="project">
-      <div class="thumb"><img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='500' height='300'><rect width='100%25' height='100%25' fill='%23011227'/><text x='50%25' y='50%25' fill='white' font-size='24' text-anchor='middle' dy='.3em'>Arduino Rig</text></svg>"></div>
-      <h3>Arduino-controlled Stepper/Servo Rig</h3>
-      <p>Trajectory-controlled motor rig using Arduino UNO R4 WiFi with wireless dashboard, repeatable motion control and remote actuation.</p>
+      <div class="thumb"><img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='400' height='220'><rect width='100%25' height='100%25' fill='%23011227'/><text x='50%25' y='50%25' fill='white' font-size='26' text-anchor='middle'>Arduino Rig</text></svg>"></div>
+      <h3>Arduino Stepper/Servo Rig</h3>
+      <p>WiFi-enabled trajectory rig using UNO R4. Browser UI for servo + stepper tests, motion playback and logging.</p>
       <a class="tag" href="project_motor_rig.html">View Project</a>
       <a class="tag" href="#">Demo</a>
     </div>
 
     <!-- A350 RC -->
     <div class="project">
-      <div class="thumb"><img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='500' height='300'><rect width='100%25' height='100%25' fill='%23011227'/><text x='50%25' y='50%25' fill='white' font-size='24' text-anchor='middle' dy='.3em'>A350 RC</text></svg>"></div>
+      <div class="thumb"><img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='400' height='220'><rect width='100%25' height='100%25' fill='%23011227'/><text x='50%25' y='50%25' fill='white' font-size='26' text-anchor='middle'>A350 RC</text></svg>"></div>
       <h3>7ft Airbus A350 RC Aircraft</h3>
-      <p>Large-scale RC aircraft designed using Depron, carbon fibre spars and EDF propulsion. 20% structural weight optimisation through iterative redesign.</p>
+      <p>Large-scale RC airliner with EDF propulsion. Depron-carbon structure, ATmega328P flight logic, weight-optimised wing box.</p>
       <a class="tag" href="project_a350.html">View Project</a>
       <a class="tag" href="#">Build Log</a>
     </div>
 
     <!-- STM32 Snake -->
     <div class="project">
-      <div class="thumb"><img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='500' height='300'><rect width='100%25' height='100%25' fill='%23011227'/><text x='50%25' y='50%25' fill='white' font-size='24' text-anchor='middle' dy='.3em'>STM32 Snake</text></svg>"></div>
-      <h3>Snake Game on STM32 Nucleo</h3>
-      <p>C++ real-time embedded game featuring joystick input, LCD graphics, buzzer effects and interrupt-driven scheduling.</p>
+      <div class="thumb"><img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='400' height='220'><rect width='100%25' height='100%25' fill='%23011227'/><text x='50%25' y='50%25' fill='white' font-size='26' text-anchor='middle'>STM32 Snake</text></svg>"></div>
+      <h3>Snake Game on STM32</h3>
+      <p>Interrupt-driven real-time Snake game with joystick, LCD graphics, buzzer alerts and deterministic control loop.</p>
       <a class="tag" href="project_snake.html">View Project</a>
       <a class="tag" href="#">Code</a>
     </div>
 
     <!-- FPGA Dice -->
     <div class="project">
-      <div class="thumb"><img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='500' height='300'><rect width='100%25' height='100%25' fill='%23011227'/><text x='50%25' y='50%25' fill='white' font-size='24' text-anchor='middle' dy='.3em'>FPGA Dice</text></svg>"></div>
-      <h3>FPGA-Based Dice Game</h3>
-      <p>Verilog-based game simulated in ModelSim and synthesised in Quartus Prime using timing-constrained digital logic.</p>
+      <div class="thumb"><img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='400' height='220'><rect width='100%25' height='100%25' fill='%23011227'/><text x='50%25' y='50%25' fill='white' font-size='26' text-anchor='middle'>FPGA Dice</text></svg>"></div>
+      <h3>FPGA Dice Game</h3>
+      <p>Verilog dice engine with modular benches, ModelSim simulation and Quartus timing constraints.</p>
       <a class="tag" href="project_fpga.html">View Project</a>
       <a class="tag" href="#">Simulation</a>
     </div>
 
-    <!-- Washing Machine -->
+    <!-- Washing Controller -->
     <div class="project">
-      <div class="thumb"><img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='500' height='300'><rect width='100%25' height='100%25' fill='%23011227'/><text x='50%25' y='50%25' fill='white' font-size='24' text-anchor='middle' dy='.3em'>Washing Ctrl</text></svg>"></div>
-      <h3>Microcontroller-Controlled Washing Machine</h3>
-      <p>Embedded wash-cycle logic with power control, safety interrupts and real-time serial monitoring on STM32.</p>
+      <div class="thumb"><img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='400' height='220'><rect width='100%25' height='100%25' fill='%23011227'/><text x='50%25' y='50%25' fill='white' font-size='26' text-anchor='middle'>Washing Ctrl</text></svg>"></div>
+      <h3>Microcontroller Washing Machine</h3>
+      <p>STM32 wash-cycle controller with power drivers, safeguards, serial monitoring and real-time scheduling.</p>
       <a class="tag" href="project_washing.html">View Project</a>
       <a class="tag" href="#">Code</a>
     </div>
@@ -225,45 +273,31 @@
   </div>
 
   <!-- CONTACT -->
-  <h2 class="section-title" id="contact">Get in Touch</h2>
+  <h2 class="section-title" id="contact">Contact</h2>
   <div class="contact fadeUp">
-    <p>Open to internships, junior roles and collaborative engineering projects. Based in India, available for UK roles.</p>
+    <p>Open to engineering roles, robotics projects and embedded systems development. Available worldwide.</p>
     <form onsubmit="sendMail(event)">
-      <input id="name" required placeholder="Your name">
-      <input id="email" type="email" required placeholder="Your email">
-      <textarea id="msg" placeholder="Your message"></textarea>
-      <button class="btn-primary" type="submit">Send Message</button>
+      <input id="name" placeholder="Your Name" required />
+      <input id="email" placeholder="Your Email" required />
+      <textarea id="msg" placeholder="Message"></textarea>
+      <button class="btn-primary" type="submit">Send</button>
     </form>
-    <p style="margin-top:15px;color:#94a3b8">Or email: <a href="mailto:anshduggal10@gmail.com" style="color:var(--accent)">anshduggal10@gmail.com</a></p>
+    <p style="margin-top:14px;color:#94a3b8">Email: <a href="mailto:anshduggal10@gmail.com" style="color:#00eaff">anshduggal10@gmail.com</a></p>
   </div>
 
-  <footer>© 2025 Ansh Duggal — Portfolio 2.0</footer>
+  <footer>© 2025 Ansh Duggal — GOD MODE Edition</footer>
 
   <script>
-    /* stagger project reveal */
-    document.addEventListener('DOMContentLoaded',()=>{
-      const items=document.querySelectorAll('.project');
-      items.forEach((el,i)=>{
-        el.style.opacity=0;el.style.transform='translateY(20px)';
-        setTimeout(()=>{
-          el.style.transition='0.7s';
-          el.style.opacity=1;el.style.transform='translateY(0)';
-        },i*140);
-      });
-    });
-
     function sendMail(e){
       e.preventDefault();
       const n=document.getElementById('name').value;
       const m=document.getElementById('email').value;
       const t=document.getElementById('msg').value;
       const sub=encodeURIComponent('Portfolio Contact — '+n);
-      const body=encodeURIComponent('Name: '+n+'
-Email: '+m+'
-
-'+t);
+      const body=encodeURIComponent('Name: '+n+'\nEmail: '+m+'\n\n'+t);
       window.location.href='mailto:anshduggal10@gmail.com?subject='+sub+'&body='+body;
     }
   </script>
+
 </body>
 </html>
