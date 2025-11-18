@@ -1,195 +1,385 @@
+<!-- PART 1/2 -->
+<!--
+  portfolio_index.html
+  Single-file responsive portfolio ready for GitHub Pages.
+
+  How to use:
+  1. Create a GitHub repo named: <your-github-username>.github.io
+  2. Add this file as index.html in the repository root and commit & push.
+  3. GitHub Pages will publish at: https://<your-github-username>.github.io
+
+  Replace placeholders (NAME, BIO, PROJECT entries, links) below.
+-->
+
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width,initial-scale=1"/>
-  <title>Ansh Duggal — Portfolio</title>
-  <link rel="stylesheet" href="style.css" />
-  <meta name="description" content="Ansh Duggal — Mechatronics & Robotics. Portfolio and projects.">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Ansh Duggal — Mechatronics & Robotics Engineer</title>
+  <meta name="description" content="Ansh Duggal — BEng Mechatronics & Robotics. Projects: upper-limb exoskeleton, controls, Arduino, ML experiments.">
+  <style>
+    :root{--bg:#0f1724;--card:#0b1220;--muted:#9aa4b2;--accent:#7dd3fc}
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{margin:0;font-family:Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;background:linear-gradient(180deg,#071021 0%,#071427 100%);color:#e6eef6;-webkit-font-smoothing:antialiased}
+    .container{max-width:1000px;margin:40px auto;padding:24px}
+    header{display:flex;align-items:center;gap:18px}
+    .avatar{width:96px;height:96px;border-radius:14px;background:linear-gradient(135deg,#0ea5e9,#7c3aed);display:flex;align-items:center;justify-content:center;color:white;font-weight:700;font-size:28px;box-shadow:0 6px 18px rgba(12,18,32,.6)}
+    h1{margin:0;font-size:26px}
+    p.lead{margin:6px 0 0;color:var(--muted)}
+
+    .grid{display:grid;grid-template-columns:1fr 320px;gap:20px;margin-top:28px}
+    @media(max-width:900px){.grid{grid-template-columns:1fr}.container{padding:16px}}
+
+    .card{background:rgba(255,255,255,0.02);padding:18px;border-radius:12px;box-shadow:0 8px 30px rgba(2,6,23,.6)}
+    .skills{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+    .chip{padding:8px 10px;border-radius:999px;background:rgba(255,255,255,0.03);font-size:13px;color:var(--muted)}
+
+    .projects-list{display:grid;gap:12px}
+    .project{display:flex;gap:12px;padding:12px;border-radius:10px;background:linear-gradient(180deg,rgba(255,255,255,0.015),rgba(255,255,255,0.01));align-items:flex-start}
+    .project img{width:100px;height:70px;object-fit:cover;border-radius:8px;background:#031022}
+    .project h3{margin:0;font-size:16px}
+    .project p{margin:6px 0 0;color:var(--muted);font-size:13px}
+
+    .cta{display:flex;gap:10px;margin-top:14px}
+    .btn{display:inline-block;padding:10px 14px;border-radius:10px;text-decoration:none;font-weight:600}
+    .btn-primary{background:var(--accent);color:#002028}
+    .btn-ghost{border:1px solid rgba(255,255,255,0.06);color:var(--muted)}
+
+    footer{margin-top:28px;color:var(--muted);font-size:13px;text-align:center}
+
+    /* simple contact form */
+    form{display:grid;gap:8px}
+    input,textarea{width:100%;padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:inherit}
+    textarea{min-height:100px}
+
+    /* small helper */
+    .muted{color:var(--muted);font-size:13px}
+
+    .tag{font-size:12px;padding:4px 8px;border-radius:999px;background:rgba(255,255,255,0.03)}
+
+    /* ========== ADDED STYLES ========== */
+    /* smooth scrolling */
+    html { scroll-behavior: smooth; }
+
+    /* Fade-in utility for sections */
+    .fade { 
+      opacity: 0; 
+      transform: translateY(8px); 
+      transition: opacity .6s ease, transform .6s ease;
+    }
+    .fade.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Project card hover lift */
+    .project.card {
+      transition: transform .18s ease, box-shadow .18s ease;
+    }
+    .project.card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 18px 40px rgba(2,6,23,0.7);
+    }
+
+    /* Thumbnail wrapper for consistent look */
+    .thumb {
+      display:inline-block;
+      position:relative;
+      width:100px;
+      height:70px;
+      border-radius:8px;
+      overflow:hidden;
+      margin-right:12px;
+      flex: 0 0 auto;
+    }
+    .thumb img {
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      filter: contrast(.9) saturate(.85) brightness(.9);
+      display:block;
+    }
+    /* dark overlay on thumbnails */
+    .thumb::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      background: linear-gradient(180deg, rgba(0,0,0,0.12), rgba(0,0,0,0.18));
+      pointer-events:none;
+    }
+
+    /* SVG placeholders slightly dimmer */
+    .project img[src^="data:image/svg+xml"] {
+      filter: grayscale(.05) contrast(.85) brightness(.85);
+    }
+
+    /* Tag hover enhancements */
+    .project .tag {
+      transition: background .18s ease, color .18s ease, transform .12s ease;
+    }
+    .project .tag:hover {
+      background: rgba(125,211,252,0.08);
+      color:#bff0ff;
+      transform: translateY(-2px);
+    }
+
+    /* Stagger reveal setup */
+    .project.card[data-idx] { 
+      opacity:0; 
+      transform:translateY(10px); 
+      transition:opacity .45s ease, transform .45s ease; 
+    }
+    .project.card.visible { 
+      opacity:1; 
+      transform:translateY(0); 
+    }
+    /* ========== END ADDED STYLES ========== */
+
+  </style>
+
 </head>
 <body>
-  <!-- NAV -->
-  <header class="nav">
-    <div class="logo">AD</div>
-    <nav class="nav-links">
-      <a href="#about">About</a>
-      <a href="#skills">Skills</a>
-      <a href="#projects">Projects</a>
-      <a href="#contact">Contact</a>
-    </nav>
-  </header>
-
-  <!-- HERO: floating name -->
-  <section id="hero" class="hero">
-    <div class="hero-inner">
-      <!-- The floating name element -->
-      <h1 id="floating-name" class="floating-name">Ansh Duggal</h1>
-
-      <div class="hero-sub">
-        <p>Mechatronics & Robotics engineer — controls, embedded systems, prototypes.</p>
-        <div class="hero-actions">
-          <a href="#projects" class="btn">View projects</a>
-          <a href="#contact" class="btn ghost">Contact</a>
+  <div class="container">
+    <header>
+      <div class="avatar">AD</div>
+      <div>
+        <h1>Ansh Duggal</h1>
+        <p class="lead">BEng Mechatronics &amp; Robotics — building control systems, wearable rehab devices, and embedded applications.</p>
+        <div class="cta">
+          <a class="btn btn-primary" href="#projects">View projects</a>
+          <a class="btn btn-ghost" href="/resume.pdf" target="_blank">Download CV (resume.pdf)</a>
         </div>
       </div>
+    </header>
+
+    <div class="grid">
+      <main>
+        <section class="card">
+          <h2 style="margin-top:0">About</h2>
+          <p class="muted">I recently completed a BEng in Mechatronics &amp; Robotics at the University of Leeds. My final-year dissertation focused on an upper-limb rehabilitation exoskeleton for elbow and wrist flexion movements — hardware design, control, and embedded integration. I enjoy prototyping with Arduinos, stepper/servo motors, and applying ML for motion prediction.</p>
+
+          <div style="margin-top:14px">
+            <h3 style="margin:0">Skills</h3>
+            <div class="skills">
+              <span class="chip">Python (automation, data analysis)</span>
+              <span class="chip">C++ (object-oriented, real-time systems)</span>
+              <span class="chip">Embedded Systems (STM32, Arduino, Raspberry Pi)</span>
+              <span class="chip">Embedded C / Firmware Development</span>
+              <span class="chip">Microcontrollers (ATmega328P, STM32L476)</span>
+              <span class="chip">Digital Logic & Verilog</span>
+              <span class="chip">ModelSim / Quartus</span>
+              <span class="chip">FPGA Design & Simulation</span>
+              <span class="chip">Control Systems & Kinematics</span>
+              <span class="chip">System Monitoring & Serial Communication</span>
+              <span class="chip">Sensors & Actuators Integration</span>
+              <span class="chip">SolidWorks (CAD, assemblies, simulation)</span>
+              <span class="chip">3D Printing & Additive Manufacturing</span>
+              <span class="chip">Prototyping (STL optimisation, G-code)</span>
+              <span class="chip">Automation Interfaces</span>
+              <span class="chip">Mbed Studio / Keil Studio</span>
+              <span class="chip">Git & GitHub</span>
+              <span class="chip">Microsoft Office</span>
+              <span class="chip">Documentation & Technical Reporting</span>
+            </div>
+          </div>
+        </section>
+
+        <section id="projects" ="margin-top:18px">
+          <h2 style="color:white">Projects</h2>
+          <div class="projects-list">
+            <!-- Project 1 — Exoskeleton -->
+<article class="project card">
+  <div class="thumb">
+  <img src="data:image/svg+xml;utf8,
+  <svg xmlns='http://www.w3.org/2000/svg' width='400' height='300'>
+  <rect width='100%' height='100%' fill='%23011227'/>
+  <text x='50%' y='50%' fill='%23ffffff' font-size='18' font-family='Arial' text-anchor='middle' dy='.3em'>
+  Exoskeleton
+  </text></svg>" alt="exoskeleton">
+  </div>
+  <div>
+    <h3>Upper-limb Rehabilitation Exoskeleton</h3>
+    <p>Design and prototype of an elbow &amp; wrist flexion exoskeleton. Focus: ergonomic linkages, PID control for assisted movement, and Arduino-based actuation. Includes user studies and documentation.</p>
+    <div style="margin-top:8px">
+      <a class="tag" href="project_exoskeleton.html">View Project</a>
+      <a class="tag" href="project summary.pdf" target="_blank">Project Summary (PDF)</a>
     </div>
-  </section>
+  </div>
+</article>
 
-  <!-- ABOUT -->
-  <section id="about" class="section">
-    <h2>About</h2>
-    <p>BEng (Hons) Mechatronics & Robotics — final year graduate focused on building control systems, wearable rehabilitation devices, and embedded applications. My final-year dissertation was an upper-limb rehabilitation exoskeleton for elbow and wrist flexion movements — hardware design, control, and embedded integration. I enjoy prototyping with Arduinos, stepper/servo motors, and applying machine learning for motion prediction and user intent estimation.</p>
-  </section>
-
-  <!-- SKILLS (populated from CV) -->
-  <section id="skills" class="section section-alt">
-    <h2>Technical Skills</h2>
-    <div class="skills-grid">
-      <div class="skill-card">
-        <h3>Programming</h3>
-        <ul>
-          <li>Python (automation workflows, scripting, data analysis)</li>
-          <li>C++ (object-oriented programming, real-time systems)</li>
-          <li>MATLAB</li>
-        </ul>
-      </div>
-
-      <div class="skill-card">
-        <h3>Embedded Systems & Firmware</h3>
-        <ul>
-          <li>STM32, Arduino, Raspberry Pi</li>
-          <li>Firmware development, debugging, hardware–software integration</li>
-        </ul>
-      </div>
-
-      <div class="skill-card">
-        <h3>FPGA & Digital Systems</h3>
-        <ul>
-          <li>Verilog (design)</li>
-          <li>ModelSim (simulation), Quartus (analysis)</li>
-          <li>Sequential logic, GPIO, PWM, ADC</li>
-        </ul>
-      </div>
-
-      <div class="skill-card">
-        <h3>CAD & Mechanical</h3>
-        <ul>
-          <li>SolidWorks (3D CAD modelling, assemblies, simulations)</li>
-          <li>Additive manufacturing & prototyping (3D printing, STL/G-code)</li>
-        </ul>
-      </div>
-
-      <div class="skill-card">
-        <h3>Sensors & Control</h3>
-        <ul>
-          <li>Sensors & actuators integration</li>
-          <li>System monitoring & control, serial comms</li>
-        </ul>
-      </div>
-
-      <div class="skill-card">
-        <h3>Tools</h3>
-        <ul>
-          <li>Mbed Studio, Keil Studio, RTL viewers</li>
-          <li>Git & GitHub, MS Office (Excel/Word/PowerPoint)</li>
-        </ul>
-      </div>
+<!-- Project 2 — Arduino stepper/servo rig -->
+<article class="project card">
+  <div class="thumb">
+  <img src="data:image/svg+xml;utf8,
+  <svg xmlns='http://www.w3.org/2000/svg' width='400' height='300'>
+  <rect width='100%' height='100%' fill='%23011227'/>
+  <text x='50%' y='50%' fill='%23ffffff' font-size='18' font-family='Arial' text-anchor='middle' dy='.3em'>
+  Arduino Rig
+  </text></svg>" alt="arduino rig">
+  </div>
+  <div>
+    <h3>Arduino-controlled stepper/servo rig</h3>
+    <p>Custom Arduino UNO R4 WiFi project to control servo and stepper motors for repeatable trajectories. Integrated simple web UI for manual control via WiFi.</p>
+    <div style="margin-top:8px">
+      <a class="tag" href="project_motor_rig.html">View Project</a>
+      <a class="tag" href="#">Demo</a>
     </div>
-    
-  </section>
+  </div>
+</article>
 
-  <!-- PROJECTS (populated from CV) -->
-  <section id="projects" class="section">
-    <h2>Projects</h2>
+<!-- Project 3 — Airbus A350 RC Aircraft -->
+<article class="project card">
+  <div class="thumb">
+  <img src="data:image/svg+xml;utf8,
+  <svg xmlns='http://www.w3.org/2000/svg' width='400' height='300'>
+  <rect width='100%' height='100%' fill='%23011227'/>
+  <text x='50%' y='50%' fill='%23ffffff' font-size='18' font-family='Arial' text-anchor='middle' dy='.3em'>
+  A350 RC Aircraft
+  </text></svg>" alt="A350 RC">
+  </div>
+  <div>
+    <h3>7ft Airbus A350 RC Aircraft</h3>
+    <p>Designed and built a 7-ft wingspan A350 RC aircraft using Depron foam, carbon fibre, EDF propulsion and ATmega328P flight control. Achieved 20% weight reduction through optimized structural design.</p>
+    <div style="margin-top:8px">
+      <a class="tag" href="project_a350.html">View Project</a>
+      <a class="tag" href="#">Build Log</a>
+    </div>
+  </div>
+</article>
 
-    <article class="project">
-      <h3>Intelligent Upper Limb Exoskeleton for Rehabilitation</h3>
-      <p>(Oct 2024 – May 2025) — Final-year project</p>
-      <ul>
-        <li>Robotic exoskeleton for elbow & wrist — mechanical design in SolidWorks.</li>
-        <li>Software interface for automated movement assessment and remote therapy.</li>
-        <li>Focused on low-cost design and ~20% weight reduction via material selection.</li>
-      </ul>
-    </article>
+<!-- Project 4 — STM32 Snake Game -->
+<article class="project card">
+  <div class="thumb">
+  <img src="data:image/svg+xml;utf8,
+  <svg xmlns='http://www.w3.org/2000/svg' width='400' height='300'>
+  <rect width='100%' height='100%' fill='%23011227'/>
+  <text x='50%' y='50%' fill='%23ffffff' font-size='18' font-family='Arial' text-anchor='middle' dy='.3em'>
+  STM32 Snake Game
+  </text></svg>" alt="STM32 Snake Game">
+  </div>
+  <div>
+    <h3>Snake Game on STM32 Nucleo-L476RG</h3>
+    <p>Built an embedded Snake game using C++ on STM32 with joystick input, LCD display, buzzer control, and real-time interrupt-driven logic. Fully hardware-timed gameplay.</p>
+    <div style="margin-top:8px">
+      <a class="tag" href="project_snake.html">View Project</a>
+      <a class="tag" href="#">Code</a>
+    </div>
+  </div>
+</article>
 
-    <article class="project">
-      <h3>Remote-Controlled A350 Aircraft Build</h3>
-      <p>(Mar 2020 – Feb 2021)</p>
-      <ul>
-        <li>7 ft wingspan RC Airbus A350 using Depron foam, carbon fibre, EDFs & servos.</li>
-        <li>Control surfaces integrated to ATmega328P (Arduino Uno); advanced prototyping & weight reduction.</li>
-      </ul>
-    </article>
+<!-- Project 5 — FPGA Dice Game -->
+<article class="project card">
+  <div class="thumb">
+  <img src="data:image/svg+xml;utf8,
+  <svg xmlns='http://www.w3.org/2000/svg' width='400' height='300'>
+  <rect width='100%' height='100%' fill='%23011227'/>
+  <text x='50%' y='50%' fill='%23ffffff' font-size='18' font-family='Arial' text-anchor='middle' dy='.3em'>
+  FPGA Dice Game
+  </text></svg>" alt="FPGA Dice Game">
+  </div>
+  <div>
+    <h3>FPGA-Based Dice Game</h3>
+    <p>Designed a digital dice game using Verilog, finite-state logic, and modular test benches. Simulated using ModelSim and synthesized timing with Intel Quartus Prime.</p>
+    <div style="margin-top:8px">
+      <a class="tag" href="project_fpga.html">View Project</a>
+      <a class="tag" href="#">Simulation</a>
+    </div>
+  </div>
+</article>
 
-    <article class="project">
-      <h3>Snake Game on ST Nucleo-L476RG</h3>
-      <p>(Mar 2024 – May 2024)</p>
-      <ul>
-        <li>Interactive Snake game in C++ on ST board, with joystick, LCD, and buzzer.</li>
-      </ul>
-    </article>
+<!-- Project 6 — Washing Machine Controller -->
+<article class="project card">
+  <div class="thumb">
+  <img src="data:image/svg+xml;utf8,
+  <svg xmlns='http://www.w3.org/2000/svg' width='400' height='300'>
+  <rect width='100%' height='100%' fill='%23011227'/>
+  <text x='50%' y='50%' fill='%23ffffff' font-size='18' font-family='Arial' text-anchor='middle' dy='.3em'>
+  Washing Controller
+  </text></svg>" alt="Washing Machine Controller">
+  </div>
+  <div>
+    <h3>Microcontroller-Controlled Washing Machine</h3>
+    <p>Developed a washing machine control interface using STM32 with cycle selection, serial monitoring, power control, and fail-safe logic for real-time embedded systems.</p>
+    <div style="margin-top:8px">
+      <a class="tag" href="project_washing.html">View Project</a>
+      <a class="tag" href="#">Code</a>
+    </div>
+  </div>
+</article>
 
-    <article class="project">
-      <h3>FPGA-Based Dice Game</h3>
-      <p>(Mar 2024 – May 2024)</p>
-      <ul>
-        <li>Dice game using Verilog, simulated/tested in ModelSim with modular test benches.</li>
-      </ul>
-    </article>
 
-    <article class="project">
-      <h3>Microcontroller-Controlled Washing Machine Prototype</h3>
-      <p>(Mar 2023 – May 2023)</p>
-      <ul>
-        <li>STM32L476RG-based control panel — power control, cycle selection, serial monitoring.</li>
-      </ul>
-    </article>
+          </div>
+        </section>
 
-    <p class="cv-cite">Project list from your CV. :contentReference[oaicite:2]{index=2}</p>
-  </section>
+      </main>
 
-  <!-- CONTACT -->
-  <section id="contact" class="section section-alt">
-    <h2>Contact</h2>
-    <p>Email: <a href="mailto:anshduggal10@gmail.com">anshduggal10@gmail.com</a> • LinkedIn: <a href="https://www.linkedin.com/in/anshduggal/">linkedin.com/in/anshduggal</a></p>
-  </section>
+      <aside>
+        <div class="card">
+          <h3 style="margin-top:0">Contact</h3>
+          <p class="muted">I'm open to internships and junior roles in robotics, controls, and embedded systems. Available for remote or on-site work.</p>
+          <form id="contactForm" onsubmit="sendEmail(event)">
+            <input id="name" placeholder="Your name" required>
+            <input id="email" placeholder="Your email" type="email" required>
+            <textarea id="message" placeholder="Message"></textarea>
+            <button class="btn btn-primary" type="submit">Send message</button>
+          </form>
+          <p class="muted" style="margin-top:8px">Or reach me at: <a href="mailto:anshduggal10@gmail.com" style="color:var(--accent);text-decoration:none">anshduggal10@gmail.com</a></p>
+        </div>
 
-  <footer class="footer">
-    <p>© <span id="year"></span> Ansh Duggal — Built with HTML & CSS.</p>
-  </footer>
+        <div class="card" style="margin-top:12px">
+          <h3 style="margin-top:0">Quick links</h3>
+          <p style="margin:8px 0 0"><a href="#projects">Projects</a><br><a href="/resume.pdf">Resume (PDF)</a><br><a href="https://github.com/">GitHub</a></p>
+        </div>
+      </aside>
+    </div>
 
+    <footer>
+      
+    </footer>
+  </div>
+<!-- PART 2/2 — Scripts + closing tags -->
+
+  <!-- Animation + Stagger Reveal Scripts -->
   <script>
-    // Set year
-    document.getElementById('year').textContent = new Date().getFullYear();
+    // Fade-in general sections
+    window.addEventListener('load', () => {
+      document.querySelectorAll('.fade').forEach(el => el.classList.add('visible'));
+    });
 
-    // Floating name scroll animation
-    // We'll map scrollY -> transform for #floating-name
-    (function() {
-      const name = document.getElementById('floating-name');
-      const maxScroll = 420; // px over which the effect completes
-      function onScroll() {
-        const y = window.scrollY;
-        // progress from 0..1
-        const p = Math.max(0, Math.min(1, y / maxScroll));
-        // translate up, scale down slightly, rotate a little
-        const translateY = - (p * 130); // move up to 130px
-        const scale = 1 - 0.28 * p;     // scale down to ~0.72
-        const rotate = -12 * p;         // tilt up to -12deg
-        const opacity = 1 - 0.35 * p;   // fade slightly
-        name.style.transform = `translate3d(0, ${translateY}px, 0) scale(${scale}) rotate(${rotate}deg)`;
-        name.style.opacity = opacity.toString();
+    // Stagger project cards
+    document.addEventListener('DOMContentLoaded', () => {
+      const cards = Array.from(document.querySelectorAll('.project.card'));
+      cards.forEach((c,i) => c.setAttribute('data-idx', i));
 
-        // optionally shrink font-size a bit after threshold
-        if (p > 0.9) {
-          name.classList.add('name-small');
-        } else {
-          name.classList.remove('name-small');
-        }
-      }
-      window.addEventListener('scroll', onScroll, { passive: true });
-      // call once in case user opens mid-scroll
-      onScroll();
-    })();
+      const obs = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if(entry.isIntersecting){
+            const card = entry.target;
+            const idx = parseInt(card.getAttribute('data-idx')) || 0;
+            setTimeout(() => card.classList.add('visible'), idx * 100);
+            obs.unobserve(card);
+          }
+        });
+      }, {threshold: 0.2});
+
+      cards.forEach(c => obs.observe(c));
+    });
   </script>
+
+  <!-- Minimal contact mailto handler -->
+  <script>
+    function sendEmail(e){
+      e.preventDefault();
+      const name = document.getElementById('name').value;
+      const email = document.getElementById('email').value;
+      const message = document.getElementById('message').value;
+      const subject = encodeURIComponent('Portfolio contact from ' + name);
+      const body = encodeURIComponent('Name: ' + name + '\nEmail: ' + email + '\n\n' + message);
+      window.location.href = 'mailto:anshduggal10@gmail.com?subject='+subject+'&body='+body;
+    }
+  </script>
+
 </body>
 </html>
