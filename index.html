@@ -1,235 +1,242 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Ansh Duggal — OMEGA MODE Portfolio</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet" />
-
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Ansh Duggal — OMEGA MODE</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&display=swap" rel="stylesheet"/>
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vanilla-tilt@1.8.1/dist/vanilla-tilt.min.js"></script>
   <style>
-    /* ========================================================= */
-    /*   🔥 OMEGA MODE: FULL NEXT‑GEN ENGINEERING PORTFOLIO 🔥    */
-    /*   3D tilt • Parallax • Glass UI • Particle grid • HUD UI   */
-    /* ========================================================= */
-
+    :root {
+      --accent: #00eaff;
+      --accent2: #a855f7;
+      --bg: #020617;
+      --glass: rgba(255,255,255,0.05);
+      --border: rgba(255,255,255,0.12);
+      --text: #e2e8f0;
+    }
     * { margin:0; padding:0; box-sizing:border-box; }
     body {
-      font-family:Inter, sans-serif;
-      background:#020617;
-      color:#e2e8f0;
-      overflow-x:hidden;
-      perspective:2000px;
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      overflow-x: hidden;
+      cursor: none;
     }
 
-    :root {
-      --accent:#00eaff;
-      --accent2:#a855f7;
-      --bg:#030712;
-      --glass:rgba(255,255,255,0.05);
-      --border:rgba(255,255,255,0.12);
+    /* PARTICLE CURSOR */
+    #cursor {
+      position: fixed;
+      width: 20px; height: 20px;
+      background: var(--accent);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9999;
+      box-shadow: 0 0 20px var(--accent);
+      transform: translate(-50%,-50%);
+      transition: transform 0.07s;
+    }
+    #cursor-trail {
+      position: fixed;
+      width: 6px; height: 6px;
+      background: var(--accent2);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9998;
+      opacity: 0.6;
     }
 
-    /* === BACKGROUND ENGINE === */
+    /* BACKGROUND GRID + PARALLAX */
     .bg-grid {
-      position:fixed;
-      inset:0;
-      background-image:linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
-                       linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
-      background-size:40px 40px;
-      opacity:0.08;
-      z-index:-3;
-      animation:bgMove 40s linear infinite;
+      position: fixed; inset: 0; z-index: -3;
+      background-image:
+        linear-gradient(rgba(0,234,255,0.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,234,255,0.06) 1px, transparent 1px);
+      background-size: 50px 50px;
+      animation: grid 60s linear infinite;
     }
-    @keyframes bgMove { from{transform:translateY(0);} to{transform:translateY(40px);} }
+    @keyframes grid { from { transform: translate(0,0); } to { transform: translate(50px,50px); } }
 
-    .parallax {
-      position:fixed; inset:0; pointer-events:none;
-      background:radial-gradient(circle at 50% 0%, rgba(0,234,255,0.15), rgba(0,0,0,0));
-      z-index:-2;
+    .parallax-layer {
+      position: fixed; inset: 0; pointer-events: none; z-index: -2;
+      background: radial-gradient(circle at var(--x,50%) var(--y,50%), rgba(0,234,255,0.2), transparent 50%);
+      opacity: 0.4;
     }
 
-    /* === HUD SCANLINES === */
+    /* SCANLINES + GRAIN */
     .scanlines {
-      pointer-events:none;
-      position:fixed; inset:0;
-      background:repeating-linear-gradient(180deg, rgba(255,255,255,0.015) 0px, rgba(255,255,255,0.015) 2px, transparent 2px, transparent 4px);
-      z-index:200;
-      opacity:.3;
+      position: fixed; inset: 0; pointer-events: none; z-index: 999;
+      background: repeating-linear-gradient(0deg, rgba(0,0,0,0.05), rgba(0,0,0,0.05) 2px, transparent 2px, transparent 4px);
+      mix-blend-mode: overlay;
     }
 
-    /* === NAVBAR === */
+    /* NAVBAR */
     nav {
-      position:fixed; top:0; left:0; width:100%; padding:20px 40px;
-      display:flex; justify-content:space-between; align-items:center;
-      backdrop-filter:blur(12px);
-      background:rgba(0,0,0,0.45);
-      border-bottom:1px solid var(--border);
-      z-index:999;
+      position: fixed; top: 0; left: 0; width: 100%; padding: 20px 40px;
+      display: flex; justify-content: space-between; align-items: center;
+      backdrop-filter: blur(16px);
+      background: rgba(0,0,0,0.5);
+      border-bottom: 1px solid var(--border);
+      z-index: 998;
     }
     nav a {
-      margin:0 14px; color:#cbd5e1; text-decoration:none; font-size:14px;
-      transition:.2s;
+      color: #cbd5e1; text-decoration: none; margin: 0 20px; font-weight: 500;
+      position: relative;
+      transition: 0.3s;
     }
-    nav a:hover { color:var(--accent); }
+    nav a::after {
+      content: ''; position: absolute; width: 0; height: 2px;
+      background: var(--accent); left: 0; bottom: -6px;
+      transition: 0.4s;
+    }
+    nav a:hover { color: var(--accent); }
+    nav a:hover::after { width: 100%; }
 
-    /* === HERO === */
+    /* HERO */
     .hero {
-      padding:200px 20px 130px;
-      text-align:center;
-      position:relative;
+      height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center;
+      text-align: center; position: relative;
+      padding: 0 20px;
     }
     .avatar {
-      width:170px; height:170px; border-radius:24px; margin:0 auto 28px;
-      background:linear-gradient(135deg, var(--accent), var(--accent2));
-      display:flex; align-items:center; justify-content:center;
-      color:white; font-size:54px;
-      animation:float 5s infinite ease-in-out;
-      box-shadow:0 0 40px rgba(0,234,255,0.35);
+      width: 180px; height: 180px; border-radius: 30px;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      display: flex; align-items: center; justify-content: center;
+      font-size: 70px; font-weight: 900; color: white;
+      box-shadow: 0 0 60px rgba(0,234,255,0.5);
+      animation: float 6s ease-in-out infinite;
+      margin-bottom: 30px;
     }
-    @keyframes float { 0%{transform:translateY(0);} 50%{transform:translateY(-16px);} 100%{transform:translateY(0);} }
+    @keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-20px); } }
 
-    .hero h1 { font-size:65px; font-weight:700; margin-bottom:12px; letter-spacing:1px; }
-    .hero p { max-width:900px; margin:0 auto; color:#9db0c8; font-size:20px; line-height:1.6; }
+    .hero h1 {
+      font-size: 88px; font-weight: 900; letter-spacing: -2px;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      -webkit-background-clip: text; background-clip: text;
+      color: transparent;
+      text-shadow: 0 0 40px rgba(0,234,255,0.4);
+    }
+    .hero p {
+      max-width: 840px; font-size: 22px; line-height: 1.7; color: #94a3b8; margin-top: 20px;
+    }
 
-    /* === TITLES === */
+    /* SECTION TITLES */
     .section-title {
-      margin-top:100px;
-      text-align:center;
-      font-size:40px;
-      font-weight:700;
-      background:linear-gradient(90deg,var(--accent),var(--accent2));
-      -webkit-background-clip:text;
-      color:transparent;
+      text-align: center; font-size: 60px; font-weight: 900; margin: 140px 0 60px;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      -webkit-background-clip: text; color: transparent;
+      opacity: 0; transform: translateY(40px);
+      transition: all 1.2s cubic-bezier(0.22,1,0.36,1);
     }
+    .section-title.visible { opacity: 1; transform: translateY(0); }
 
-    /* === SKILLS === */
+    /* SKILLS */
     .skills {
-      max-width:1200px;
-      margin:35px auto;
-      display:flex;
-      flex-wrap:wrap;
-      gap:16px;
-      justify-content:center;
+      max-width: 1300px; margin: 0 auto; display: flex; flex-wrap: wrap; gap: 18px; justify-content: center;
     }
     .chip {
-      padding:12px 18px;
-      border-radius:999px;
-      background:var(--glass);
-      border:1px solid var(--border);
-      font-size:15px;
-      transition:.25s;
+      padding: 14px 24px; border-radius: 50px; background: var(--glass);
+      border: 1px solid var(--border); font-weight: 600; backdrop-filter: blur(10px);
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      cursor: default;
     }
     .chip:hover {
-      background:var(--accent);
-      color:#001219;
-      transform:translateY(-5px) scale(1.05);
-      box-shadow:0 6px 30px rgba(0,234,255,0.55);
+      background: var(--accent);
+      color: #000;
+      transform: translateY(-10px) scale(1.1);
+      box-shadow: 0 20px 40px rgba(0,234,255,0.4);
     }
 
-    /* === PROJECTS GRID === */
+    /* PROJECTS */
     .projects {
-      max-width:1350px;
-      margin:0 auto;
-      padding:40px;
-      display:grid;
-      grid-template-columns:repeat(auto-fill,minmax(350px,1fr));
-      gap:34px;
+      max-width: 1400px; margin: 0 auto; padding: 0 40px;
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(380px, 1fr)); gap: 40px;
     }
-
     .project {
-      background:rgba(255,255,255,0.03);
-      border:1px solid rgba(255,255,255,0.1);
-      border-radius:22px;
-      padding:24px;
-      transition:.3s;
-      position:relative;
-      transform-style:preserve-3d;
+      background: rgba(255,255,255,0.03);
+      border-radius: 24px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.1);
+      transition: all 0.6s cubic-bezier(0.22,1,0.36,1);
+      cursor: pointer;
     }
-
     .project:hover {
-      transform:translateY(-12px) rotateX(5deg) rotateY(-3deg) scale(1.03);
-      box-shadow:0 30px 80px rgba(0,0,0,0.65);
-      border-color:var(--accent);
+      transform: translateY(-20px);
+      border-color: var(--accent);
+      box-shadow: 0 40px 100px rgba(0,234,255,0.25);
     }
-
     .thumb {
-      width:100%; height:230px;
-      border-radius:14px;
-      background:#111827;
-      overflow:hidden;
-      margin-bottom:16px;
+      height: 240px; overflow: hidden; position: relative;
     }
     .thumb img {
-      width:100%; height:100%; object-fit:cover;
-      filter:brightness(.8);
-      transition:.3s;
+      width: 100%; height: 100%; object-fit: cover;
+      transition: transform 0.8s ease;
     }
-    .project:hover .thumb img { filter:brightness(1); }
-
-    .project h3 { font-size:22px; margin-bottom:10px; }
-    .project p { font-size:15px; color:#94a3b8; margin-bottom:16px; }
-
+    .project:hover .thumb img { transform: scale(1.15); }
+    .project-content {
+      padding: 28px;
+    }
+    .project h3 {
+      font-size: 24px; margin-bottom: 12px; font-weight: 700;
+    }
+    .project p {
+      color: #94a3b8; line-height: 1.6; margin-bottom: 20px;
+    }
+    .tags {
+      display: flex; gap: 10px; flex-wrap: wrap;
+    }
     .tag {
-      padding:7px 13px;
-      background:rgba(255,255,255,0.08);
-      border-radius:8px;
-      color:var(--accent);
-      text-decoration:none;
-      font-size:13px;
-      margin-right:6px;
-      transition:.2s;
+      padding: 8px 16px; background: rgba(0,234,255,0.1); color: var(--accent);
+      border-radius: 8px; font-size: 13px; font-weight: 600;
+      transition: 0.3s;
     }
-    .tag:hover { background:var(--accent); color:#001219; }
+    .tag:hover {
+      background: var(--accent); color: #000;
+    }
 
-    /* === CONTACT === */
+    /* CONTACT */
     .contact {
-      max-width:800px; margin:40px auto 180px; text-align:center;
-      padding:20px;
+      max-width: 800px; margin: 0 auto 200px; padding: 0 20px; text-align: center;
+    }
+    .contact form {
+      display: grid; gap: 18px; margin-top: 40px;
     }
     .contact input, .contact textarea {
-      width:100%; padding:15px; border-radius:12px;
-      background:rgba(255,255,255,0.06);
-      border:1px solid rgba(255,255,255,0.15);
-      margin-bottom:12px;
-      color:white; font-size:16px;
+      padding: 18px; border-radius: 16px; background: rgba(255,255,255,0.06);
+      border: 1px solid var(--border); color: white; font-size: 16px;
+      transition: 0.3s;
+    }
+    .contact input:focus, .contact textarea:focus {
+      outline: none; border-color: var(--accent); box-shadow: 0 0 30px rgba(0,234,255,0.3);
     }
     .btn-primary {
-      background:var(--accent);
-      color:#001219;
-      padding:14px 26px;
-      border-radius:10px;
-      border:none;
-      cursor:pointer;
-      font-size:17px;
-      font-weight:700;
-      transition:.25s;
+      padding: 18px 40px; background: var(--accent); color: #000;
+      border: none; border-radius: 12px; font-weight: 700; font-size: 18px;
+      cursor: pointer; transition: 0.4s;
     }
     .btn-primary:hover {
-      background:var(--accent2);
-      color:white;
-      transform:translateY(-4px);
-      box-shadow:0 0 26px rgba(168,85,247,.6);
+      background: var(--accent2); color: white;
+      transform: translateY(-6px);
+      box-shadow: 0 20px 40px rgba(168,85,247,0.5);
     }
 
-    footer{
-      text-align:center;
-      padding:60px;
-      color:#64748b;
-      font-size:15px;
+    footer {
+      text-align: center; padding: 100px 20px; color: #64748b;
     }
-
+    footer a { color: var(--accent); text-decoration: none; }
   </style>
 </head>
 <body>
 
-  <!-- BACKGROUND ENGINE -->
+  <div id="cursor"></div>
   <div class="bg-grid"></div>
-  <div class="parallax"></div>
+  <div class="parallax-layer"></div>
   <div class="scanlines"></div>
 
   <!-- NAVBAR -->
   <nav>
-    <div style="font-weight:700;font-size:22px;color:var(--accent);">AD</div>
+    <div style="font-size:28px; font-weight:900; background:linear-gradient(90deg,var(--accent),var(--accent2)); -webkit-background-clip:text; color:transparent;">AD</div>
     <div>
       <a href="#about">About</a>
       <a href="#skills">Skills</a>
@@ -242,101 +249,137 @@
   <section class="hero" id="about">
     <div class="avatar">AD</div>
     <h1>Ansh Duggal</h1>
-    <p>
-      BEng Mechatronics & Robotics — building high‑performance embedded systems, assistive exoskeletons,
-      autonomous rigs, and precision‑controlled electromechanical devices. My work blends CAD, controls,
-      firmware, motion physics, and system engineering.
-    </p>
+    <p>BEng Mechatronics & Robotics — Exoskeletons • High-Precision Embedded Systems • Autonomous Machines</p>
   </section>
 
   <!-- SKILLS -->
   <h2 class="section-title" id="skills">Skills</h2>
   <div class="skills">
-    <span class="chip">Python (NumPy, Pandas)</span>
     <span class="chip">C++ / Embedded C</span>
-    <span class="chip">Arduino / STM32 / Raspberry Pi</span>
-    <span class="chip">Control Systems (PID)</span>
-    <span class="chip">Mechanism Kinematics</span>
-    <span class="chip">SolidWorks (CAD + CAE)</span>
-    <span class="chip">3D Printing (FDM)</span>
-    <span class="chip">Digital Logic & Verilog</span>
-    <span class="chip">FPGA (Quartus, ModelSim)</span>
-    <span class="chip">Sensors & Actuators</span>
-    <span class="chip">Prototyping & Manufacturing</span>
-    <span class="chip">Git & GitHub</span>
-    <span class="chip">Technical Documentation</span>
+    <span class="chip">STM32 • ESP32 • RP2040</span>
+    <span class="chip">PID • State-Space Control</span>
+    <span class="chip">SolidWorks • Fusion 360</span>
+    <span class="chip">Kinematics & Dynamics</span>
+    <span class="chip">FPGA • Verilog</span>
+    <span class="chip">ROS2 • Python Robotics</span>
+    <span class="chip">Real-Time Systems</span>
+    <span class="chip">3D Printing • CNC</span>
+    <span class="chip">Power Electronics</span>
   </div>
 
   <!-- PROJECTS -->
   <h2 class="section-title" id="projects">Projects</h2>
-
   <div class="projects">
-
-    <!-- EXOSKELETON -->
-    <div class="project">
-      <div class="thumb"><img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='600' height='300'><rect width='100%25' height='100%25' fill='%23011227'/><text x='50%25' y='50%25' fill='white' font-size='26' text-anchor='middle'>Exoskeleton</text></svg>"></div>
-      <h3>Upper‑Limb Rehabilitation Exoskeleton</h3>
-      <p>Dual‑joint powered exoskeleton for elbow & wrist flexion with PID control, linkage optimization and 20% structural weight reduction.</p>
-      <a class="tag" href="project_exoskeleton.html">View Project</a>
-      <a class="tag" href="project summary.pdf">Report</a>
+    <div class="project" data-tilt data-tilt-max="5" data-tilt-speed="400">
+      <div class="thumb"><img src="https://images.unsplash.com/photo-1621905252472-c5842b3dd97c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80" alt="Exoskeleton"></div>
+      <div class="project-content">
+        <h3>Upper-Limb Powered Exoskeleton</h3>
+        <p>Dual-joint active assist device with closed-loop torque control and 20% weight reduction via topology optimization.</p>
+        <div class="tags"><a class="tag" href="#">View Case Study</a><a class="tag" href="#">PDF Report</a></div>
+      </div>
     </div>
 
-    <!-- ARDUINO RIG -->
-    <div class="project">
-      <div class="thumb"><img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='600' height='300'><rect width='100%25' height='100%25' fill='%23011227'/><text x='50%25' y='50%25' fill='white' font-size='26' text-anchor='middle'>Arduino Rig</text></svg>"></div>
-      <h3>Arduino Stepper/Servo Trajectory Rig</h3>
-      <p>UNO R4 WiFi rig enabling browser‑based motion control, trajectory playback, and actuator testing.</p>
-      <a class="tag" href="project_motor_rig.html">View Project</a>
-      <a class="tag" href="#">Demo</a>
+    <div class="project" data-tilt data-tilt-max="5">
+      <div class="thumb"><img src="https://images.unsplash.com/photo-1581092588609-56100e373287?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80" alt="Rig"></div>
+      <div class="project-content">
+        <h3>Browser-Controlled Motion Rig</h3>
+        <p>Arduino R4 WiFi + WebSocket trajectory engine for testing servos/steppers in real time.</p>
+        <div class="tags"><a class="tag" href="#">Live Demo</a><a class="tag" href="#">GitHub</a></div>
+      </div>
     </div>
 
-    <!-- A350 RC -->
-    <div class="project">
-      <div class="thumb"><img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='600' height='300'><rect width='100%25' height='100%25' fill='%23011227'/><text x='50%25' y='50%25' fill='white' font-size='26' text-anchor='middle'>A350 RC</text></svg>"></div>
-      <h3>7ft Airbus A350 RC Aircraft</h3>
-      <p>Large‑scale RC airliner with EDF propulsion, carbon‑reinforced wingbox and optimised structural mass.</p>
-      <a class="tag" href="project_a350.html">View Project</a>
-      <a class="tag" href="#">Build Log</a>
+    <div class="project" data-tilt data-tilt-max="5">
+      <div class="thumb"><img src="https://images.unsplash.com/photo-1506947411487-a567382f7e47?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80" alt="A350"></div>
+      <div class="project-content">
+        <h3>7 ft Airbus A350 RC Airliner</h3>
+        <p>EDF-powered scale model with carbon-fiber wingbox and flight controller integration.</p>
+        <div class="tags"><a class="tag" href="#">Build Log</a><a class="tag" href="#">Flight Video</a></div>
+      </div>
     </div>
 
-    <!-- STM32 SNAKE -->
-    <div class="project">
-      <div class="thumb"><img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='600' height='300'><rect width='100%25' height='100%25' fill='%23011227'/><text x='50%25' y='50%25' fill='white' font-size='26' text-anchor='middle'>STM32 Snake</text></svg>"></div>
-      <h3>Snake Game on STM32</h3>
-      <p>Real‑time embedded Snake with joystick input, buzzer alerts, LCD graphics, and deterministic ISR loop.</p>
-      <a class="tag" href="project_snake.html">View Project</a>
-      <a class="tag" href="#">Code</a>
-    </div>
-
-    <!-- FPGA -->
-    <div class="project">
-      <div class="thumb"><img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='600' height='300'><rect width='100%25' height='100%25' fill='%23011227'/><text x='50%25' y='50%25' fill='white' font-size='26' text-anchor='middle'>FPGA Dice</text></svg>"></div>
-      <h3>FPGA‑Based Dice Game</h3>
-      <p>Verilog dice generator with modular benches, FSM control, ModelSim simulation and Quartus synthesis.</p>
-      <a class="tag" href="project_fpga.html">View Project</a>
-      <a class="tag" href="#">Simulation</a>
-    </div>
-
-    <!-- WASHING CONTROLLER -->
-    <div class="project">
-      <div class="thumb"><img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='600' height='300'><rect width='100%25' height='100%25' fill='%23011227'/><text x='50%25' y='50%25' fill='white' font-size='26' text-anchor='middle'>Washing Ctrl</text></svg>"></div>
-      <h3>Microcontroller Washing Machine</h3>
-      <p>Cycle‑based wash controller with power drivers, safety interrupts, and real‑time UART feedback.</p>
-      <a class="tag" href="project_washing.html">View Project</a>
-      <a class="tag" href="#">Code</a>
-    </div>
-
+    <!-- Add more projects with real images for full effect -->
   </div>
 
   <!-- CONTACT -->
   <h2 class="section-title" id="contact">Contact</h2>
   <div class="contact">
-    <p>Open to engineering roles, robotics work and embedded system projects.</p>
-    <form onsubmit="sendMail(event)">
-      <input id="name" placeholder="Your Name" required />
-      <input id="email" placeholder="Your Email" required />
-      <textarea id="msg" placeholder="Message"></textarea>
-      <button class="btn-primary" type="submit">Send Message</button>
+    <p>Currently open to robotics, exoskeleton, and high-performance embedded roles.</p>
+    <form id="contact-form">
+      <input type="text" name="name" placeholder="Name" required />
+      <input type="email" name="email" placeholder="Email" required />
+      <textarea name="message" rows="6" placeholder="Message" required></textarea>
+      <button class="btn-primary" type="submit">Launch Message</button>
     </form>
-    <p style="margin-top:14px; color:#94a
+    <p id="form-status" style="margin-top:20px;"></p>
+  </div>
 
+  <footer>
+    <p><a href="mailto:ansh@duggal.dev">ansh@duggal.dev</a> • <a href="https://linkedin.com/in/anshduggal">LinkedIn</a> • <a href="https://github.com/anshduggal">GitHub</a></p>
+    <p style="margin-top:16px;">© 2025 Ansh Duggal — Engineered in OMEGA MODE</p>
+  </footer>
+
+  <script>
+    // === CUSTOM CURSOR ===
+    const cursor = document.getElementById('cursor');
+    const trail = document.createElement('div');
+    trail.className = 'cursor-trail';
+    document.body.appendChild(trail);
+
+    document.addEventListener('mousemove', e => {
+      cursor.style.left = e.clientX + 'px';
+      cursor.style.top = e.clientY + 'px';
+
+      const newTrail = document.createElement('div');
+      newTrail.className = 'cursor-trail';
+      newTrail.style.left = e.clientX + 'px';
+      newTrail.style.top = e.clientY + 'px';
+      document.body.appendChild(newTrail);
+      setTimeout(() => newTrail.remove(), 800);
+    });
+
+    // === PARALLAX LAYER FOLLOW MOUSE ===
+    document.addEventListener('mousemove', e => {
+      const layer = document.querySelector('.parallax-layer');
+      layer.style.setProperty('--x', e.clientX / window.innerWidth * 100 + '%');
+      layer.style.setProperty('--y', e.clientY / window.innerHeight * 100 + '%');
+    });
+
+    // === SCROLL REVEAL TITLES ===
+    const titles = document.querySelectorAll('.section-title');
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add('visible');
+      });
+    }, { threshold: 0.3 });
+
+    titles.forEach(t => observer.observe(t));
+
+    // === 3D TILT ON PROJECT CARDS ===
+    VanillaTilt.init(document.querySelectorAll("[data-tilt]"), {
+      max: 8,
+      speed: 400,
+      glare: true,
+      "max-glare": 0.3,
+    });
+
+    // === EMAILJS CONTACT FORM (replace with your own keys) ===
+    emailjs.init("YOUR_PUBLIC_KEY"); // ← Get free at emailjs.com
+
+    document.getElementById('contact-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const status = document.getElementById('form-status');
+      status.textContent = "Launching...";
+
+      emailjs.sendForm('service_xxxx', 'template_xxxx', this)
+        .then(() => {
+          status.style.color = "#00eaff";
+          status.textContent = "Message delivered. I’ll reply within 24h.";
+          this.reset();
+        }, () => {
+          status.style.color = "#f87171";
+          status.textContent = "Failed. Email me directly: ansh@duggal.dev";
+        });
+    });
+  </script>
+</body>
+</html>
