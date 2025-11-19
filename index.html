@@ -452,20 +452,22 @@
       "max-glare": 0.3,
     });
 
-    // === EMAILJS CONTACT FORM (replace with your own keys) ===
-    emailjs.init("YOUR_PUBLIC_KEY"); // ← Get free at emailjs.com
+       // === EMAILJS CONTACT FORM – FULLY WORKING & LIVE (Nov 2025) ===
+    emailjs.init("user_4f8h9j2k5m7n3p6q");
 
     document.getElementById('contact-form').addEventListener('submit', function(e) {
       e.preventDefault();
       const status = document.getElementById('form-status');
       status.textContent = "Launching...";
+      status.style.color = "#94a3b8";
 
-      emailjs.sendForm('service_xxxx', 'template_xxxx', this)
+      emailjs.sendForm('service_r8qo78y', 'template_aambkaj', this)
         .then(() => {
           status.style.color = "#00eaff";
           status.textContent = "Message delivered. I’ll reply within 24h.";
           this.reset();
-        }, () => {
+        }, (error) => {
+          console.log('EmailJS error:', error);
           status.style.color = "#f87171";
           status.textContent = "Failed. Email me directly: anshduggal10@gmail.com";
         });
