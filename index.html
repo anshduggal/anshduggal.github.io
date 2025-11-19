@@ -268,34 +268,111 @@
   </div>
 
   <!-- PROJECTS -->
+    <!-- PROJECTS -->
   <h2 class="section-title" id="projects">Projects</h2>
+  
+  <!-- RESUME DOWNLOAD BUTTON -->
+  <div style="text-align: center; margin-bottom: 60px;">
+    <a href="resume.pdf" target="_blank" class="btn-primary" style="display: inline-block; padding: 16px 36px; font-size: 18px; text-decoration: none;">
+      Download Résumé (PDF)
+    </a>
+  </div>
+
   <div class="projects">
+
+    <!-- 1. Upper Limb Exoskeleton -->
     <div class="project" data-tilt data-tilt-max="5" data-tilt-speed="400">
-      <div class="thumb"><img src="https://images.unsplash.com/photo-1621905252472-c5842b3dd97c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80" alt="Exoskeleton"></div>
+      <div class="thumb" style="background: rgba(255,255,255,0.06); border: 1px solid var(--border); backdrop-filter: blur(10px); display: flex; align-items: center; justify-content: center; text-align: center; padding: 20px;">
+        <h3 style="font-size: 32px; font-weight: 900; background: linear-gradient(90deg,var(--accent),var(--accent2)); -webkit-background-clip: text; color: transparent;">
+          EXOSKELETON
+        </h3>
+      </div>
       <div class="project-content">
-        <h3>Upper-Limb Powered Exoskeleton</h3>
-        <p>Dual-joint active assist device with closed-loop torque control and 20% weight reduction via topology optimization.</p>
-        <div class="tags"><a class="tag" href="#">View Case Study</a><a class="tag" href="#">PDF Report</a></div>
+        <h3>Intelligent Upper Limb Rehabilitation Exoskeleton</h3>
+        <p>Oct 2024 – May 2025<br>Final-year project: Low-cost powered exoskeleton for elbow & wrist rehabilitation. SolidWorks design, 20% weight reduction, closed-loop control, remote therapy interface.</p>
+        <div class="tags">
+          <span class="tag">SolidWorks</span>
+          <span class="tag">Embedded C</span>
+          <span class="tag">Control Systems</span>
+          <span class="tag">Rehabilitation Robotics</span>
+        </div>
       </div>
     </div>
 
-    <div class="project" data-tilt data-tilt-max="5">
-      <div class="thumb"><img src="https://images.unsplash.com/photo-1581092588609-56100e373287?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80" alt="Rig"></div>
-      <div class="project-content">
-        <h3>Browser-Controlled Motion Rig</h3>
-        <p>Arduino R4 WiFi + WebSocket trajectory engine for testing servos/steppers in real time.</p>
-        <div class="tags"><a class="tag" href="#">Live Demo</a><a class="tag" href="#">GitHub</a></div>
+    <!-- 2. A350 RC Aircraft -->
+    <div class="project" data-tilt data-tilt-max="5" data-tilt-speed="400">
+      <div class="thumb" style="background: rgba(255,255,255,0.06); border: 1px solid var(--border); backdrop-filter: blur(10px); display: flex; align-items: center; justify-content: center; text-align: center; padding: 20px;">
+        <h3 style="font-size: 32px; font-weight: 900; background: linear-gradient(90deg,var(--accent),var(--accent2)); -webkit-background-clip: text; color: transparent;">
+          A350 AIRLINER
+        </h3>
       </div>
-    </div>
-
-    <div class="project" data-tilt data-tilt-max="5">
-      <div class="thumb"><img src="https://images.unsplash.com/photo-1506947411487-a567382f7e47?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80" alt="A350"></div>
       <div class="project-content">
         <h3>7 ft Airbus A350 RC Airliner</h3>
-        <p>EDF-powered scale model with carbon-fiber wingbox and flight controller integration.</p>
-        <div class="tags"><a class="tag" href="#">Build Log</a><a class="tag" href="#">Flight Video</a></div>
+        <p>Mar 2020 – Feb 2021<br>7 ft wingspan EDF-powered scale model. Depron foam & carbon fibre, ATmega328P flight controller, 20% weight reduction.</p>
+        <div class="tags">
+          <span class="tag">Aerodynamics</span>
+          <span class="tag">Arduino</span>
+          <span class="tag">Carbon Fibre</span>
+          <span class="tag">Prototyping</span>
+        </div>
       </div>
     </div>
+
+    <!-- 3. Snake Game -->
+    <div class="project" data-tilt data-tilt-max="5" data-tilt-speed="400">
+      <div class="thumb" style="background: rgba(255,255,255,0.06); border: 1px solid var(--border); backdrop-filter: blur(10px); display: flex; align-items: center; justify-content: center; text-align: center; padding: 20px;">
+        <h3 style="font-size: 32px; font-weight: 900; background: linear-gradient(90deg,var(--accent),var(--accent2)); -webkit-background-clip: text; color: transparent;">
+          SNAKE GAME
+        </h3>
+      </div>
+      <div class="project-content">
+        <h3>Snake Game on ST Nucleo-L476RG</h3>
+        <p>Mar – May 2024<br>Full C++ implementation with joystick, LCD display, and buzzer. Real-time peripheral integration.</p>
+        <div class="tags">
+          <span class="tag">Embedded C</span>
+          <span class="tag">STM32</span>
+          <span class="tag">Peripherals</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4. FPGA Dice -->
+    <div class="project" data-tilt data-tilt-max="5" data-tilt-speed="400">
+      <div class="thumb" style="background: rgba(255,255,255,0.06); border: 1px solid var(--border); backdrop-filter: blur(10px); display: flex; align-items: center; justify-content: center; text-align: center; padding: 20px;">
+        <h3 style="font-size: 32px; font-weight: 900; background: linear-gradient(90deg,var(--accent),var(--accent2)); -webkit-background-clip: text; color: transparent;">
+          FPGA DICE
+        </h3>
+      </div>
+      <div class="project-content">
+        <h3>FPGA-Based Electronic Dice Game</h3>
+        <p>Mar – May 2024<br>Verilog sequential logic design, ModelSim simulation, Quartus synthesis and deployment.</p>
+        <div class="tags">
+          <span class="tag">Verilog</span>
+          <span class="tag">FPGA</span>
+          <span class="tag">ModelSim</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 5. Washing Machine -->
+    <div class="project" data-tilt data-tilt-max="5" data-tilt-speed="400">
+      <div class="thumb" style="background: rgba(255,255,255,0.06); border: 1px solid var(--border); backdrop-filter: blur(10px); display: flex; align-items: center; justify-content: center; text-align: center; padding: 20px;">
+        <h3 style="font-size: 32px; font-weight: 900; background: linear-gradient(90deg,var(--accent),var(--accent2)); -webkit-background-clip: text; color: transparent;">
+          WASHING MACHINE
+        </h3>
+      </div>
+      <div class="project-content">
+        <h3>Microcontroller-Controlled Washing Machine</h3>
+        <p>Mar – May 2023<br>STM32L476RG control system with cycle selection, sensors, power management, and serial monitoring.</p>
+        <div class="tags">
+          <span class="tag">STM32</span>
+          <span class="tag">Embedded Systems</span>
+          <span class="tag">Automation</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
 
     <!-- Add more projects with real images for full effect -->
   </div>
