@@ -478,7 +478,7 @@
     <!-- Add more projects with real images for full effect -->
   </div>
   <!-- PROJECT MODALS -->
-<div class="modal" id="modal-exo">
+<div class="modal" id="modal-exo" aria-hidden="true">
   <div class="modal-content">
     <button class="modal-close" onclick="closeModal()">×</button>
     <h3>Intelligent Upper Limb Rehabilitation Exoskeleton</h3>
@@ -494,7 +494,7 @@
   </div>
 </div>
 
-<div class="modal" id="modal-a350">
+<div class="modal" id="modal-a350" aria-hidden="true">
   <div class="modal-content">
     <button class="modal-close" onclick="closeModal()">×</button>
     <h3>7 ft Wingspan Airbus A350 RC Airliner</h3>
@@ -509,7 +509,7 @@
   </div>
 </div>
 
-<div class="modal" id="modal-snake">
+<div class="modal" id="modal-snake" aria-hidden="true">
   <div class="modal-content">
     <button class="modal-close" onclick="closeModal()">×</button>
     <h3>Snake Game on ST Nucleo-L476RG</h3>
@@ -524,7 +524,7 @@
   </div>
 </div>
 
-<div class="modal" id="modal-dice">
+<div class="modal" id="modal-dice" aria-hidden="true">
   <div class="modal-content">
     <button class="modal-close" onclick="closeModal()">×</button>
     <h3>FPGA-Based Electronic Dice Game</h3>
@@ -539,7 +539,7 @@
   </div>
 </div>
 
-<div class="modal" id="modal-washer">
+<div class="modal" id="modal-washer" aria-hidden="true">
   <div class="modal-content">
     <button class="modal-close" onclick="closeModal()">×</button>
     <h3>Microcontroller-Controlled Washing Machine Prototype</h3>
@@ -615,27 +615,178 @@
       glare: true,
       "max-glare": 0.3,
     });
-        // === PROJECT MODAL FUNCTIONS ===
-    function openModal(id) {
-      document.getElementById(id).classList.add('active');
-      document.body.style.overflow = 'hidden'; // prevents background scroll
+
+    /* Animated card -> modal transition (shared-element style) */
+    let lastOpenedCard = null;
+
+    function openModalFromCard(card, modalId) {
+      const modal = document.getElementById(modalId);
+      if (!modal) return;
+      const modalContent = modal.querySelector('.modal-content');
+
+      // store which card opened the modal (used to reverse animation)
+      lastOpenedCard = card;
+
+      // get card rect
+      const cardRect = card.getBoundingClientRect();
+
+      // make modal visible immediately but keep modalContent unanimated so we can measure final size
+      modal.classList.add('active');
+      modal.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+
+      // remove transitions temporarily so we can set the starting transform
+      modalContent.style.transition = 'none';
+      modalContent.style.willChange = 'transform, opacity';
+
+      // Force layout so modalContent has a final size to measure
+      modalContent.getBoundingClientRect();
+      const finalRect = modalContent.getBoundingClientRect();
+
+      // compute centers
+      const cardCenterX = cardRect.left + cardRect.width / 2;
+      const cardCenterY = cardRect.top + cardRect.height / 2;
+      const finalCenterX = finalRect.left + finalRect.width / 2;
+      const finalCenterY = finalRect.top + finalRect.height / 2;
+
+      // compute translate (from final -> card) and scale (card -> final)
+      const translateX = cardCenterX - finalCenterX;
+      const translateY = cardCenterY - finalCenterY;
+      const scaleX = cardRect.width / finalRect.width;
+      const scaleY = cardRect.height / finalRect.height;
+
+      // apply starting transform so the modal-content visually sits over the card
+      // add a slight rotation for nice effect (optional)
+      modalContent.style.transform = `translate(${translateX}px, ${translateY}px) scale(${scaleX}, ${scaleY}) rotate(6deg)`;
+      modalContent.style.opacity = '0.98';
+
+      // Force reflow then animate to neutral transform
+      requestAnimationFrame(() => {
+        // enable smooth transition
+        modalContent.style.transition = 'transform 700ms cubic-bezier(0.22,1,0.36,1), opacity 500ms linear';
+        modalContent.style.transform = 'translate(0px, 0px) scale(1,1) rotate(0deg)';
+        modalContent.style.opacity = '1';
+      });
+
+      // focus management & trap
+      setTimeout(() => {
+        const focusable = modalContent.querySelector('button, [href], input, textarea, [tabindex]:not([tabindex="-1"])');
+        if (focusable) focusable.focus();
+        trapFocus(modal);
+      }, 300);
     }
+
+    function closeModalToCard() {
+      const modals = document.querySelectorAll('.modal');
+      modals.forEach(modal => {
+        if (!modal.classList.contains('active')) return;
+        const modalContent = modal.querySelector('.modal-content');
+
+        // if we have the originating card, animate back to it
+        if (lastOpenedCard) {
+          const cardRect = lastOpenedCard.getBoundingClientRect();
+          const finalRect = modalContent.getBoundingClientRect();
+          const cardCenterX = cardRect.left + cardRect.width / 2;
+          const cardCenterY = cardRect.top + cardRect.height / 2;
+          const finalCenterX = finalRect.left + finalRect.width / 2;
+          const finalCenterY = finalRect.top + finalRect.height / 2;
+
+          const translateX = cardCenterX - finalCenterX;
+          const translateY = cardCenterY - finalCenterY;
+          const scaleX = cardRect.width / finalRect.width;
+          const scaleY = cardRect.height / finalRect.height;
+
+          // animate back
+          modalContent.style.transition = 'transform 600ms cubic-bezier(0.22,1,0.36,1), opacity 400ms linear';
+          modalContent.style.transform = `translate(${translateX}px, ${translateY}px) scale(${scaleX}, ${scaleY}) rotate(6deg)`;
+          modalContent.style.opacity = '0.95';
+
+          // after animation, hide modal
+          setTimeout(() => {
+            modal.classList.remove('active');
+            modal.setAttribute('aria-hidden', 'true');
+            document.body.style.overflow = 'auto';
+            // reset transform
+            modalContent.style.transition = '';
+            modalContent.style.transform = '';
+            modalContent.style.opacity = '';
+          }, 650);
+        } else {
+          // fallback: just fade out
+          modalContent.style.transition = 'opacity 300ms linear, transform 300ms ease';
+          modalContent.style.opacity = '0';
+          setTimeout(() => {
+            modal.classList.remove('active');
+            modal.setAttribute('aria-hidden', 'true');
+            document.body.style.overflow = 'auto';
+            modalContent.style.transition = '';
+            modalContent.style.transform = '';
+            modalContent.style.opacity = '';
+          }, 320);
+        }
+        // remove focus trap listeners if present
+        if (modal._removeTrap) modal._removeTrap();
+        lastOpenedCard = null;
+      });
+    }
+
+    // wrapper so existing onclick="closeModal()" still works
     function closeModal() {
-      document.querySelectorAll('.modal').forEach(modal => {
-        modal.classList.remove('active');
-      });
-      document.body.style.overflow = 'auto';
+      closeModalToCard();
     }
-    // Close modal when clicking outside content
-    document.querySelectorAll('.modal').forEach(modal => {
-      modal.addEventListener('click', function(e) {
-        if (e.target === modal) closeModal();
-      });
+
+    // attach keyboard + overlay close and click handlers
+    document.addEventListener('click', function(e) {
+      // open when clicking project cards (preserve your current onclick usages or use data attributes)
+      const card = e.target.closest('.project');
+      if (card) {
+        // derive modal id from onclick attribute if present OR use data-modal attribute
+        const onclick = card.getAttribute('onclick');
+        const dataModal = card.dataset.modalId;
+        if (dataModal) {
+          openModalFromCard(card, dataModal);
+          return;
+        } else if (onclick) {
+          const match = onclick.match(/openModal\('(.+)'\)/);
+          if (match) {
+            openModalFromCard(card, match[1]);
+            return;
+          }
+        }
+      }
+
+      // close if clicking outside content
+      if (e.target.classList && e.target.classList.contains('modal')) {
+        closeModalToCard();
+      }
     });
-    // Optional: Close with Escape key
+
     document.addEventListener('keydown', function(e) {
-      if (e.key === 'Escape') closeModal();
+      if (e.key === 'Escape') closeModalToCard();
     });
+
+    // simple focus trap helper used earlier
+    function trapFocus(modal) {
+      const focusable = Array.from(modal.querySelectorAll('button, [href], input, textarea, [tabindex]:not([tabindex="-1"])'));
+      if (!focusable.length) return;
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      function handleKey(e) {
+        if (e.key === 'Tab') {
+          if (e.shiftKey && document.activeElement === first) {
+            e.preventDefault();
+            last.focus();
+          } else if (!e.shiftKey && document.activeElement === last) {
+            e.preventDefault();
+            first.focus();
+          }
+        } else if (e.key === 'Escape') {
+          closeModalToCard();
+        }
+      }
+      modal.addEventListener('keydown', handleKey);
+      modal._removeTrap = () => modal.removeEventListener('keydown', handleKey);
+    }
 
       
     emailjs.init("mmllGJ-sGdXW_WnEn");
