@@ -225,6 +225,39 @@
       text-align: center; padding: 100px 20px; color: #64748b;
     }
     footer a { color: var(--accent); text-decoration: none; }
+    /* PROJECT MODAL */
+.modal {
+  display: none;
+  position: fixed; inset: 0; z-index: 9999;
+  background: rgba(2,6,23,0.98);
+  backdrop-filter: blur(12px);
+  align-items: center; justify-content: center;
+  padding: 20px;
+  opacity: 0;
+  transition: opacity 0.4s;
+}
+.modal.active { display: flex; opacity: 1; }
+.modal-content {
+  background: rgba(255,255,255,0.06);
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  max-width: 900px; width: 100%;
+  max-height: 90vh; overflow-y: auto;
+  padding: 40px; position: relative;
+}
+.modal-close {
+  position: absolute; top: 20px; right: 30px;
+  font-size: 40px; color: var(--accent); cursor: pointer;
+  background: none; border: none;
+}
+.modal h3 {
+  font-size: 36px; margin-bottom: 16px;
+  background: linear-gradient(90deg,var(--accent),var(--accent2));
+  -webkit-background-clip: text; color: transparent;
+}
+.modal p { font-size: 18px; line-height: 1.8; margin: 16px 0; color: #cbd5e1; }
+.modal ul { margin: 20px 0; padding-left: 30px; }
+.modal li { margin: 12px 0; font-size: 17px; color: #e2e8f0; }
   </style>
 </head>
 <body>
@@ -293,102 +326,178 @@
 
   <div class="projects">
 
-    <!-- 1. Upper Limb Exoskeleton -->
-    <div class="project" data-tilt data-tilt-max="5" data-tilt-speed="400">
-      <div class="thumb" style="background: rgba(255,255,255,0.06); border: 1px solid var(--border); backdrop-filter: blur(10px); display: flex; align-items: center; justify-content: center; text-align: center; padding: 20px;">
-        <h3 style="font-size: 32px; font-weight: 900; background: linear-gradient(90deg,var(--accent),var(--accent2)); -webkit-background-clip: text; color: transparent;">
-          EXOSKELETON
-        </h3>
-      </div>
-      <div class="project-content">
-        <h3>Intelligent Upper Limb Rehabilitation Exoskeleton</h3>
-        <p>Oct 2024 – May 2025<br>Final-year project: Low-cost powered exoskeleton for elbow & wrist rehabilitation. SolidWorks design, 20% weight reduction, closed-loop control, remote therapy interface.</p>
-        <div class="tags">
-          <span class="tag">SolidWorks</span>
-          <span class="tag">Embedded C</span>
-          <span class="tag">Control Systems</span>
-          <span class="tag">Rehabilitation Robotics</span>
-        </div>
+  <!-- 1. EXOSKELETON -->
+  <div class="project" data-tilt data-tilt-max="5" data-tilt-speed="400" onclick="openModal('modal-exo')">
+    <div class="thumb" style="background: rgba(255,255,255,0.06); border: 1px solid var(--border); backdrop-filter: blur(10px); display: flex; align-items: center; justify-content: center; text-align: center; padding: 20px;">
+      <h3 style="font-size: 32px; font-weight: 900; background: linear-gradient(90deg,var(--accent),var(--accent2)); -webkit-background-clip: text; color: transparent;">
+        EXOSKELETON
+      </h3>
+    </div>
+    <div class="project-content">
+      <h3>Intelligent Upper Limb Rehabilitation Exoskeleton</h3>
+      <p>Oct 2024 – May 2025<br>Final-year project: Low-cost powered exoskeleton for elbow & wrist rehabilitation. SolidWorks design, 20% weight reduction, closed-loop control, remote therapy interface.</p>
+      <div class="tags">
+        <span class="tag">SolidWorks</span>
+        <span class="tag">Embedded C</span>
+        <span class="tag">Control Systems</span>
+        <span class="tag">Rehabilitation Robotics</span>
       </div>
     </div>
-
-    <!-- 2. A350 RC Aircraft -->
-    <div class="project" data-tilt data-tilt-max="5" data-tilt-speed="400">
-      <div class="thumb" style="background: rgba(255,255,255,0.06); border: 1px solid var(--border); backdrop-filter: blur(10px); display: flex; align-items: center; justify-content: center; text-align: center; padding: 20px;">
-        <h3 style="font-size: 32px; font-weight: 900; background: linear-gradient(90deg,var(--accent),var(--accent2)); -webkit-background-clip: text; color: transparent;">
-          A350 AIRLINER
-        </h3>
-      </div>
-      <div class="project-content">
-        <h3>7 ft Airbus A350 RC Airliner</h3>
-        <p>Mar 2020 – Feb 2021<br>7 ft wingspan EDF-powered scale model. Depron foam & carbon fibre, ATmega328P flight controller, 20% weight reduction.</p>
-        <div class="tags">
-          <span class="tag">Aerodynamics</span>
-          <span class="tag">Arduino</span>
-          <span class="tag">Carbon Fibre</span>
-          <span class="tag">Prototyping</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- 3. Snake Game -->
-    <div class="project" data-tilt data-tilt-max="5" data-tilt-speed="400">
-      <div class="thumb" style="background: rgba(255,255,255,0.06); border: 1px solid var(--border); backdrop-filter: blur(10px); display: flex; align-items: center; justify-content: center; text-align: center; padding: 20px;">
-        <h3 style="font-size: 32px; font-weight: 900; background: linear-gradient(90deg,var(--accent),var(--accent2)); -webkit-background-clip: text; color: transparent;">
-          SNAKE GAME
-        </h3>
-      </div>
-      <div class="project-content">
-        <h3>Snake Game on ST Nucleo-L476RG</h3>
-        <p>Mar – May 2024<br>Full C++ implementation with joystick, LCD display, and buzzer. Real-time peripheral integration.</p>
-        <div class="tags">
-          <span class="tag">Embedded C</span>
-          <span class="tag">STM32</span>
-          <span class="tag">Peripherals</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- 4. FPGA Dice -->
-    <div class="project" data-tilt data-tilt-max="5" data-tilt-speed="400">
-      <div class="thumb" style="background: rgba(255,255,255,0.06); border: 1px solid var(--border); backdrop-filter: blur(10px); display: flex; align-items: center; justify-content: center; text-align: center; padding: 20px;">
-        <h3 style="font-size: 32px; font-weight: 900; background: linear-gradient(90deg,var(--accent),var(--accent2)); -webkit-background-clip: text; color: transparent;">
-          FPGA DICE
-        </h3>
-      </div>
-      <div class="project-content">
-        <h3>FPGA-Based Electronic Dice Game</h3>
-        <p>Mar – May 2024<br>Verilog sequential logic design, ModelSim simulation, Quartus synthesis and deployment.</p>
-        <div class="tags">
-          <span class="tag">Verilog</span>
-          <span class="tag">FPGA</span>
-          <span class="tag">ModelSim</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- 5. Washing Machine -->
-    <div class="project" data-tilt data-tilt-max="5" data-tilt-speed="400">
-      <div class="thumb" style="background: rgba(255,255,255,0.06); border: 1px solid var(--border); backdrop-filter: blur(10px); display: flex; align-items: center; justify-content: center; text-align: center; padding: 20px;">
-        <h3 style="font-size: 32px; font-weight: 900; background: linear-gradient(90deg,var(--accent),var(--accent2)); -webkit-background-clip: text; color: transparent;">
-          WASHING MACHINE
-        </h3>
-      </div>
-      <div class="project-content">
-        <h3>Microcontroller-Controlled Washing Machine</h3>
-        <p>Mar – May 2023<br>STM32L476RG control system with cycle selection, sensors, power management, and serial monitoring.</p>
-        <div class="tags">
-          <span class="tag">STM32</span>
-          <span class="tag">Embedded Systems</span>
-          <span class="tag">Automation</span>
-        </div>
-      </div>
-    </div>
-
   </div>
+
+  <!-- 2. A350 -->
+  <div class="project" data-tilt data-tilt-max="5" data-tilt-speed="400" onclick="openModal('modal-a350')">
+    <div class="thumb" style="background: rgba(255,255,255,0.06); border: 1px solid var(--border); backdrop-filter: blur(10px); display: flex; align-items: center; justify-content: center; text-align: center; padding: 20px;">
+      <h3 style="font-size: 32px; font-weight: 900; background: linear-gradient(90deg,var(--accent),var(--accent2)); -webkit-background-clip: text; color: transparent;">
+        A350 AIRLINER
+      </h3>
+    </div>
+    <div class="project-content">
+      <h3>7 ft Airbus A350 RC Airliner</h3>
+      <p>Mar 2020 – Feb 2021<br>7 ft wingspan EDF-powered scale model. Depron foam & carbon fibre, ATmega328P flight controller, 20% weight reduction.</p>
+      <div class="tags">
+        <span class="tag">Aerodynamics</span>
+        <span class="tag">Arduino</span>
+        <span class="tag">Carbon Fibre</span>
+        <span class="tag">Prototyping</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. SNAKE GAME -->
+  <div class="project" data-tilt data-tilt-max="5" data-tilt-speed="400" onclick="openModal('modal-snake')">
+    <div class="thumb" style="background: rgba(255,255,255,0.06); border: 1px solid var(--border); backdrop-filter: blur(10px); display: flex; align-items: center; justify-content: center; text-align: center; padding: 20px;">
+      <h3 style="font-size: 32px; font-weight: 900; background: linear-gradient(90deg,var(--accent),var(--accent2)); -webkit-background-clip: text; color: transparent;">
+        SNAKE GAME
+      </h3>
+    </div>
+    <div class="project-content">
+      <h3>Snake Game on ST Nucleo-L476RG</h3>
+      <p>Mar – May 2024<br>Full C++ implementation with joystick, LCD display, and buzzer. Real-time peripheral integration.</p>
+      <div class="tags">
+        <span class="tag">Embedded C</span>
+        <span class="tag">STM32</span>
+        <span class="tag">Peripherals</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. FPGA DICE -->
+  <div class="project" data-tilt data-tilt-max="5" data-tilt-speed="400" onclick="openModal('modal-dice')">
+    <div class="thumb" style="background: rgba(255,255,255,0.06); border: 1px solid var(--border); backdrop-filter: blur(10px); display: flex; align-items: center; justify-content: center; text-align: center; padding: 20px;">
+      <h3 style="font-size: 32px; font-weight: 900; background: linear-gradient(90deg,var(--accent),var(--accent2)); -webkit-background-clip: text; color: transparent;">
+        FPGA DICE
+      </h3>
+    </div>
+    <div class="project-content">
+      <h3>FPGA-Based Electronic Dice Game</h3>
+      <p>Mar – May 2024<br>Verilog sequential logic design, ModelSim simulation, Quartus synthesis and deployment.</p>
+      <div class="tags">
+        <span class="tag">Verilog</span>
+        <span class="tag">FPGA</span>
+        <span class="tag">ModelSim</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 5. WASHING MACHINE -->
+  <div class="project" data-tilt data-tilt-max="5" data-tilt-speed="400" onclick="openModal('modal-washer')">
+    <div class="thumb" style="background: rgba(255,255,255,0.06); border: 1px solid var(--border); backdrop-filter: blur(10px); display: flex; align-items: center; justify-content: center; text-align: center; padding: 20px;">
+      <h3 style="font-size: 32px; font-weight: 900; background: linear-gradient(90deg,var(--accent),var(--accent2)); -webkit-background-clip: text; color: transparent;">
+        WASHING MACHINE
+      </h3>
+    </div>
+    <div class="project-content">
+      <h3>Microcontroller-Controlled Washing Machine Prototype</h3>
+      <p>Mar – May 2023<br>STM32L476RG control system with cycle selection, sensors, power management, and serial monitoring.</p>
+      <div class="tags">
+        <span class="tag">STM32</span>
+        <span class="tag">Embedded Systems</span>
+        <span class="tag">Automation</span>
+      </div>
+    </div>
+  </div>
+
+</div>
 
     <!-- Add more projects with real images for full effect -->
   </div>
+  <!-- PROJECT MODALS -->
+<div class="modal" id="modal-exo">
+  <div class="modal-content">
+    <button class="modal-close" onclick="closeModal()">×</button>
+    <h3>Intelligent Upper Limb Rehabilitation Exoskeleton</h3>
+    <p><strong>Oct 2024 – May 2025 | Final-Year BEng Project, University of Leeds</strong></p>
+    <p>For my final-year project, I designed and delivered a low-cost, lightweight powered exoskeleton focused on elbow and wrist rehabilitation for stroke patients and individuals with upper-limb motor impairments.</p>
+    <ul>
+      <li>Conducted full mechanical design in SolidWorks: topology optimisation + strategic material selection (PLA, carbon fibre inserts, aluminium linkages) → achieved <strong>20% overall weight reduction</strong> while maintaining structural integrity under 5 kg load</li>
+      <li>Developed closed-loop position and force control algorithms in embedded C running on STM32, with real-time sensor fusion (IMUs + flex sensors)</li>
+      <li>Built a remote therapy interface (Python + serial communication) allowing clinicians to run automated movement assessments, log progress, and adjust therapy parameters remotely</li>
+      <li>3D-printed functional prototype with integrated actuation, tested joint range of motion and control accuracy</li>
+      <li>End-to-end ownership: concept → CAD → firmware → prototyping → testing → documentation</li>
+    </ul>
+  </div>
+</div>
+
+<div class="modal" id="modal-a350">
+  <div class="modal-content">
+    <button class="modal-close" onclick="closeModal()">×</button>
+    <h3>7 ft Wingspan Airbus A350 RC Airliner</h3>
+    <p><strong>Mar 2020 – Feb 2021 | Personal Passion Project</strong></p>
+    <p>Designed, constructed, and successfully flew a 7 ft (2.1 m) wingspan EDF-powered scale model of the Airbus A350-900 — one of the largest and most detailed RC airliners built by a high-school student in India at the time.</p>
+    <ul>
+      <li>Full aerodynamic design and airframe construction using Depron foam reinforced with carbon fibre spars and fibreglass → <strong>20% weight reduction</strong> compared to traditional balsa builds</li>
+      <li>Custom flight controller based on ATmega328P (Arduino architecture) with full integration of ailerons, flaps, elevators, rudder, retracts, and dual 70 mm EDF units</li>
+      <li>Applied control surface mixing, expo tuning, and failsafe logic for stable maiden flight</li>
+      <li>Demonstrated advanced skills in prototyping, composite materials, systems integration, and applied aerodynamics from initial sketches to multiple successful flights</li>
+    </ul>
+  </div>
+</div>
+
+<div class="modal" id="modal-snake">
+  <div class="modal-content">
+    <button class="modal-close" onclick="closeModal()">×</button>
+    <h3>Snake Game on ST Nucleo-L476RG</h3>
+    <p><strong>Mar – May 2024 | Embedded Systems Course, University of Leeds</strong></p>
+    <p>Implemented the classic Snake game from scratch in C++ on bare-metal STM32L476RG — a complete real-time embedded application with zero external libraries.</p>
+    <ul>
+      <li>Integrated multiple peripherals simultaneously: 4-direction joystick for input, 16×2 LCD for graphics rendering, and buzzer for sound effects</li>
+      <li>Designed clean state-machine architecture with interrupt-driven controls and debouncing</li>
+      <li>Full firmware development cycle using Mbed/Keil Studio: writing drivers, memory management, timing optimisation, and thorough debugging</li>
+      <li>Delivered a responsive, polished game running at 60+ FPS on constrained hardware</li>
+    </ul>
+  </div>
+</div>
+
+<div class="modal" id="modal-dice">
+  <div class="modal-content">
+    <button class="modal-close" onclick="closeModal()">×</button>
+    <h3>FPGA-Based Electronic Dice Game</h3>
+    <p><strong>Mar – May 2024 | Digital Systems Course, University of Leeds</strong></p>
+    <p>Designed and implemented a fully functional 1–6 electronic dice roller entirely in Verilog HDL on an Intel FPGA development board.</p>
+    <ul>
+      <li>Created pseudo-random number generation using linear-feedback shift register (LFSR)</li>
+      <li>Built complete sequential logic: button debouncing, seven-segment display driver, roll animation, and hold state</li>
+      <li>Wrote modular testbenches in ModelSim to verify functionality at gate level before synthesis</li>
+      <li>Successfully synthesised, performed timing analysis in Quartus, and deployed on real hardware</li>
+    </ul>
+  </div>
+</div>
+
+<div class="modal" id="modal-washer">
+  <div class="modal-content">
+    <button class="modal-close" onclick="closeModal()">×</button>
+    <h3>Microcontroller-Controlled Washing Machine Prototype</h3>
+    <p><strong>Mar – May 2023 | Embedded Systems Course</strong></p>
+    <p>Designed and built a complete washing machine control system using the STM32L476RG microcontroller — simulating a real domestic appliance control panel.</p>
+    <ul>
+      <li>Implemented full feature set: wash cycle selection, water level sensing, temperature control, motor direction/speed control, and door lock safety interlock</li>
+      <li>Real-time serial monitoring interface for diagnostics and parameter tuning</li>
+      <li>Developed robust state machine handling timing, sensor inputs, and fault detection</li>
+      <li>Demonstrated strong embedded systems skills: peripheral configuration, interrupt handling, and hardware-software co-design</li>
+    </ul>
+  </div>
+</div>
 
   <!-- CONTACT -->
   <h2 class="section-title" id="contact">Contact</h2>
@@ -450,6 +559,27 @@
       speed: 400,
       glare: true,
       "max-glare": 0.3,
+    });
+        // === PROJECT MODAL FUNCTIONS ===
+    function openModal(id) {
+      document.getElementById(id).classList.add('active');
+      document.body.style.overflow = 'hidden'; // prevents background scroll
+    }
+    function closeModal() {
+      document.querySelectorAll('.modal').forEach(modal => {
+        modal.classList.remove('active');
+      });
+      document.body.style.overflow = 'auto';
+    }
+    // Close modal when clicking outside content
+    document.querySelectorAll('.modal').forEach(modal => {
+      modal.addEventListener('click', function(e) {
+        if (e.target === modal) closeModal();
+      });
+    });
+    // Optional: Close with Escape key
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') closeModal();
     });
 
       
