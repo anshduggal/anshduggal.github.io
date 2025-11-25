@@ -382,30 +382,26 @@
   <div class="projects">
 
   <!-- 1. EXOSKELETON -->
-  <div class="project" data-tilt data-tilt-max="5" data-tilt-speed="400" onclick="openModal('modal-exo')">
-    <div class="thumb" style="background: rgba(255,255,255,0.06); border: 1px solid var(--border); backdrop-filter: blur(10px); display: flex; align-items: center; justify-content: center; text-align: center; padding: 20px;">
-      <h3 style="font-size: 32px; font-weight: 900; background: linear-gradient(90deg,var(--accent),var(--accent2)); -webkit-background-clip: text; color: transparent;">
+<div class="project" data-tilt data-tilt-max="5" data-tilt-speed="400" onclick="openModal('modal-exo')">
+  <div class="thumb" style="background: rgba(255,255,255,0.06); border: 1px solid var(--border); backdrop-filter: blur(10px); display: flex; align-items: center; justify-content: center; text-align: center; padding: 20px; cursor: pointer;">
+    <!-- THIS LINE MAKES THE TITLE CLICKABLE TO OPEN PDF -->
+    <a href="project_summary.pdf" target="_blank" style="text-decoration: none; pointer-events: auto;">
+      <h3 style="font-size: 32px; font-weight: 900; background: linear-gradient(90deg,var(--accent),var(--accent2)); -webkit-background-clip: text; color: transparent; margin: 0;">
         EXOSKELETON
       </h3>
-    </div>
-    <div class="project-content">
-      <h3>Intelligent Upper Limb Rehabilitation Exoskeleton</h3>
-      <p>Oct 2024 – May 2025<br>Final-year project: Low-cost powered exoskeleton for elbow & wrist rehabilitation. SolidWorks design, 20% weight reduction, closed-loop control, remote therapy interface.</p>
-      <div class="tags">
-        <span class="tag">SolidWorks</span>
-        <span class="tag">Embedded C</span>
-        <span class="tag">Control Systems</span>
-        <span class="tag">Rehabilitation Robotics</span>
-      </div>
+    </a>
+  </div>
+  <div class="project-content">
+    <h3>Intelligent Upper Limb Rehabilitation Exoskeleton</h3>
+    <p>Oct 2024 – May 2025<br>Final-year project: Low-cost powered exoskeleton for elbow & wrist rehabilitation. SolidWorks design, 20% weight reduction, closed-loop control, remote therapy interface.</p>
+    <div class="tags">
+      <span class="tag">SolidWorks</span>
+      <span class="tag">Embedded C</span>
+      <span class="tag">Control Systems</span>
+      <span class="tag">Rehabilitation Robotics</span>
     </div>
   </div>
-    <div style="margin-top: 22px;">
-  <a href="project summary.pdf" target="_blank"
-     style="color: var(--accent); font-size: 16px; font-weight: 600; text-decoration: none; border-bottom: 2px solid var(--accent); padding-bottom: 2px; transition: all 0.3s;">
-     Project Summary (PDF)
-  </a>
 </div>
-
   <!-- 2. A350 -->
   <div class="project" data-tilt data-tilt-max="5" data-tilt-speed="400" onclick="openModal('modal-a350')">
     <div class="thumb" style="background: rgba(255,255,255,0.06); border: 1px solid var(--border); backdrop-filter: blur(10px); display: flex; align-items: center; justify-content: center; text-align: center; padding: 20px;">
