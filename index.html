@@ -42,6 +42,35 @@
       background: repeating-linear-gradient(0deg, rgba(0,0,0,0.05), rgba(0,0,0,0.05) 2px, transparent 2px, transparent 4px);
       mix-blend-mode: overlay;
     }
+
+    /* NEON RING + DOT CURSOR */
+    .neon-cursor {
+      position: fixed;
+      width: 40px; height: 40px;
+      border: 2px solid var(--accent);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9999;
+      transform: translate(-50%, -50%);
+      box-shadow: 0 0 20px var(--accent), 0 0 40px var(--accent), inset 0 0 20px var(--accent);
+      animation: pulse 2s infinite;
+      transition: transform 0.1s ease;
+    }
+    .neon-dot {
+      position: fixed;
+      width: 8px; height: 8px;
+      background: white;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9999;
+      transform: translate(-50%, -50%);
+      box-shadow: 0 0 15px 3px white;
+    }
+    @keyframes pulse {
+      0%, 100% { box-shadow: 0 0 20px var(--accent), 0 0 40px var(--accent), inset 0 0 20px var(--accent); }
+      50% { box-shadow: 0 0 30px var(--accent), 0 0 60px var(--accent), inset 0 0 30px var(--accent); }
+    }
+
     nav {
       position: fixed; top: 0; left: 0; width: 100%; padding: 20px 40px;
       display: flex; justify-content: space-between; align-items: center;
@@ -58,6 +87,7 @@
     }
     nav a:hover { color: var(--accent); }
     nav a:hover::after { width: 100%; }
+
     .hero {
       height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center;
       text-align: center; padding: 0 20px;
@@ -87,6 +117,7 @@
       transition: all 1.2s cubic-bezier(0.22,1,0.36,1);
     }
     .section-title.visible { opacity: 1; transform: translateY(0); }
+
     .skills {
       max-width: 1300px; margin: 0 auto; display: flex; flex-wrap: wrap; gap: 18px; justify-content: center; padding: 0 20px;
     }
@@ -99,6 +130,7 @@
       background: var(--accent); color: #000; transform: translateY(-10px) scale(1.1);
       box-shadow: 0 20px 40px rgba(0,234,255,0.4);
     }
+
     .projects {
       max-width: 1400px; margin: 0 auto; padding: 0 40px;
       display: grid; grid-template-columns: repeat(auto-fill, minmax(380px, 1fr)); gap: 40px;
@@ -128,6 +160,7 @@
       border-radius: 8px; font-size: 13px; font-weight: 600; transition: 0.3s;
     }
     .tag:hover { background: var(--accent); color: #000; }
+
     .contact {
       max-width: 800px; margin: 0 auto 200px; padding: 0 20px; text-align: center;
     }
@@ -152,6 +185,7 @@
       text-align: center; padding: 100px 20px; color: #64748b;
     }
     footer a { color: var(--accent); text-decoration: none; }
+
     .modal {
       display: none; position: fixed; inset: 0; z-index: 9999;
       background: rgba(2,6,23,0.98); backdrop-filter: blur(16px);
@@ -163,33 +197,25 @@
     .modal-content {
       background: rgba(255,255,255,0.06); border: 1px solid rgba(0,234,255,0.3);
       border-radius: 28px; max-width: 920px; width: 100%; max-height: 92vh;
-      overflow-y: auto; padding: 50px; position: relative; box-shadow:
-        0 30px 100px rgba(0,234,255,0.25),
-        0 0 120px rgba(168,85,247,0.15),
-        inset 0 0 60px rgba(0,234,255,0.08);
+      overflow-y: auto; padding: 50px; position: relative;
+      box-shadow: 0 30px 100px rgba(0,234,255,0.25), 0 0 120px rgba(168,85,247,0.15), inset 0 0 60px rgba(0,234,255,0.08);
       transform: scale(0.86) translateY(60px) rotateX(8deg); opacity: 0;
       transition: all 0.85s cubic-bezier(0.22,1,0.36,1); transform-origin: center bottom;
     }
-    .modal.active .modal-content {
-      transform: scale(1) translateY(0) rotateX(0deg); opacity: 1;
-    }
+    .modal.active .modal-content { transform: scale(1) translateY(0) rotateX(0deg); opacity: 1; }
     .modal-close {
       position: absolute; top: 20px; right: 26px;
       font-size: 36px; width: 46px; height: 46px; line-height: 46px;
       color: var(--accent); background: none; border: none;
       cursor: pointer; opacity: 0.8; transition: all 0.3s;
     }
-    .modal-close:hover {
-      transform: scale(1.3) rotate(90deg); opacity: 1;
-    }
+    .modal-close:hover { transform: scale(1.3) rotate(90deg); opacity: 1; }
     .modal h3 {
       font-size: 42px; margin-bottom: 20px; font-weight: 900;
       background: linear-gradient(90deg,var(--accent),var(--accent2));
       -webkit-background-clip: text; color: transparent;
     }
-    .modal p, .modal li {
-      font-size: 18px; line-height: 1.9; color: #e2e8f0;
-    }
+    .modal p, .modal li { font-size: 18px; line-height: 1.9; color: #e2e8f0; }
     .modal ul { margin: 28px 0; padding-left: 36px; }
     .modal li { margin: 16px 0; }
 
@@ -207,6 +233,10 @@
   </style>
 </head>
 <body>
+  <!-- NEON CURSOR -->
+  <div class="neon-cursor"></div>
+  <div class="neon-dot"></div>
+
   <div class="bg-grid"></div>
   <div class="parallax-layer"></div>
   <div class="scanlines"></div>
@@ -224,15 +254,15 @@
   <section class="hero" id="about">
     <div class="avatar">AD</div>
     <h1>Ansh Duggal</h1>
-    <p>BEng Mechatronics & Robotics — Exoskeletons • High-Precision Embedded • Autonomous Systems</p>
+    <p>BEng Mechatronics & Robotics — Exoskeletons • High-Precision Embedded Systems • Autonomous Machines</p>
   </section>
 
   <section style="max-width: 1100px; margin: 0 auto; padding: 0 40px; text-align: center; margin-bottom: 140px;">
     <h2 class="section-title">About Me</h2>
     <p style="font-size: 22px; line-height: 1.8; color: #cbd5e1; max-width: 900px; margin: 0 auto;">
       BEng Mechatronics & Robotics graduate, University of Leeds 2025.<br><br>
-      Designed and built a lightweight upper-limb rehabilitation exoskeleton with closed-loop control, 20% weight reduction, and remote therapy interface as my final-year project.<br><br>
-      Full-stack robotics experience: embedded C/C++, STM32/RP2040, real-time control, FPGA (Verilog), SolidWorks, sensor fusion, 3D printing/CNC, and hardware-software co-design.
+      Designed and delivered a lightweight upper-limb rehabilitation exoskeleton with closed-loop control, 20% weight reduction via topology & material optimisation, and a remote therapy interface as my final-year project.<br><br>
+      Hands-on expertise across the full robotics stack: embedded C/C++, STM32 & RP2040 firmware, real-time control systems, FPGA development (Verilog), SolidWorks mechanical design, 3D printing/CNC prototyping, sensor fusion, and hardware-software integration.
     </p>
   </section>
 
@@ -244,7 +274,7 @@
     <span class="chip">SolidWorks • Fusion 360</span>
     <span class="chip">Kinematics & Dynamics</span>
     <span class="chip">FPGA • Verilog</span>
-    <span class="chip">ROS2 • Python</span>
+    <span class="chip">ROS2 • Python Robotics</span>
     <span class="chip">Real-Time Systems</span>
     <span class="chip">3D Printing • CNC</span>
     <span class="chip">Power Electronics</span>
@@ -258,38 +288,48 @@
 
   <h2 class="section-title" id="projects">Projects</h2>
   <div class="projects">
+
+    <!-- 1. EXOSKELETON -->
     <div class="project" data-tilt onclick="openModal('modal-exo')">
-      <div class="thumb"><img src="exo_main.jpg" alt="Upper-limb exoskeleton prototype"></div>
+      <div class="thumb">
+        <img src="exo_main.jpg" alt="Upper-limb exoskeleton prototype">
+      </div>
       <div class="project-content">
-        <h3>Intelligent Upper-Limb Rehabilitation Exoskeleton</h3>
-        <p>Oct 2024 – May 2025<br>Final-year project • 20% lighter design • Closed-loop control • Remote therapy</p>
+        <h3>Intelligent Upper Limb Rehabilitation Exoskeleton</h3>
+        <p>Oct 2024 – May 2025<br>Final-year project: Low-cost powered exoskeleton for elbow & wrist rehabilitation.</p>
         <div class="tags">
           <span class="tag">SolidWorks</span>
           <span class="tag">Embedded C</span>
           <span class="tag">Control Systems</span>
-          <span class="tag">Medical Robotics</span>
+          <span class="tag">Rehabilitation Robotics</span>
         </div>
       </div>
     </div>
 
+    <!-- 2. A350 -->
     <div class="project" data-tilt onclick="openModal('modal-a350')">
-      <div class="thumb"><img src="a350.jpg" alt="7ft RC Airbus A350"></div>
+      <div class="thumb">
+        <img src="a350.jpg" alt="7ft Airbus A350 RC airliner">
+      </div>
       <div class="project-content">
         <h3>7 ft Airbus A350 RC Airliner</h3>
-        <p>Mar 2020 – Feb 2021<br>EDF-powered scale model • Carbon fibre & Depron • Custom flight controller</p>
+        <p>Mar 2020 – Feb 2021<br>EDF-powered scale model with custom flight controller.</p>
         <div class="tags">
           <span class="tag">Aerodynamics</span>
           <span class="tag">Arduino</span>
-          <span class="tag">Composites</span>
+          <span class="tag">Carbon Fibre</span>
         </div>
       </div>
     </div>
 
+    <!-- 3. SNAKE GAME -->
     <div class="project" data-tilt onclick="openModal('modal-snake')">
-      <div class="thumb"><img src="snake.jpg" alt="Snake game on STM32"></div>
+      <div class="thumb">
+        <img src="snake.jpg" alt="Snake game on STM32">
+      </div>
       <div class="project-content">
-        <h3>Snake Game on STM32 Nucleo</h3>
-        <p>Bare-metal C++ • LCD + Joystick + Buzzer • Real-time embedded</p>
+        <h3>Snake Game on ST Nucleo-L476RG</h3>
+        <p>Mar – May 2024<br>Bare-metal C++ with joystick, LCD, and buzzer.</p>
         <div class="tags">
           <span class="tag">Embedded C</span>
           <span class="tag">STM32</span>
@@ -298,81 +338,119 @@
       </div>
     </div>
 
+    <!-- 4. FPGA DICE -->
     <div class="project" data-tilt onclick="openModal('modal-dice')">
-      <div class="thumb"><img src="fpga_dice.jpg" alt="FPGA electronic dice"></div>
+      <div class="thumb">
+        <img src="fpga_dice.jpg" alt="FPGA electronic dice">
+      </div>
       <div class="project-content">
-        <h3>FPGA Electronic Dice (Verilog)</h3>
-        <p>LFSR random generation • 7-segment driver • ModelSim verification</p>
+        <h3>FPGA-Based Electronic Dice Game</h3>
+        <p>Mar – May 2024<br>Verilog, ModelSim simulation, Quartus deployment.</p>
         <div class="tags">
           <span class="tag">Verilog</span>
           <span class="tag">FPGA</span>
-          <span class="tag">Quartus</span>
+          <span class="tag">ModelSim</span>
         </div>
       </div>
     </div>
 
+    <!-- 5. WASHING MACHINE -->
     <div class="project" data-tilt onclick="openModal('modal-washer')">
-      <div class="thumb"><img src="washing_machine.jpg" alt="STM32 washing machine prototype"></div>
+      <div class="thumb">
+        <img src="washing_machine.jpg" alt="Washing machine controller">
+      </div>
       <div class="project-content">
-        <h3>Smart Washing Machine Controller</h3>
-        <p>Full cycle control • Sensors • Safety interlocks • Serial monitoring</p>
+        <h3>Microcontroller-Controlled Washing Machine</h3>
+        <p>Mar – May 2023<br>Full appliance control with sensors and safety interlocks.</p>
         <div class="tags">
           <span class="tag">STM32</span>
-          <span class="tag">Embedded</span>
+          <span class="tag">Embedded Systems</span>
           <span class="tag">Automation</span>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- MODALS (unchanged) -->
-  <div class="modal" id="modal-exo"><div class="modal-content">
-    <button class="modal-close" onclick="closeModal()">x</button>
-    <h3>Intelligent Upper-Limb Rehabilitation Exoskeleton</h3>
-    <p><strong>Oct 2024 – May 2025 | Final-Year Project, University of Leeds</strong></p>
-    <p>Low-cost powered exoskeleton for elbow & wrist rehabilitation.</p>
-    <ul>
-      <li>Full mechanical design in SolidWorks → 20% weight reduction via topology optimisation</li>
-      <li>Closed-loop control (STM32) with IMUs + flex sensors</li>
-      <li>Remote therapy dashboard (Python + serial)</li>
-      <li>Functional 3D-printed prototype tested on human arm</li>
-    </ul>
-    <p><a href="exoskeleton_report.pdf" target="_blank" style="color:var(--accent);">Download Full Report (PDF)</a></p>
-  </div></div>
+  <!-- FULL DETAILED MODALS (your original rich content) -->
+  <div class="modal" id="modal-exo">
+    <div class="modal-content">
+      <button class="modal-close" onclick="closeModal()">×</button>
+      <h3>Intelligent Upper Limb Rehabilitation Exoskeleton</h3>
+      <p><strong>Oct 2024 – May 2025 | Final-Year BEng Project, University of Leeds</strong></p>
+      <p>For my final-year project, I designed and delivered a low-cost, lightweight powered exoskeleton focused on elbow and wrist rehabilitation for stroke patients and individuals with upper-limb motor impairments.</p>
+      <ul>
+        <li>Conducted full mechanical design in SolidWorks: topology optimisation + strategic material selection (PLA, carbon fibre inserts, aluminium linkages) → achieved <strong>20% overall weight reduction</strong> while maintaining structural integrity under 5 kg load</li>
+        <li>Developed closed-loop position and force control algorithms in embedded C running on STM32, with real-time sensor fusion (IMUs + flex sensors)</li>
+        <li>Built a remote therapy interface (Python + serial communication) allowing clinicians to run automated movement assessments, log progress, and adjust therapy parameters remotely</li>
+        <li>3D-printed functional prototype with integrated actuation, tested joint range of motion and control accuracy</li>
+        <li>End-to-end ownership: concept → CAD → firmware → prototyping → testing → documentation</li>
+      </ul>
+    </div>
+  </div>
 
-  <div class="modal" id="modal-a350"><div class="modal-content">
-    <button class="modal-close" onclick="closeModal()">x</button>
-    <h3>7 ft Wingspan Airbus A350 RC Airliner</h3>
-    <p><strong>Personal Project • 2020–2021</strong></p>
-    <p>One of the largest RC airliners built by a high-school student in India at the time.</p>
-    <ul>
-      <li>Carbon fibre + Depron construction → 20% lighter than balsa</li>
-      <li>Custom ATmega328P flight controller</li>
-      <li>Multiple successful flights</li>
-    </ul>
-  </div></div>
+  <div class="modal" id="modal-a350">
+    <div class="modal-content">
+      <button class="modal-close" onclick="closeModal()">×</button>
+      <h3>7 ft Wingspan Airbus A350 RC Airliner</h3>
+      <p><strong>Mar 2020 – Feb 2021 | Personal Passion Project</strong></p>
+      <p>Designed, constructed, and successfully flew a 7 ft (2.1 m) wingspan EDF-powered scale model of the Airbus A350-900 — one of the largest and most detailed RC airliners built by a high-school student in India at the time.</p>
+      <ul>
+        <li>Full aerodynamic design and airframe construction using Depron foam reinforced with carbon fibre spars and fibreglass → <strong>20% weight reduction</strong> compared to traditional balsa builds</li>
+        <li>Custom flight controller based on ATmega328P (Arduino architecture) with full integration of ailerons, flaps, elevators, rudder, retracts, and dual 70 mm EDF units</li>
+        <li>Applied control surface mixing, expo tuning, and failsafe logic for stable maiden flight</li>
+        <li>Demonstrated advanced skills in prototyping, composite materials, systems integration, and applied aerodynamics from initial sketches to multiple successful flights</li>
+      </ul>
+    </div>
+  </div>
 
-  <div class="modal" id="modal-snake"><div class="modal-content">
-    <button class="modal-close" onclick="closeModal()">x</button>
-    <h3>Snake Game on STM32 Nucleo-L476RG</h3>
-    <p>Fully functional game in bare-metal C++ with joystick, LCD, and sound.</p>
-  </div></div>
+  <div class="modal" id="modal-snake">
+    <div class="modal-content">
+      <button class="modal-close" onclick="closeModal()">×</button>
+      <h3>Snake Game on ST Nucleo-L476RG</h3>
+      <p><strong>Mar – May 2024 | Embedded Systems Course, University of Leeds</strong></p>
+      <p>Implemented the classic Snake game from scratch in C++ on bare-metal STM32L476RG — a complete real-time embedded application with zero external libraries.</p>
+      <ul>
+        <li>Integrated multiple peripherals simultaneously: 4-direction joystick for input, 16×2 LCD for graphics rendering, and buzzer for sound effects</li>
+        <li>Designed clean state-machine architecture with interrupt-driven controls and debouncing</li>
+        <li>Full firmware development cycle using Mbed/Keil Studio: writing drivers, memory management, timing optimisation, and thorough debugging</li>
+        <li>Delivered a responsive, polished game running at 60+ FPS on constrained hardware</li>
+      </ul>
+    </div>
+  </div>
 
-  <div class="modal" id="modal-dice"><div class="modal-content">
-    <button class="modal-close" onclick="closeModal()">x</button>
-    <h3>FPGA Electronic Dice (Verilog)</h3>
-    <p>Pseudo-random generation, animation, and 7-segment display driver.</p>
-  </div></div>
+  <div class="modal" id="modal-dice">
+    <div class="modal-content">
+      <button class="modal-close" onclick="closeModal()">×</button>
+      <h3>FPGA-Based Electronic Dice Game</h3>
+      <p><strong>Mar – May 2024 | Digital Systems Course, University of Leeds</strong></p>
+      <p>Designed and implemented a fully functional 1–6 electronic dice roller entirely in Verilog HDL on an Intel FPGA development board.</p>
+      <ul>
+        <li>Created pseudo-random number generation using linear-feedback shift register (LFSR)</li>
+        <li>Built complete sequential logic: button debouncing, seven-segment display driver, roll animation, and hold state</li>
+        <li>Wrote modular testbenches in ModelSim to verify functionality at gate level before synthesis</li>
+        <li>Successfully synthesised, performed timing analysis in Quartus, and deployed on real hardware</li>
+      </ul>
+    </div>
+  </div>
 
-  <div class="modal" id="modal-washer"><div class="modal-content">
-    <button class="modal-close" onclick="closeModal()">x</button>
-    <h3>Smart Washing Machine Controller</h3>
-    <p>Full appliance control system with safety interlocks and serial monitoring.</p>
-  </div></div>
+  <div class="modal" id="modal-washer">
+    <div class="modal-content">
+      <button class="modal-close" onclick="closeModal()">×</button>
+      <h3>Microcontroller-Controlled Washing Machine Prototype</h3>
+      <p><strong>Mar – May 2023 | Embedded Systems Course</strong></p>
+      <p>Designed and built a complete washing machine control system using the STM32L476RG microcontroller — simulating a real domestic appliance control panel.</p>
+      <ul>
+        <li>Implemented full feature set: wash cycle selection, water level sensing, temperature control, motor direction/speed control, and door lock safety interlock</li>
+        <li>Real-time serial monitoring interface for diagnostics and parameter tuning</li>
+        <li>Developed robust state machine handling timing, sensor inputs, and fault detection</li>
+        <li>Demonstrated strong embedded systems skills: peripheral configuration, interrupt handling, and hardware-software co-design</li>
+      </ul>
+    </div>
+  </div>
 
   <h2 class="section-title" id="contact">Contact</h2>
   <div class="contact">
-    <p>Currently exploring opportunities in robotics & embedded systems.</p>
+    <p>Currently exploring opportunities in robotics, exoskeleton, and high-performance embedded roles.</p>
     <form id="contact-form">
       <input type="text" name="name" placeholder="Name" required />
       <input type="email" name="email" placeholder="Email" required />
@@ -388,18 +466,28 @@
   </footer>
 
   <script>
-    // Parallax glow still follows mouse (very lightweight & beautiful)
+    // NEON CURSOR
+    const cursor = document.querySelector('.neon-cursor');
+    const dot = document.querySelector('.neon-dot');
     document.addEventListener('mousemove', e => {
+      cursor.style.left = e.clientX + 'px';
+      cursor.style.top = e.clientY + 'px';
+      dot.style.left = e.clientX + 'px';
+      dot.style.top = e.clientY + 'px';
       document.querySelector('.parallax-layer').style.setProperty('--x', e.clientX / innerWidth * 100 + '%');
       document.querySelector('.parallax-layer').style.setProperty('--y', e.clientY / innerHeight * 100 + '%');
     });
+    document.querySelectorAll('a, button, .project, .chip, .tag').forEach(el => {
+      el.addEventListener('mouseenter', () => cursor.style.transform = 'translate(-50%,-50%) scale(1.5)');
+      el.addEventListener('mouseleave', () => cursor.style.transform = 'translate(-50%,-50%) scale(1)');
+    });
 
-    // Scroll reveal for section titles
+    // Scroll reveal + Tilt
     new IntersectionObserver(e => e.forEach(en => en.isIntersecting && en.target.classList.add('visible')), {threshold: 0.3})
       .observe(document.querySelectorAll('.section-title')[0]);
-
     VanillaTilt.init(document.querySelectorAll("[data-tilt]"), {max: 8, speed: 400, glare: true, "max-glare": 0.3});
 
+    // Modal system (your original god-tier animation preserved)
     let lastCard = null;
     function openModal(id) {
       const modal = document.getElementById(id);
@@ -441,6 +529,7 @@
     document.addEventListener('keydown', e => e.key === 'Escape' && closeModal());
     document.addEventListener('click', e => e.target.classList.contains('modal') && closeModal());
 
+    // EmailJS
     emailjs.init("mmllGJ-sGdXW_WnEn");
     document.getElementById('contact-form').addEventListener('submit', function(e) {
       e.preventDefault();
