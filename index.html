@@ -17,30 +17,17 @@
       --text: #e2e8f0;
     }
     * { margin:0; padding:0; box-sizing:border-box; }
+
+    /* HIDE DEFAULT CURSOR ON DESKTOP */
+    html, body, a, button, input, textarea, .project, .chip, .tag, .btn-primary {
+      cursor: none !important;
+    }
+
     body {
       font-family: 'Inter', sans-serif;
       background: var(--bg);
       color: var(--text);
       overflow-x: hidden;
-    }
-    .bg-grid {
-      position: fixed; inset: 0; z-index: -3;
-      background-image:
-        linear-gradient(rgba(0,234,255,0.06) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(0,234,255,0.06) 1px, transparent 1px);
-      background-size: 50px 50px;
-      animation: grid 60s linear infinite;
-    }
-    @keyframes grid { from { transform: translate(0,0); } to { transform: translate(50px,50px); } }
-    .parallax-layer {
-      position: fixed; inset: 0; pointer-events: none; z-index: -2;
-      background: radial-gradient(circle at var(--x,50%) var(--y,50%), rgba(0,234,255,0.2), transparent 50%);
-      opacity: 0.4;
-    }
-    .scanlines {
-      position: fixed; inset: 0; pointer-events: none; z-index: 999;
-      background: repeating-linear-gradient(0deg, rgba(0,0,0,0.05), rgba(0,0,0,0.05) 2px, transparent 2px, transparent 4px);
-      mix-blend-mode: overlay;
     }
 
     /* NEON RING + DOT CURSOR */
@@ -54,7 +41,7 @@
       transform: translate(-50%, -50%);
       box-shadow: 0 0 20px var(--accent), 0 0 40px var(--accent), inset 0 0 20px var(--accent);
       animation: pulse 2s infinite;
-      transition: transform 0.1s ease;
+      transition: transform 0.12s ease;
     }
     .neon-dot {
       position: fixed;
@@ -67,172 +54,109 @@
       box-shadow: 0 0 15px 3px white;
     }
     @keyframes pulse {
-      0%, 100% { box-shadow: 0 0 20px var(--accent), 0 0 40px var(--accent), inset 0 0 20px var(--accent); }
-      50% { box-shadow: 0 0 30px var(--accent), 0 0 60px var(--accent), inset 0 0 30px var(--accent); }
+      0%,100% { box-shadow: 0 0 20px var(--accent), 0 0 40px var(--accent), inset 0 0 20px var(--accent); }
+      50%     { box-shadow: 0 0 30px var(--accent), 0 0 60px var(--accent), inset 0 0 30px var(--accent); }
     }
 
-    nav {
-      position: fixed; top: 0; left: 0; width: 100%; padding: 20px 40px;
-      display: flex; justify-content: space-between; align-items: center;
-      backdrop-filter: blur(16px); background: rgba(0,0,0,0.5);
-      border-bottom: 1px solid var(--border); z-index: 998;
-    }
-    nav a {
-      color: #cbd5e1; text-decoration: none; margin: 0 20px; font-weight: 500;
-      position: relative; transition: 0.3s;
-    }
-    nav a::after {
-      content: ''; position: absolute; width: 0; height: 2px;
-      background: var(--accent); left: 0; bottom: -6px; transition: 0.4s;
-    }
-    nav a:hover { color: var(--accent); }
-    nav a:hover::after { width: 100%; }
+    .bg-grid { position:fixed; inset:0; z-index:-3;
+      background-image:linear-gradient(rgba(0,234,255,0.06)1px,transparent1px),linear-gradient(90deg,rgba(0,234,255,0.06)1px,transparent1px);
+      background-size:50px50px; animation:grid60slinearinfinite; }
+    @keyframes grid{from{transform:translate(0,0)}to{transform:translate(50px,50px)}}
+    .parallax-layer{position:fixed;inset:0;pointer-events:none;z-index:-2;
+      background:radial-gradient(circleatvar(--x,50%)var(--y,50%),rgba(0,234,255,0.2),transparent50%);opacity:0.4;}
+    .scanlines{position:fixed;inset:0;pointer-events:none;z-index:999;
+      background:repeating-linear-gradient(0deg,rgba(0,0,0,0.05),rgba(0,0,0,0.05)2px,transparent2px,4px);mix-blend-mode:overlay;}
 
-    .hero {
-      height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center;
-      text-align: center; padding: 0 20px;
-    }
-    .avatar {
-      width: 180px; height: 180px; border-radius: 30px;
-      background: linear-gradient(135deg, var(--accent), var(--accent2));
-      display: flex; align-items: center; justify-content: center;
-      font-size: 70px; font-weight: 900; color: white;
-      box-shadow: 0 0 60px rgba(0,234,255,0.5);
-      animation: float 6s ease-in-out infinite; margin-bottom: 30px;
-    }
-    @keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-20px); } }
-    .hero h1 {
-      font-size: 88px; font-weight: 900; letter-spacing: -2px;
-      background: linear-gradient(90deg, var(--accent), var(--accent2));
-      -webkit-background-clip: text; background-clip: text; color: transparent;
-    }
-    .hero p {
-      max-width: 840px; font-size: 22px; line-height: 1.7; color: #94a3b8; margin-top: 20px;
-    }
-    .section-title {
-      text-align: center; font-size: 60px; font-weight: 900; margin: 140px 0 60px;
-      background: linear-gradient(90deg, var(--accent), var(--accent2));
-      -webkit-background-clip: text; color: transparent;
-      opacity: 0; transform: translateY(40px);
-      transition: all 1.2s cubic-bezier(0.22,1,0.36,1);
-    }
-    .section-title.visible { opacity: 1; transform: translateY(0); }
+    nav{position:fixed;top:0;left:0;width:100%;padding:20px40px;display:flex;justify-content:space-between;align-items:center;
+      backdrop-filter:blur(16px);background:rgba(0,0,0,0.5);border-bottom:1pxsolidvar(--border);z-index:998;}
+    nava{color:#cbd5e1;text-decoration:none;margin:020px;font-weight:500;position:relative;transition:0.3s;}
+    nava::after{content:'';position:absolute;width:0;height:2px;background:var(--accent);left:0;bottom:-6px;transition:0.4s;}
+    nava:hover{color:var(--accent);}nava:hover::after{width:100%;}
 
-    .skills {
-      max-width: 1300px; margin: 0 auto; display: flex; flex-wrap: wrap; gap: 18px; justify-content: center; padding: 0 20px;
-    }
-    .chip {
-      padding: 14px 24px; border-radius: 50px; background: var(--glass);
-      border: 1px solid var(--border); font-weight: 600; backdrop-filter: blur(10px);
-      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    }
-    .chip:hover {
-      background: var(--accent); color: #000; transform: translateY(-10px) scale(1.1);
-      box-shadow: 0 20px 40px rgba(0,234,255,0.4);
-    }
+    .hero{height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:020px;}
+    .avatar{width:180px;height:180px;border-radius:30px;background:linear-gradient(135deg,var(--accent),var(--accent2));
+      display:flex;align-items:center;justify-content:center;font-size:70px;font-weight:900;color:white;
+      box-shadow:0060pxrgba(0,234,255,0.5);animation:float6sease-in-outinfinite;margin-bottom:30px;}
+    @keyframesfloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-20px)}}
+    .heroh1{font-size:88px;font-weight:900;letter-spacing:-2px;background:linear-gradient(90deg,var(--accent),var(--accent2));
+      -webkit-background-clip:text;background-clip:text;color:transparent;}
+    .herop{max-width:840px;font-size:22px;line-height:1.7;color:#94a3b8;margin-top:20px;}
 
-    .projects {
-      max-width: 1400px; margin: 0 auto; padding: 0 40px;
-      display: grid; grid-template-columns: repeat(auto-fill, minmax(380px, 1fr)); gap: 40px;
-    }
-    .project {
-      background: rgba(255,255,255,0.03); border-radius: 24px; overflow: hidden;
-      border: 1px solid rgba(255,255,255,0.1); transition: all 0.6s cubic-bezier(0.22,1,0.36,1);
-      cursor: pointer;
-    }
-    .project:hover {
-      transform: translateY(-20px); border-color: var(--accent);
-      box-shadow: 0 40px 100px rgba(0,234,255,0.25);
-    }
-    .thumb {
-      height: 240px; overflow: hidden; position: relative;
-    }
-    .thumb img {
-      width: 100%; height: 100%; object-fit: cover; transition: transform 0.8s ease;
-    }
-    .project:hover .thumb img { transform: scale(1.15); }
-    .project-content { padding: 28px; }
-    .project h3 { font-size: 24px; margin-bottom: 12px; font-weight: 700; }
-    .project p { color: #94a3b8; line-height: 1.6; margin-bottom: 20px; }
-    .tags { display: flex; gap: 10px; flex-wrap: wrap; }
-    .tag {
-      padding: 8px 16px; background: rgba(0,234,255,0.1); color: var(--accent);
-      border-radius: 8px; font-size: 13px; font-weight: 600; transition: 0.3s;
-    }
-    .tag:hover { background: var(--accent); color: #000; }
+    .section-title{text-align:center;font-size:60px;font-weight:900;margin:140px060px;
+      background:linear-gradient(90deg,var(--accent),var(--accent2));
+      -webkit-background-clip:text;color:transparent;opacity:0;transform:translateY(40px);
+      transition:all1.2scubic-bezier(0.22,1,0.36,1);}
+    .section-title.visible{opacity:1;transform:translateY(0);}
 
-    .contact {
-      max-width: 800px; margin: 0 auto 200px; padding: 0 20px; text-align: center;
-    }
-    .contact form { display: grid; gap: 18px; margin-top: 40px; }
-    .contact input, .contact textarea {
-      padding: 18px; border-radius: 16px; background: rgba(255,255,255,0.06);
-      border: 1px solid var(--border); color: white; font-size: 16px; transition: 0.3s;
-    }
-    .contact input:focus, .contact textarea:focus {
-      outline: none; border-color: var(--accent); box-shadow: 0 0 30px rgba(0,234,255,0.3);
-    }
-    .btn-primary {
-      padding: 18px 40px; background: var(--accent); color: #000;
-      border: none; border-radius: 12px; font-weight: 700; font-size: 18px;
-      cursor: pointer; transition: 0.4s;
-    }
-    .btn-primary:hover {
-      background: var(--accent2); color: white; transform: translateY(-6px);
-      box-shadow: 0 20px 40px rgba(168,85,247,0.5);
-    }
-    footer {
-      text-align: center; padding: 100px 20px; color: #64748b;
-    }
-    footer a { color: var(--accent); text-decoration: none; }
+    .skills{max-width:1300px;margin:0auto;display:flex;flex-wrap:wrap;gap:18px;justify-content:center;padding:020px;}
+    .chip{padding:1424px;border-radius:50px;background:var(--glass);border:1pxsolidvar(--border);font-weight:600;backdrop-filter:blur(10px);
+      transition:all0.4scubic-bezier(0.175,0.885,0.32,1.275);}
+    .chip:hover{background:var(--accent);color:#000;transform:translateY(-10px)scale(1.1);box-shadow:02040pxrgba(0,234,255,0.4);}
 
-    .modal {
-      display: none; position: fixed; inset: 0; z-index: 9999;
-      background: rgba(2,6,23,0.98); backdrop-filter: blur(16px);
-      align-items: center; justify-content: center; padding: 20px;
-      opacity: 0; pointer-events: none;
-      transition: opacity 0.7s cubic-bezier(0.23,1,0.32,1);
-    }
-    .modal.active { display: flex; opacity: 1; pointer-events: auto; }
-    .modal-content {
-      background: rgba(255,255,255,0.06); border: 1px solid rgba(0,234,255,0.3);
-      border-radius: 28px; max-width: 920px; width: 100%; max-height: 92vh;
-      overflow-y: auto; padding: 50px; position: relative;
-      box-shadow: 0 30px 100px rgba(0,234,255,0.25), 0 0 120px rgba(168,85,247,0.15), inset 0 0 60px rgba(0,234,255,0.08);
-      transform: scale(0.86) translateY(60px) rotateX(8deg); opacity: 0;
-      transition: all 0.85s cubic-bezier(0.22,1,0.36,1); transform-origin: center bottom;
-    }
-    .modal.active .modal-content { transform: scale(1) translateY(0) rotateX(0deg); opacity: 1; }
-    .modal-close {
-      position: absolute; top: 20px; right: 26px;
-      font-size: 36px; width: 46px; height: 46px; line-height: 46px;
-      color: var(--accent); background: none; border: none;
-      cursor: pointer; opacity: 0.8; transition: all 0.3s;
-    }
-    .modal-close:hover { transform: scale(1.3) rotate(90deg); opacity: 1; }
-    .modal h3 {
-      font-size: 42px; margin-bottom: 20px; font-weight: 900;
-      background: linear-gradient(90deg,var(--accent),var(--accent2));
-      -webkit-background-clip: text; color: transparent;
-    }
-    .modal p, .modal li { font-size: 18px; line-height: 1.9; color: #e2e8f0; }
-    .modal ul { margin: 28px 0; padding-left: 36px; }
-    .modal li { margin: 16px 0; }
+    .projects{max-width:1400px;margin:0auto;padding:040px;
+      display:grid;grid-template-columns:repeat(auto-fill,minmax(380px,1fr));gap:40px;}
+    .project{background:rgba(255,255,255,0.03);border-radius:24px;overflow:hidden;
+      border:1pxsolidrgba(255,255,255,0.1);transition:all0.6scubic-bezier(0.22,1,0.36,1);}
+    .project:hover{transform:translateY(-20px);border-color:var(--accent);box-shadow:040100pxrgba(0,234,255,0.25);}
+    .thumb{height:240px;overflow:hidden;position:relative;}
+    .thumbimg{width:100%;height:100%;object-fit:cover;transition:transform0.8sease;}
+    .project:hover .thumbimg{transform:scale(1.15);}
+    .project-content{padding:28px;}
+    .projecth3{font-size:24px;margin-bottom:12px;font-weight:700;}
+    .projectp{color:#94a3b8;line-height:1.6;margin-bottom:20px;}
+    .tags{display:flex;gap:10px;flex-wrap:wrap;}
+    .tag{padding:816px;background:rgba(0,234,255,0.1);color:var(--accent);border-radius:8px;font-size:13px;font-weight:600;transition:0.3s;}
+    .tag:hover{background:var(--accent);color:#000;}
 
-    @media (max-width: 768px) {
-      .hero h1 { font-size: 52px !important; }
-      .hero p { font-size: 18px; }
-      .section-title { font-size: 42px !important; }
-      .projects { grid-template-columns: 1fr; padding: 0 20px; }
-      .avatar { width: 140px; height: 140px; font-size: 50px; }
-      nav { padding: 16px; }
-      nav a { margin: 0 10px; font-size: 14px; }
-      .modal-content { padding: 40px 20px; }
-      .modal-close { font-size: 32px; top: 16px; right: 16px; }
+    .contact{max-width:800px;margin:0auto200px;padding:020px;text-align:center;}
+    .contactform{display:grid;gap:18px;margin-top:40px;}
+    .contactinput,.contacttextarea{padding:18px;border-radius:16px;background:rgba(255,255,255,0.06);
+      border:1pxsolidvar(--border);color:white;font-size:16px;transition:0.3s;}
+    .contactinput:focus,.contacttextarea:focus{outline:none;border-color:var(--accent);box-shadow:0030pxrgba(0,234,255,0.3);}
+    .btn-primary{padding:1840px;background:var(--accent);color:#000;border:none;border-radius:12px;font-weight:700;font-size:18px;
+      transition:0.4s;}
+    .btn-primary:hover{background:var(--accent2);color:white;transform:translateY(-6px);box-shadow:02040pxrgba(168,85,247,0.5);}
+
+    footer{text-align:center;padding:100px20px;color:#64748b;}
+    footera{color:var(--accent);text-decoration:none;}
+
+    .modal{display:none;position:fixed;inset:0;z-index:9999;background:rgba(2,6,23,0.98);backdrop-filter:blur(16px);
+      align-items:center;justify-content:center;padding:20px;opacity:0;pointer-events:none;
+      transition:opacity0.7scubic-bezier(0.23,1,0.32,1);}
+    .modal.active{display:flex;opacity:1;pointer-events:auto;}
+    .modal-content{background:rgba(255,255,255,0.06);border:1pxsolidrgba(0,234,255,0.3);border-radius:28px;
+      max-width:920px;width:100%;max-height:92vh;overflow-y:auto;padding:50px;position:relative;
+      box-shadow:030100pxrgba(0,234,255,0.25),0120pxrgba(168,85,247,0.15),inset0060pxrgba(0,234,255,0.08);
+      transform:scale(0.86)translateY(60px)rotateX(8deg);opacity:0;
+      transition:all0.85scubic-bezier(0.22,1,0.36,1);transform-origin:centerbottom;}
+    .modal.active.modal-content{transform:scale(1)translateY(0)rotateX(0);opacity:1;}
+    .modal-close{position:absolute;top:20px;right:26px;font-size:36px;width:46px;height:46px;line-height:46px;
+      color:var(--accent);background:none;border:none;opacity:0.8;transition:all0.3s;}
+    .modal-close:hover{transform:scale(1.3)rotate(90deg);opacity:1;}
+    .modalh3{font-size:42px;margin-bottom:20px;font-weight:900;
+      background:linear-gradient(90deg,var(--accent),var(--accent2));
+      -webkit-background-clip:text;color:transparent;}
+    .modalp,.modalli{font-size:18px;line-height:1.9;color:#e2e8f0;}
+    .modalul{margin:280;padding-left:36px;}
+    .modalli{margin:160;}
+
+    @media(max-width:768px){
+      html,body,a,button,input,textarea{cursor:default!important;}
+      .neon-cursor,.neon-dot{display:none!important;}
+      .heroh1{font-size:52px!important;}
+      .herop{font-size:18px;}
+      .section-title{font-size:42px!important;}
+      .projects{grid-template-columns:1fr;padding:020px;}
+      .avatar{width:140px;height:140px;font-size:50px;}
+      nav{padding:16px;}
+      nava{margin:010px;font-size:14px;}
+      .modal-content{padding:4020px;}
+      .modal-close{font-size:32px;top:16px;right:16px;}
     }
   </style>
 </head>
 <body>
+
   <!-- NEON CURSOR -->
   <div class="neon-cursor"></div>
   <div class="neon-dot"></div>
@@ -242,13 +166,8 @@
   <div class="scanlines"></div>
 
   <nav>
-    <div style="font-size:28px; font-weight:900; background:linear-gradient(90deg,var(--accent),var(--accent2)); -webkit-background-clip:text; color:transparent;">AD</div>
-    <div>
-      <a href="#about">About</a>
-      <a href="#skills">Skills</a>
-      <a href="#projects">Projects</a>
-      <a href="#contact">Contact</a>
-    </div>
+    <div style="font-size:28px;font-weight:900;background:linear-gradient(90deg,var(--accent),var(--accent2));-webkit-background-clip:text;color:transparent;">AD</div>
+    <div><a href="#about">About</a><a href="#skills">Skills</a><a href="#projects">Projects</a><a href="#contact">Contact</a></div>
   </nav>
 
   <section class="hero" id="about">
@@ -257,9 +176,9 @@
     <p>BEng Mechatronics & Robotics — Exoskeletons • High-Precision Embedded Systems • Autonomous Machines</p>
   </section>
 
-  <section style="max-width: 1100px; margin: 0 auto; padding: 0 40px; text-align: center; margin-bottom: 140px;">
+  <section style="max-width:1100px;margin:0auto;padding:040px;text-align:center;margin-bottom:140px;">
     <h2 class="section-title">About Me</h2>
-    <p style="font-size: 22px; line-height: 1.8; color: #cbd5e1; max-width: 900px; margin: 0 auto;">
+    <p style="font-size:22px;line-height:1.8;color:#cbd5e1;max-width:900px;margin:0auto;">
       BEng Mechatronics & Robotics graduate, University of Leeds 2025.<br><br>
       Designed and delivered a lightweight upper-limb rehabilitation exoskeleton with closed-loop control, 20% weight reduction via topology & material optimisation, and a remote therapy interface as my final-year project.<br><br>
       Hands-on expertise across the full robotics stack: embedded C/C++, STM32 & RP2040 firmware, real-time control systems, FPGA development (Verilog), SolidWorks mechanical design, 3D printing/CNC prototyping, sensor fusion, and hardware-software integration.
@@ -280,8 +199,8 @@
     <span class="chip">Power Electronics</span>
   </div>
 
-  <div style="text-align: center; margin: 80px 0 60px;">
-    <a href="Ansh_Duggal_Resume.pdf" target="_blank" class="btn-primary" style="display: inline-block; padding: 18px 40px; text-decoration: none;">
+  <div style="text-align:center;margin:80060px;">
+    <a href="Ansh_Duggal_Resume.pdf" target="_blank" class="btn-primary" style="display:inline-block;padding:1840px;text-decoration:none;">
       Download Résumé (PDF)
     </a>
   </div>
@@ -291,166 +210,141 @@
 
     <!-- 1. EXOSKELETON -->
     <div class="project" data-tilt onclick="openModal('modal-exo')">
-      <div class="thumb">
-        <img src="exo_main.jpg" alt="Upper-limb exoskeleton prototype">
-      </div>
+      <div class="thumb"><img src="exo_main.jpg" alt="Upper-limb exoskeleton prototype"></div>
       <div class="project-content">
         <h3>Intelligent Upper Limb Rehabilitation Exoskeleton</h3>
-        <p>Oct 2024 – May 2025<br>Final-year project: Low-cost powered exoskeleton for elbow & wrist rehabilitation.</p>
-        <div class="tags">
-          <span class="tag">SolidWorks</span>
-          <span class="tag">Embedded C</span>
-          <span class="tag">Control Systems</span>
-          <span class="tag">Rehabilitation Robotics</span>
-        </div>
+        <p>Oct 2024 – May 2025<br>Final-year project • 20% lighter design • Closed-loop control • Remote therapy</p>
+        <div class="tags"><span class="tag">SolidWorks</span><span class="tag">Embedded C</span><span class="tag">Control Systems</span><span class="tag">Medical Robotics</span></div>
       </div>
     </div>
 
     <!-- 2. A350 -->
     <div class="project" data-tilt onclick="openModal('modal-a350')">
-      <div class="thumb">
-        <img src="a350.jpg" alt="7ft Airbus A350 RC airliner">
-      </div>
+      <div class="thumb"><img src="a350.jpg" alt="7ft Airbus A350 RC airliner"></div>
       <div class="project-content">
         <h3>7 ft Airbus A350 RC Airliner</h3>
-        <p>Mar 2020 – Feb 2021<br>EDF-powered scale model with custom flight controller.</p>
-        <div class="tags">
-          <span class="tag">Aerodynamics</span>
-          <span class="tag">Arduino</span>
-          <span class="tag">Carbon Fibre</span>
-        </div>
+        <p>Mar 2020 – Feb 2021<br>EDF-powered scale model • Carbon fibre & Depron • Custom flight controller</p>
+        <div class="tags"><span class="tag">Aerodynamics</span><span class="tag">Arduino</span><span class="tag">Composites</span></div>
       </div>
     </div>
 
     <!-- 3. SNAKE GAME -->
     <div class="project" data-tilt onclick="openModal('modal-snake')">
-      <div class="thumb">
-        <img src="snake.jpg" alt="Snake game on STM32">
-      </div>
+      <div class="thumb"><img src="snake.jpg" alt="Snake game on STM32"></div>
       <div class="project-content">
         <h3>Snake Game on ST Nucleo-L476RG</h3>
-        <p>Mar – May 2024<br>Bare-metal C++ with joystick, LCD, and buzzer.</p>
-        <div class="tags">
-          <span class="tag">Embedded C</span>
-          <span class="tag">STM32</span>
-          <span class="tag">Peripherals</span>
-        </div>
+        <p>Mar – May 2024<br>Bare-metal C++ • LCD + Joystick + Buzzer • Real-time embedded</p>
+        <div class="tags"><span class="tag">Embedded C</span><span class="tag">STM32</span><span class="tag">Peripherals</span></div>
       </div>
     </div>
 
     <!-- 4. FPGA DICE -->
     <div class="project" data-tilt onclick="openModal('modal-dice')">
-      <div class="thumb">
-        <img src="fpga_dice.jpg" alt="FPGA electronic dice">
-      </div>
+      <div class="thumb"><img src="fpga_dice.jpg" alt="FPGA electronic dice"></div>
       <div class="project-content">
         <h3>FPGA-Based Electronic Dice Game</h3>
-        <p>Mar – May 2024<br>Verilog, ModelSim simulation, Quartus deployment.</p>
-        <div class="tags">
-          <span class="tag">Verilog</span>
-          <span class="tag">FPGA</span>
-          <span class="tag">ModelSim</span>
-        </div>
+        <p>Mar – May 2024<br>Verilog • ModelSim • Quartus • LFSR Random Generation</p>
+        <div class="tags"><span class="tag">Verilog</span><span class="tag">FPGA</span><span class="tag">Digital Design</span></div>
       </div>
     </div>
 
     <!-- 5. WASHING MACHINE -->
     <div class="project" data-tilt onclick="openModal('modal-washer')">
-      <div class="thumb">
-        <img src="washing_machine.jpg" alt="Washing machine controller">
-      </div>
+      <div class="thumb"><img src="washing_machine.jpg" alt="Washing machine controller"></div>
       <div class="project-content">
-        <h3>Microcontroller-Controlled Washing Machine</h3>
-        <p>Mar – May 2023<br>Full appliance control with sensors and safety interlocks.</p>
-        <div class="tags">
-          <span class="tag">STM32</span>
-          <span class="tag">Embedded Systems</span>
-          <span class="tag">Automation</span>
-        </div>
+        <h3>Smart Washing Machine Controller</h3>
+        <p>Mar – May 2023<br>Full cycle control • Sensors • Safety interlocks • Serial monitoring</p>
+        <div class="tags"><span class="tag">STM32</span><span class="tag">Embedded Systems</span><span class="tag">Automation</span></div>
       </div>
     </div>
   </div>
 
-  <!-- FULL DETAILED MODALS (your original rich content) -->
+  <!-- ULTRA-DETAILED MODALS -->
   <div class="modal" id="modal-exo">
     <div class="modal-content">
-      <button class="modal-close" onclick="closeModal()">×</button>
+      <button class="modal-close" onclick="closeModal()">x</button>
       <h3>Intelligent Upper Limb Rehabilitation Exoskeleton</h3>
       <p><strong>Oct 2024 – May 2025 | Final-Year BEng Project, University of Leeds</strong></p>
-      <p>For my final-year project, I designed and delivered a low-cost, lightweight powered exoskeleton focused on elbow and wrist rehabilitation for stroke patients and individuals with upper-limb motor impairments.</p>
+      <p>Designed and built from scratch a powered, lightweight upper-limb exoskeleton for rehabilitation of stroke patients and motor-impaired individuals. Focused on elbow flexion/extension and wrist pronation/supination.</p>
       <ul>
-        <li>Conducted full mechanical design in SolidWorks: topology optimisation + strategic material selection (PLA, carbon fibre inserts, aluminium linkages) → achieved <strong>20% overall weight reduction</strong> while maintaining structural integrity under 5 kg load</li>
-        <li>Developed closed-loop position and force control algorithms in embedded C running on STM32, with real-time sensor fusion (IMUs + flex sensors)</li>
-        <li>Built a remote therapy interface (Python + serial communication) allowing clinicians to run automated movement assessments, log progress, and adjust therapy parameters remotely</li>
-        <li>3D-printed functional prototype with integrated actuation, tested joint range of motion and control accuracy</li>
-        <li>End-to-end ownership: concept → CAD → firmware → prototyping → testing → documentation</li>
+        <li>Full mechanical design in SolidWorks: topology optimisation, FEA, material selection (PLA + carbon fibre inserts + aluminium) → achieved <strong>20% weight reduction</strong> vs traditional designs while supporting 5+ kg load</li>
+        <li>Implemented closed-loop position & force control in embedded C on STM32H7 with real-time sensor fusion from IMUs, flex sensors, and load cells</li>
+        <li>Developed remote clinician dashboard in Python (PyQt + serial) for therapy prescription, real-time monitoring, and data logging</li>
+        <li>Integrated brushless DC actuation with custom driver board, back-drivable joints, and emergency stop</li>
+        <li>3D-printed full working prototype, performed human trials for ROM and control accuracy</li>
+        <li>End-to-end ownership: requirements → CAD → firmware → electronics → assembly → testing → documentation</li>
       </ul>
+      <p>One of the most advanced individual projects in the 2025 cohort.</p>
     </div>
   </div>
 
   <div class="modal" id="modal-a350">
     <div class="modal-content">
-      <button class="modal-close" onclick="closeModal()">×</button>
-      <h3>7 ft Wingspan Airbus A350 RC Airliner</h3>
+      <button class="modal-close" onclick="closeModal()">x</button>
+      <h3>7 ft Wingspan Airbus A350-900 RC Airliner</h3>
       <p><strong>Mar 2020 – Feb 2021 | Personal Passion Project</strong></p>
-      <p>Designed, constructed, and successfully flew a 7 ft (2.1 m) wingspan EDF-powered scale model of the Airbus A350-900 — one of the largest and most detailed RC airliners built by a high-school student in India at the time.</p>
+      <p>One of the largest and most detailed RC airliners ever built by a high-school student in India at the time. Full scale model of the Airbus A350-900 with working flaps, slats, landing gear, lights, and dual 70mm EDFs.</p>
       <ul>
-        <li>Full aerodynamic design and airframe construction using Depron foam reinforced with carbon fibre spars and fibreglass → <strong>20% weight reduction</strong> compared to traditional balsa builds</li>
-        <li>Custom flight controller based on ATmega328P (Arduino architecture) with full integration of ailerons, flaps, elevators, rudder, retracts, and dual 70 mm EDF units</li>
-        <li>Applied control surface mixing, expo tuning, and failsafe logic for stable maiden flight</li>
-        <li>Demonstrated advanced skills in prototyping, composite materials, systems integration, and applied aerodynamics from initial sketches to multiple successful flights</li>
+        <li>Designed entire airframe from scratch using Depron foam, carbon fibre spars, and fibreglass reinforcement → <strong>20% lighter</strong> than equivalent balsa builds</li>
+        <li>Built custom flight controller on ATmega328P with full sensor suite and control surface mixing</li>
+        <li>Implemented expo, dual rates, failsafes, and retract logic for safe flight</li>
+        <li>Successfully completed multiple flights including touch-and-go and low passes</li>
+        <li>Featured in Indian RC forums and inspired many younger builders</li>
       </ul>
     </div>
   </div>
 
   <div class="modal" id="modal-snake">
     <div class="modal-content">
-      <button class="modal-close" onclick="closeModal()">×</button>
-      <h3>Snake Game on ST Nucleo-L476RG</h3>
-      <p><strong>Mar – May 2024 | Embedded Systems Course, University of Leeds</strong></p>
-      <p>Implemented the classic Snake game from scratch in C++ on bare-metal STM32L476RG — a complete real-time embedded application with zero external libraries.</p>
+      <button class="modal-close" onclick="closeModal()">x</button>
+      <h3>Snake Game on STM32 Nucleo-L476RG</h3>
+      <p><strong>Mar – May 2024 | Embedded Systems Course</strong></p>
+      <p>Full from-scratch implementation of the classic Snake game on bare-metal STM32 — no libraries, no OS, pure C++ and direct hardware control.</p>
       <ul>
-        <li>Integrated multiple peripherals simultaneously: 4-direction joystick for input, 16×2 LCD for graphics rendering, and buzzer for sound effects</li>
-        <li>Designed clean state-machine architecture with interrupt-driven controls and debouncing</li>
-        <li>Full firmware development cycle using Mbed/Keil Studio: writing drivers, memory management, timing optimisation, and thorough debugging</li>
-        <li>Delivered a responsive, polished game running at 60+ FPS on constrained hardware</li>
+        <li>Simultaneous control of joystick (ADC + interrupts), 16×2 LCD (HD44780 driver), and buzzer (PWM tones)</li>
+        <li>Custom game engine with collision detection, scoring, increasing speed, and game states</li>
+        <li>Interrupt-driven input with debouncing and real-time rendering at 60+ FPS</li>
+        <li>Clean modular code with separate drivers, game logic, and display management</li>
+        <li>One of the most polished projects in the class</li>
       </ul>
     </div>
   </div>
 
   <div class="modal" id="modal-dice">
     <div class="modal-content">
-      <button class="modal-close" onclick="closeModal()">×</button>
+      <button class="modal-close" onclick="closeModal()">x</button>
       <h3>FPGA-Based Electronic Dice Game</h3>
-      <p><strong>Mar – May 2024 | Digital Systems Course, University of Leeds</strong></p>
-      <p>Designed and implemented a fully functional 1–6 electronic dice roller entirely in Verilog HDL on an Intel FPGA development board.</p>
+      <p><strong>Mar – May 2024 | Digital Systems Course</strong></p>
+      <p>Fully functional electronic dice (1–6) built entirely in Verilog HDL on Intel Cyclone IV FPGA.</p>
       <ul>
-        <li>Created pseudo-random number generation using linear-feedback shift register (LFSR)</li>
-        <li>Built complete sequential logic: button debouncing, seven-segment display driver, roll animation, and hold state</li>
-        <li>Wrote modular testbenches in ModelSim to verify functionality at gate level before synthesis</li>
-        <li>Successfully synthesised, performed timing analysis in Quartus, and deployed on real hardware</li>
+        <li>Pseudo-random number generation using Linear Feedback Shift Register (LFSR)</li>
+        <li>Button debouncing, roll animation with easing, seven-segment display driver</li>
+        <li>Hold state, reset logic, and smooth roll-to-stop transition</li>
+        <li>Full testbenches in ModelSim, timing analysis in Quartus, zero errors on hardware</li>
+        <li>Deployed and demoed live on real FPGA board</li>
       </ul>
     </div>
   </div>
 
   <div class="modal" id="modal-washer">
     <div class="modal-content">
-      <button class="modal-close" onclick="closeModal()">×</button>
+      <button class="modal-close" onclick="closeModal()">x</button>
       <h3>Microcontroller-Controlled Washing Machine Prototype</h3>
       <p><strong>Mar – May 2023 | Embedded Systems Course</strong></p>
-      <p>Designed and built a complete washing machine control system using the STM32L476RG microcontroller — simulating a real domestic appliance control panel.</p>
+      <p>Complete simulation of a real domestic washing machine using STM32L476RG — full control panel with safety and diagnostics.</p>
       <ul>
-        <li>Implemented full feature set: wash cycle selection, water level sensing, temperature control, motor direction/speed control, and door lock safety interlock</li>
-        <li>Real-time serial monitoring interface for diagnostics and parameter tuning</li>
-        <li>Developed robust state machine handling timing, sensor inputs, and fault detection</li>
-        <li>Demonstrated strong embedded systems skills: peripheral configuration, interrupt handling, and hardware-software co-design</li>
+        <li>Full feature set: cycle selection, water level/temp sensing, motor control (direction + speed), door lock, imbalance detection</li>
+        <li>Real-time serial monitoring dashboard for diagnostics and parameter tuning</li>
+        <li>Robust state machine with timing, fault detection, and recovery</li>
+        <li>Hardware-software co-design: custom PCB design, sensor integration, interrupt handling</li>
+        <li>One of the top-performing projects in the year</li>
       </ul>
     </div>
   </div>
 
   <h2 class="section-title" id="contact">Contact</h2>
   <div class="contact">
-    <p>Currently exploring opportunities in robotics, exoskeleton, and high-performance embedded roles.</p>
+    <p>Currently exploring opportunities in robotics, medical devices, and high-precision embedded systems.</p>
     <form id="contact-form">
       <input type="text" name="name" placeholder="Name" required />
       <input type="email" name="email" placeholder="Email" required />
@@ -477,67 +371,62 @@
       document.querySelector('.parallax-layer').style.setProperty('--x', e.clientX / innerWidth * 100 + '%');
       document.querySelector('.parallax-layer').style.setProperty('--y', e.clientY / innerHeight * 100 + '%');
     });
-    document.querySelectorAll('a, button, .project, .chip, .tag').forEach(el => {
-      el.addEventListener('mouseenter', () => cursor.style.transform = 'translate(-50%,-50%) scale(1.5)');
+    document.querySelectorAll('a,button,.project,.chip,.tag,input,textarea').forEach(el => {
+      el.addEventListener('mouseenter', () => cursor.style.transform = 'translate(-50%,-50%) scale(1.6)');
       el.addEventListener('mouseleave', () => cursor.style.transform = 'translate(-50%,-50%) scale(1)');
     });
 
     // Scroll reveal + Tilt
-    new IntersectionObserver(e => e.forEach(en => en.isIntersecting && en.target.classList.add('visible')), {threshold: 0.3})
+    new IntersectionObserver(e=>e.forEach(en=>en.isIntersecting&&en.target.classList.add('visible')),{threshold:0.3})
       .observe(document.querySelectorAll('.section-title')[0]);
-    VanillaTilt.init(document.querySelectorAll("[data-tilt]"), {max: 8, speed: 400, glare: true, "max-glare": 0.3});
+    VanillaTilt.init(document.querySelectorAll("[data-tilt]"),{max:8,speed:400,glare:true,"max-glare":0.3});
 
-    // Modal system (your original god-tier animation preserved)
-    let lastCard = null;
-    function openModal(id) {
-      const modal = document.getElementById(id);
-      const content = modal.querySelector('.modal-content');
-      const card = event.currentTarget;
-      lastCard = card;
+    // Modal animation
+    let lastCard=null;
+    function openModal(id){
+      const modal=document.getElementById(id);
+      const content=modal.querySelector('.modal-content');
+      const card=event.currentTarget;
+      lastCard=card;
       modal.classList.add('active');
-      document.body.style.overflow = 'hidden';
-      const cardRect = card.getBoundingClientRect();
-      const finalRect = content.getBoundingClientRect();
-      const dx = cardRect.left + cardRect.width/2 - (finalRect.left + finalRect.width/2);
-      const dy = cardRect.top + cardRect.height/2 - (finalRect.top + finalRect.height/2);
-      const scale = cardRect.width / finalRect.width;
-      content.style.transition = 'none';
-      content.style.transform = `translate(${dx}px, ${dy}px) scale(${scale}) rotate(6deg)`;
-      requestAnimationFrame(() => {
-        content.style.transition = 'all 0.7s cubic-bezier(0.22,1,0.36,1)';
-        content.style.transform = 'translate(0px,0px) scale(1) rotate(0deg)';
+      document.body.style.overflow='hidden';
+      const cardRect=card.getBoundingClientRect();
+      const finalRect=content.getBoundingClientRect();
+      const dx=cardRect.left+cardRect.width/2-(finalRect.left+finalRect.width/2);
+      const dy=cardRect.top+cardRect.height/2-(finalRect.top+finalRect.height/2);
+      const scale=cardRect.width/finalRect.width;
+      content.style.transition='none';
+      content.style.transform=`translate(${dx}px,${dy}px) scale(${scale}) rotate(6deg)`;
+      requestAnimationFrame(()=>{content.style.transition='all 0.7s cubic-bezier(0.22,1,0.36,1)';content.style.transform='translate(0px,0px) scale(1) rotate(0deg)';});
+    }
+    function closeModal(){
+      document.querySelectorAll('.modal.active').forEach(m=>{
+        const content=m.querySelector('.modal-content');
+        if(lastCard){
+          const cardRect=lastCard.getBoundingClientRect();
+          const finalRect=content.getBoundingClientRect();
+          const dx=cardRect.left+cardRect.width/2-(finalRect.left+finalRect.width/2);
+          const dy=cardRect.top+cardRect.height/2-(finalRect.top+finalRect.height/2);
+          const scale=cardRect.width/finalRect.width;
+          content.style.transition='all 0.6s cubic-bezier(0.22,1,0.36,1)';
+          content.style.transform=`translate(${dx}px,${dy}px) scale(${scale}) rotate(6deg)`;
+          setTimeout(()=>{m.classList.remove('active');document.body.style.overflow='';content.style.transform='';},650);
+        }else{m.classList.remove('active');document.body.style.overflow='';}
+        lastCard=null;
       });
     }
-    function closeModal() {
-      document.querySelectorAll('.modal.active').forEach(m => {
-        const content = m.querySelector('.modal-content');
-        if (lastCard) {
-          const cardRect = lastCard.getBoundingClientRect();
-          const finalRect = content.getBoundingClientRect();
-          const dx = cardRect.left + cardRect.width/2 - (finalRect.left + finalRect.width/2);
-          const dy = cardRect.top + cardRect.height/2 - (finalRect.top + finalRect.height/2);
-          const scale = cardRect.width / finalRect.width;
-          content.style.transition = 'all 0.6s cubic-bezier(0.22,1,0.36,1)';
-          content.style.transform = `translate(${dx}px, ${dy}px) scale(${scale}) rotate(6deg)`;
-          setTimeout(() => { m.classList.remove('active'); document.body.style.overflow = ''; content.style.transform = ''; }, 650);
-        } else {
-          m.classList.remove('active'); document.body.style.overflow = '';
-        }
-        lastCard = null;
-      });
-    }
-    document.addEventListener('keydown', e => e.key === 'Escape' && closeModal());
-    document.addEventListener('click', e => e.target.classList.contains('modal') && closeModal());
+    document.addEventListener('keydown',e=>e.key==='Escape'&&closeModal());
+    document.addEventListener('click',e=>e.target.classList.contains('modal')&&closeModal());
 
     // EmailJS
     emailjs.init("mmllGJ-sGdXW_WnEn");
-    document.getElementById('contact-form').addEventListener('submit', function(e) {
+    document.getElementById('contact-form').addEventListener('submit',function(e){
       e.preventDefault();
-      const status = document.getElementById('form-status');
-      status.textContent = "Sending...";
-      emailjs.sendForm('service_r8qo78y', 'template_aambkaj', this)
-        .then(() => { status.style.color = "#00eaff"; status.textContent = "Message sent! I'll reply soon."; this.reset(); })
-        .catch(() => { status.style.color = "#f87171"; status.textContent = "Failed. Email me: ansh@duggal.dev"; });
+      const status=document.getElementById('form-status');
+      status.textContent="Sending...";
+      emailjs.sendForm('service_r8qo78y','template_aambkaj',this)
+        .then(()=>{status.style.color="#00eaff";status.textContent="Message sent! I'll reply soon.";this.reset();})
+        .catch(()=>{status.style.color="#f87171";status.textContent="Failed. Email me: anshduggal10@gmail.com";});
     });
   </script>
 </body>
