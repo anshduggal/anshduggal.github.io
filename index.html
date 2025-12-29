@@ -147,9 +147,7 @@
       transform: translateY(-10px) scale(1.1);
       box-shadow: 0 20px 40px rgba(0,234,255,0.4);
     }
- 
-    /* PROJECTS */
-    /* PROJECTS CONTAINER */
+ /* PROJECTS CONTAINER */
 .projects {
   max-width: 1400px;
   margin: 0 auto;
@@ -169,14 +167,16 @@
   cursor: pointer;
   display: flex;
   flex-direction: column;
-  height: 540px;               /* ← adjust this value (520–580px) to fit your longest card */
   position: relative;
+  height: auto;                    /* ← flexible height */
+  min-height: 520px;               /* ← minimum for visual balance */
 }
 
 .project:hover {
   transform: translateY(-20px);
   border-color: var(--accent);
   box-shadow: 0 40px 100px rgba(0, 234, 255, 0.25);
+  z-index: 25;                     /* hovered card stays on top */
 }
 
 /* Make entire card clickable (image + content) */
@@ -184,7 +184,7 @@
 .thumb img,
 .project-content,
 .project-content * {
-  pointer-events: none;        /* clicks pass through to .project parent */
+  pointer-events: none;            /* clicks pass through to .project */
 }
 
 /* THUMBNAIL */
@@ -192,7 +192,7 @@
   height: 240px;
   overflow: hidden;
   position: relative;
-  flex-shrink: 0;              /* prevents thumbnail from shrinking */
+  flex-shrink: 0;                  /* never shrinks */
 }
 
 .thumb img {
@@ -209,9 +209,10 @@
 /* CONTENT AREA */
 .project-content {
   padding: 28px;
-  flex: 1;                     /* grows to fill remaining height */
+  flex: 1;
   display: flex;
   flex-direction: column;
+  min-height: 220px;               /* ensures space for tags even on short cards */
 }
 
 .project h3 {
@@ -223,15 +224,18 @@
 .project p {
   color: #94a3b8;
   line-height: 1.6;
-  margin-bottom: 20px;
-  flex: 1;                     /* pushes tags to bottom if text is short */
+  margin-bottom: 16px;             /* slightly reduced to give tags more room */
+  flex-grow: 1;                    /* expands if needed */
 }
 
+/* TAGS - Always at bottom, never cut off */
 .tags {
   display: flex;
   gap: 10px;
   flex-wrap: wrap;
-  margin-top: auto;            /* keeps tags at bottom when content is short */
+  margin-top: auto;                /* ← pushes tags to the very bottom */
+  padding-top: 12px;
+  border-top: 1px solid rgba(255,255,255,0.08); /* optional subtle separator */
 }
 
 .tag {
