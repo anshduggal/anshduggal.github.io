@@ -642,11 +642,16 @@
     });
 
     // === SMOOTH MODAL OPEN/CLOSE ===
-    function openModal(id) {
-      const modal = document.getElementById(id);
-      modal.classList.add('active');
-      document.body.style.overflow = 'hidden';
-    }
+   function openModal(id) {
+  const modal = document.getElementById(id);
+  // First make it visible so the transition can start
+  modal.style.display = 'flex';
+  // Let the browser render the display change (tiny delay)
+  requestAnimationFrame(() => {
+    modal.classList.add('active');
+  });
+  document.body.style.overflow = 'hidden';
+}
     function closeModal() {
       document.querySelectorAll('.modal.active').forEach(modal => {
         modal.classList.add('closing');
