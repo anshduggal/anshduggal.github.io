@@ -3,365 +3,766 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>ANSH DUGGAL // NEURO-ROBOTICS DIVISION</title>
-  <meta name="description" content="BEng Mechatronics & Robotics | Exoskeleton Systems | Autonomous Intelligence"/>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Orbitron:wght@500;700;900&display=swap" rel="stylesheet"/>
+  <title>Ansh Duggal- Mechatronics and Robotics</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&display=swap" rel="stylesheet"/>
   <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
-  
+  <script src="https://cdn.jsdelivr.net/npm/vanilla-tilt@1.8.1/dist/vanilla-tilt.min.js"></script>
   <style>
     :root {
-      --neon: #00f5ff;
-      --purple: #c026d3;
-      --bg: #05050a;
+      --accent: #00eaff;
+      --accent2: #a855f7;
+      --bg: #020617;
+      --glass: rgba(255,255,255,0.05);
+      --border: rgba(255,255,255,0.12);
+      --text: #e2e8f0;
     }
     * { margin:0; padding:0; box-sizing:border-box; }
     body {
       font-family: 'Inter', sans-serif;
       background: var(--bg);
-      color: #e0f2fe;
+      color: var(--text);
       overflow-x: hidden;
       cursor: none;
     }
-
-    /* Neural Network Background */
-    #neural-bg {
-      position: fixed; inset: 0; z-index: -2;
-      background: radial-gradient(circle at center, rgba(0,245,255,0.08) 0%, transparent 70%);
-    }
-
-    /* Glitch Effect */
-    .glitch {
-      position: relative;
-      color: white;
-      font-family: 'Orbitron', sans-serif;
-      letter-spacing: -4px;
-    }
-    .glitch::before, .glitch::after {
-      content: attr(data-text);
-      position: absolute; top: 0; left: 0;
-      width: 100%; height: 100%;
-    }
-    .glitch::before {
-      color: var(--neon);
-      animation: glitch-anim 2s infinite linear alternate-reverse;
-      clip-path: polygon(0 0, 100% 0, 100% 33%, 0 33%);
-    }
-    .glitch::after {
-      color: var(--purple);
-      animation: glitch-anim2 3s infinite linear alternate-reverse;
-      clip-path: polygon(0 67%, 100% 67%, 100% 100%, 0 100%);
-    }
-
-    @keyframes glitch-anim {
-      0% { transform: translate(-2px, 2px); }
-      100% { transform: translate(2px, -2px); }
-    }
-    @keyframes glitch-anim2 {
-      0% { transform: translate(2px, -2px); }
-      100% { transform: translate(-2px, 2px); }
-    }
-
-    /* Navbar */
-    nav {
-      position: fixed; top: 0; width: 100%; z-index: 1000;
-      padding: 25px 6%; display: flex; justify-content: space-between;
-      align-items: center; backdrop-filter: blur(20px);
-      background: rgba(5,5,10,0.8); border-bottom: 1px solid rgba(0,245,255,0.2);
-    }
-    .logo {
-      font-family: 'Orbitron', sans-serif;
-      font-size: 28px; font-weight: 900;
-      background: linear-gradient(90deg, var(--neon), var(--purple));
-      -webkit-background-clip: text; color: transparent;
-    }
-
-    /* Hero */
-    .hero {
-      height: 100vh; display: flex; flex-direction: column;
-      justify-content: center; align-items: center; text-align: center;
-      position: relative;
-    }
-    .terminal {
-      background: rgba(0,0,0,0.6); border: 1px solid var(--neon);
-      padding: 12px 24px; border-radius: 4px; margin-bottom: 30px;
-      font-family: monospace; color: var(--neon); letter-spacing: 2px;
-    }
-    .hero h1 {
-      font-size: 6.5rem; font-weight: 900; line-height: 0.9;
-      margin-bottom: 20px;
-    }
-    .hero .subtitle {
-      font-size: 1.8rem; color: #67e8f9; margin-bottom: 40px;
-      opacity: 0.9;
-    }
-
-    .scanline {
-      position: absolute; inset: 0;
-      background: linear-gradient(transparent, rgba(0,245,255,0.15), transparent);
-      animation: scan 6s linear infinite;
+ 
+    /* PARTICLE CURSOR */
+    #cursor {
+      position: fixed;
+      width: 20px; height: 20px;
+      background: var(--accent);
+      border-radius: 50%;
       pointer-events: none;
+      z-index: 9999;
+      box-shadow: 0 0 20px var(--accent);
+      transform: translate(-50%,-50%);
+      transition: transform 0.07s;
     }
-    @keyframes scan { 0% { transform: translateY(-100%); } 100% { transform: translateY(400%); } }
-
-    /* Projects - Holographic Cards */
-    .projects {
-      padding: 120px 6%;
-      max-width: 1600px; margin: 0 auto;
+    #cursor-trail {
+      position: fixed;
+      width: 6px; height: 6px;
+      background: var(--accent2);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9998;
+      opacity: 0.6;
     }
-    .section-title {
-      font-family: 'Orbitron', sans-serif;
-      font-size: 3.8rem; text-align: center; margin-bottom: 100px;
-      background: linear-gradient(90deg, #00f5ff, #c026d3);
-      -webkit-background-clip: text; color: transparent;
+ 
+    /* BACKGROUND GRID + PARALLAX */
+    .bg-grid {
+      position: fixed; inset: 0; z-index: -3;
+      background-image:
+        linear-gradient(rgba(0,234,255,0.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,234,255,0.06) 1px, transparent 1px);
+      background-size: 50px 50px;
+      animation: grid 60s linear infinite;
     }
-
-    .holo-card {
-      background: rgba(15,15,35,0.6);
-      border: 1px solid rgba(0,245,255,0.3);
-      border-radius: 20px;
-      overflow: hidden;
-      transition: all 0.6s cubic-bezier(0.23,1,0.32,1);
+    @keyframes grid { from { transform: translate(0,0); } to { transform: translate(50px,50px); } }
+ 
+    .parallax-layer {
+      position: fixed; inset: 0; pointer-events: none; z-index: -2;
+      background: radial-gradient(circle at var(--x,50%) var(--y,50%), rgba(0,234,255,0.2), transparent 50%);
+      opacity: 0.4;
+    }
+ 
+    /* SCANLINES + GRAIN */
+    .scanlines {
+      position: fixed; inset: 0; pointer-events: none; z-index: 999;
+      background: repeating-linear-gradient(0deg, rgba(0,0,0,0.05), rgba(0,0,0,0.05) 2px, transparent 2px, transparent 4px);
+      mix-blend-mode: overlay;
+    }
+ 
+    /* NAVBAR */
+    nav {
+      position: fixed; top: 0; left: 0; width: 100%; padding: 20px 40px;
+      display: flex; justify-content: space-between; align-items: center;
+      backdrop-filter: blur(16px);
+      background: rgba(0,0,0,0.5);
+      border-bottom: 1px solid var(--border);
+      z-index: 998;
+    }
+    nav a {
+      color: #cbd5e1; text-decoration: none; margin: 0 20px; font-weight: 500;
       position: relative;
-      cursor: pointer;
-    }
-    .holo-card:hover {
-      transform: translateY(-30px) rotateX(8deg);
-      border-color: var(--neon);
-      box-shadow: 0 0 80px rgba(0,245,255,0.5);
-    }
-    .holo-card::before {
-      content: ''; position: absolute; inset: 0;
-      background: linear-gradient(135deg, rgba(0,245,255,0.1), transparent);
-      opacity: 0; transition: 0.5s;
-    }
-    .holo-card:hover::before { opacity: 1; }
-
-    .thumb {
-      height: 280px; overflow: hidden; position: relative;
-    }
-    .thumb img {
-      width: 100%; height: 100%; object-fit: cover;
-      transition: 0.8s;
-    }
-    .holo-card:hover .thumb img { transform: scale(1.15); filter: brightness(1.2); }
-
-    .content {
-      padding: 32px;
-    }
-
-    /* Modal */
-    .modal {
-      display: none; position: fixed; inset: 0; z-index: 9999;
-      background: rgba(5,5,10,0.95); backdrop-filter: blur(30px);
-      align-items: center; justify-content: center;
-    }
-    .modal.active { display: flex; }
-    .modal-content {
-      background: rgba(10,10,30,0.95); border: 2px solid var(--neon);
-      border-radius: 24px; max-width: 920px; width: 100%;
-      padding: 60px; position: relative;
-      box-shadow: 0 0 120px rgba(0,245,255,0.6);
-    }
-
-    .close-btn {
-      position: absolute; top: 25px; right: 35px;
-      font-size: 48px; color: var(--neon); cursor: pointer;
       transition: 0.3s;
     }
-    .close-btn:hover { transform: rotate(90deg); }
-
-    /* Other styles */
+    nav a::after {
+      content: ''; position: absolute; width: 0; height: 2px;
+      background: var(--accent); left: 0; bottom: -6px;
+      transition: 0.4s;
+    }
+    nav a:hover { color: var(--accent); }
+    nav a:hover::after { width: 100%; }
+ 
+    /* HERO */
+    .hero {
+      height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center;
+      text-align: center; position: relative;
+      padding: 0 20px;
+    }
+    .avatar {
+      width: 180px; height: 180px; border-radius: 30px;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      display: flex; align-items: center; justify-content: center;
+      font-size: 70px; font-weight: 900; color: white;
+      box-shadow: 0 0 60px rgba(0,234,255,0.5);
+      animation: float 6s ease-in-out infinite;
+      margin-bottom: 30px;
+    }
+    @keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-20px); } }
+ 
+    .hero h1 {
+      font-size: 88px; font-weight: 900; letter-spacing: -2px;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      -webkit-background-clip: text; background-clip: text;
+      color: transparent;
+      text-shadow: 0 0 40px rgba(0,234,255,0.4);
+    }
+    .hero p {
+      max-width: 840px; font-size: 22px; line-height: 1.7; color: #94a3b8; margin-top: 20px;
+    }
+ 
+    /* SECTION TITLES */
+    .section-title {
+      text-align: center; font-size: 60px; font-weight: 900; margin: 140px 0 60px;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      -webkit-background-clip: text; color: transparent;
+      opacity: 0; transform: translateY(40px);
+      transition: all 1.2s cubic-bezier(0.22,1,0.36,1);
+    }
+    .section-title.visible { opacity: 1; transform: translateY(0); }
+ 
+    /* SKILLS */
+    .skills {
+      max-width: 1300px; margin: 0 auto; display: flex; flex-wrap: wrap; gap: 18px; justify-content: center;
+    }
     .chip {
-      display: inline-block; padding: 12px 28px; margin: 8px;
-      background: rgba(0,245,255,0.1); border: 1px solid var(--neon);
-      border-radius: 50px; font-size: 1rem;
+      padding: 14px 24px; border-radius: 50px; background: var(--glass);
+      border: 1px solid var(--border); font-weight: 600; backdrop-filter: blur(10px);
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      cursor: default;
+    }
+    .chip:hover {
+      background: var(--accent);
+      color: #000;
+      transform: translateY(-10px) scale(1.1);
+      box-shadow: 0 20px 40px rgba(0,234,255,0.4);
+    }
+ /* PROJECTS CONTAINER */
+.projects {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 40px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+  gap: 40px;
+}
+
+/* INDIVIDUAL PROJECT CARD */
+.project {
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 24px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  height: auto;                    /* ← flexible height */
+  min-height: 520px;               /* ← minimum for visual balance */
+}
+
+.project:hover {
+  transform: translateY(-20px);
+  border-color: var(--accent);
+  box-shadow: 0 40px 100px rgba(0, 234, 255, 0.25);
+  z-index: 25;                     /* hovered card stays on top */
+}
+
+/* Make entire card clickable (image + content) */
+.thumb,
+.thumb img,
+.project-content,
+.project-content * {
+  pointer-events: none;            /* clicks pass through to .project */
+}
+
+/* THUMBNAIL */
+.thumb {
+  height: 240px;
+  overflow: hidden;
+  position: relative;
+  flex-shrink: 0;                  /* never shrinks */
+}
+
+.thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.8s ease;
+}
+
+.project:hover .thumb img {
+  transform: scale(1.15);
+}
+
+/* CONTENT AREA */
+.project-content {
+  padding: 28px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 220px;               /* ensures space for tags even on short cards */
+}
+
+.project h3 {
+  font-size: 24px;
+  margin-bottom: 12px;
+  font-weight: 700;
+}
+
+.project p {
+  color: #94a3b8;
+  line-height: 1.6;
+  margin-bottom: 16px;             /* slightly reduced to give tags more room */
+  flex-grow: 1;                    /* expands if needed */
+}
+
+/* TAGS - Always at bottom, never cut off */
+.tags {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: auto;                /* ← pushes tags to the very bottom */
+  padding-top: 12px;
+  border-top: 1px solid rgba(255,255,255,0.08); /* optional subtle separator */
+}
+
+.tag {
+  padding: 8px 16px;
+  background: rgba(0, 234, 255, 0.1);
+  color: var(--accent);
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  transition: 0.3s;
+}
+
+.tag:hover {
+  background: var(--accent);
+  color: #000;
+}
+ 
+    /* CONTACT */
+    .contact {
+      max-width: 800px; margin: 0 auto 200px; padding: 0 20px; text-align: center;
+    }
+    .contact form {
+      display: grid; gap: 18px; margin-top: 40px;
+    }
+    .contact input, .contact textarea {
+      padding: 18px; border-radius: 16px; background: rgba(255,255,255,0.06);
+      border: 1px solid var(--border); color: white; font-size: 16px;
+      transition: 0.3s;
+    }
+    .contact input:focus, .contact textarea:focus {
+      outline: none; border-color: var(--accent); box-shadow: 0 0 30px rgba(0,234,255,0.3);
+    }
+    .btn-primary {
+      padding: 18px 40px; background: var(--accent); color: #000;
+      border: none; border-radius: 12px; font-weight: 700; font-size: 18px;
+      cursor: pointer; transition: 0.4s;
+    }
+    .btn-primary:hover {
+      background: var(--accent2); color: white;
+      transform: translateY(-6px);
+      box-shadow: 0 20px 40px rgba(168,85,247,0.5);
+    }
+ 
+    footer {
+      text-align: center; padding: 100px 20px; color: #64748b;
+    }
+    footer a { color: var(--accent); text-decoration: none; }
+
+    /* PROJECT MODAL - IMPROVED ANIMATION */
+    /* PROJECT MODAL - IMPROVED ANIMATION */
+.modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: rgba(2,6,23,0.98);
+  backdrop-filter: blur(16px);
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+
+  opacity: 0;                                  /* Start invisible */
+  pointer-events: none;
+  transition: opacity 0.85s cubic-bezier(0.23,1,0.32,1);  /* Smooth fade for background */
+}
+
+.modal.active {
+  display: flex;
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.modal-content {
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(0,234,255,0.3);
+  border-radius: 28px;
+  max-width: 920px;
+  width: 100%;
+  max-height: 92vh;
+  overflow-y: auto;
+  padding: 50px;
+  position: relative;
+  pointer-events: auto;
+  box-shadow:
+    0 30px 100px rgba(0,234,255,0.25),
+    0 0 120px rgba(168,85,247,0.15),
+    inset 0 0 60px rgba(0,234,255,0.08);
+
+  /* Smooth cinematic entrance */
+  transform: scale(0.88) translateY(60px) rotateX(8deg);
+  opacity: 0;
+  transition: all 0.85s cubic-bezier(0.22,1,0.36,1);
+  transform-origin: center bottom;
+}
+
+.modal.active .modal-content {
+  transform: scale(1) translateY(0) rotateX(0deg);
+  opacity: 1;
+}
+
+/* Smooth exit - both content AND background fade together */
+.modal.closing {
+  opacity: 0;  /* ← triggers background fade-out */
+}
+
+.modal.closing .modal-content {
+  transform: scale(0.92) translateY(60px) rotateX(8deg);
+  opacity: 0;
+}
+
+/* Smaller, refined close button */
+.modal-close {
+  position: absolute;
+  top: 20px;
+  right: 28px;
+  font-size: 36px;
+  width: 48px;
+  height: 48px;
+  line-height: 44px;
+  color: var(--accent);
+  background: none;
+  border: none;
+  cursor: pointer;
+  opacity: 0.7;
+  transition: all 0.3s ease;
+}
+
+.modal-close:hover {
+  transform: scale(1.3) rotate(90deg);
+  opacity: 1;
+}
+
+.modal h3 {
+  font-size: 42px;
+  margin-bottom: 20px;
+  font-weight: 900;
+  background: linear-gradient(90deg,var(--accent),var(--accent2));
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+.modal p, .modal li {
+  font-size: 18px;
+  line-height: 1.9;
+  color: #e2e8f0;
+}
+
+.modal ul {
+  margin: 28px 0;
+  padding-left: 36px;
+}
+
+.modal li {
+  margin: 16px 0;
+}
+    #cursor, .cursor-trail {
+      z-index: 99999 !important;
     }
   </style>
 </head>
 <body>
-
-  <canvas id="neural-bg"></canvas>
-  <div class="scanline"></div>
-
-  <!-- NAV -->
+ 
+  <div id="cursor"></div>
+  <div class="bg-grid"></div>
+  <div class="parallax-layer"></div>
+  <div class="scanlines"></div>
+ 
+  <!-- NAVBAR -->
   <nav>
-    <div class="logo">NEURO<span style="color:#c026d3;">LINK</span></div>
+    <div style="font-size:28px; font-weight:900; background:linear-gradient(90deg,var(--accent),var(--accent2)); -webkit-background-clip:text; color:transparent;">AD</div>
     <div>
-      <a href="#projects" style="color:#67e8f9; margin:0 25px; text-decoration:none;">PROJECTS</a>
-      <a href="#contact" style="color:#67e8f9; margin:0 25px; text-decoration:none;">CONNECT</a>
+      <a href="#about">About</a>
+      <a href="#skills">Skills</a>
+      <a href="#projects">Projects</a>
+      <a href="#contact">Contact</a>
     </div>
   </nav>
-
+ 
   <!-- HERO -->
-  <section class="hero">
-    <div class="terminal">SYSTEM ONLINE • SUBJECT: ANSH DUGGAL • CLEARANCE: LEVEL 7</div>
-    <h1 class="glitch" data-text="ANSH DUGGAL">ANSH DUGGAL</h1>
-    <p class="subtitle">Mechatronics & Robotics Engineer<br>Exoskeletons • Human-Machine Symbiosis • Autonomous Systems</p>
-    
-    <button onclick="document.getElementById('projects').scrollIntoView({behavior:'smooth'})"
-      style="padding:18px 50px; font-size:1.2rem; background:transparent; border:2px solid var(--neon); color:var(--neon); border-radius:50px; cursor:pointer; margin-top:40px; transition:0.4s;">
-      INITIALIZE PORTFOLIO
-    </button>
+  <section class="hero" id="about">
+    <div class="avatar">AD</div>
+    <h1>Ansh Duggal</h1>
+    <p>BEng Mechatronics & Robotics — Exoskeletons • High-Precision Embedded Systems • Autonomous Machines</p>
   </section>
 
+  <!-- DETAILED ABOUT SECTION -->
+  <section style="max-width: 1100px; margin: 0 auto; padding: 0 40px; text-align: center; margin-bottom: 140px;">
+    <h2 class="section-title" style="font-size: 56px; margin-bottom: 50px;">
+      About Me
+    </h2>
+    <p style="font-size: 22px; line-height: 1.8; color: #cbd5e1; max-width: 900px; margin: 0 auto;">
+      BEng Mechatronics & Robotics graduate, University of Leeds 2025.<br><br>
+      Designed and delivered a lightweight upper-limb rehabilitation exoskeleton with closed-loop control, 20% weight reduction via topology & material optimisation, and a remote therapy interface as my final-year project.<br><br>
+      Hands-on expertise across the full robotics stack: embedded C/C++, STM32 & RP2040 firmware, real-time control systems, FPGA development (Verilog), SolidWorks mechanical design, 3D printing/CNC prototyping, sensor fusion, and hardware-software integration.<br><br>
+      Immediately available and actively seeking 2025/26 graduate roles in exoskeletons, medical/rehabilitation robotics, high-precision embedded systems, and autonomous machines.
+    </p>
+  </section>
+
+  <!-- SKILLS -->
+  <h2 class="section-title" id="skills">Skills</h2>
+  <div class="skills">
+    <span class="chip">C++ / Embedded C</span>
+    <span class="chip">STM32 • ESP32 • RP2040</span>
+    <span class="chip">PID • State-Space Control</span>
+    <span class="chip">SolidWorks • Fusion 360</span>
+    <span class="chip">Kinematics & Dynamics</span>
+    <span class="chip">FPGA • Verilog</span>
+    <span class="chip">ROS2 • Python Robotics</span>
+    <span class="chip">Real-Time Systems</span>
+    <span class="chip">3D Printing • CNC</span>
+    <span class="chip">Power Electronics</span>
+  </div>
+ 
   <!-- PROJECTS -->
-  <section id="projects" class="projects">
-    <h2 class="section-title">CLASSIFIED PROJECTS</h2>
-
-    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(420px, 1fr)); gap: 40px;">
-
-      <div class="holo-card" onclick="openModal('modal-exo')">
-        <div class="thumb"><img src="exo_main.jpg" alt="Exoskeleton"></div>
-        <div class="content">
-          <h3 style="font-size:1.9rem; margin-bottom:12px;">UPPER LIMB NEURO-EXOSKELETON</h3>
-          <p>Final Year Project • 20% mass reduction • Closed-loop neural control • Remote clinician interface</p>
+  <h2 class="section-title" id="projects">Projects</h2>
+ 
+  <!-- RESUME DOWNLOAD BUTTON -->
+  <div style="text-align: center; margin-bottom: 60px;">
+    <a href="resume.pdf" target="_blank" class="btn-primary" style="display: inline-block; padding: 16px 36px; font-size: 18px; text-decoration: none;">
+      Download Résumé (PDF)
+    </a>
+  </div>
+ 
+  <div class="projects">
+ 
+    <!-- 1. EXOSKELETON -->
+    <div class="project" data-tilt data-tilt-max="5" data-tilt-speed="400" onclick="openModal('modal-exo')">
+      <div class="thumb">
+        <img src="exo_main.jpg" alt="Upper Limb Rehabilitation Exoskeleton">
+      </div>
+      <div class="project-content">
+        <h3>Intelligent Upper Limb Rehabilitation Exoskeleton</h3>
+        <p>Oct 2024 – May 2025<br>Final-year project: Low-cost powered exoskeleton for elbow & wrist rehabilitation. SolidWorks design, 20% weight reduction, closed-loop control, remote therapy interface.</p>
+        <div class="tags">
+          <span class="tag">SolidWorks</span>
+          <span class="tag">Embedded C</span>
+          <span class="tag">Control Systems</span>
+          <span class="tag">Rehabilitation Robotics</span>
         </div>
       </div>
-
-      <div class="holo-card" onclick="openModal('modal-a350')">
-        <div class="thumb"><img src="plane.jpg" alt="A350"></div>
-        <div class="content">
-          <h3 style="font-size:1.9rem; margin-bottom:12px;">7FT EDF AIRBUS A350 UAV</h3>
-          <p>Composite airframe • Custom flight controller • Successful autonomous flights</p>
-        </div>
-      </div>
-
-      <div class="holo-card" onclick="openModal('modal-buggy')">
-        <div class="thumb"><img src="buggy.jpg" alt="Buggy"></div>
-        <div class="content">
-          <h3 style="font-size:1.9rem; margin-bottom:12px;">2KG PAYLOAD MECH BUGGY</h3>
-          <p>Fully 3D printed • Custom gear train • Structural optimization</p>
-        </div>
-      </div>
-
     </div>
-
-    <div style="text-align:center; margin-top:80px;">
-      <a href="resume.pdf" download="Ansh_Duggal_Neuro_Robotics_Resume.pdf"
-        style="padding:16px 40px; background:linear-gradient(90deg,#00f5ff,#c026d3); color:black; font-weight:700; border-radius:50px; text-decoration:none; display:inline-block;">
-        DOWNLOAD NEURAL PROFILE (PDF)
-      </a>
+ 
+    <!-- 2. A350 -->
+    <div class="project" data-tilt data-tilt-max="5" data-tilt-speed="400" onclick="openModal('modal-a350')">
+      <div class="thumb">
+        <img src="plane.jpg" alt="7ft Airbus A350 RC Airliner">
+      </div>
+      <div class="project-content">
+        <h3>7 ft Airbus A350 RC Airliner</h3>
+        <p>Mar 2020 – Feb 2021<br>7 ft wingspan EDF-powered scale model. Depron foam & carbon fibre, ATmega328P flight controller, 20% weight reduction.</p>
+        <div class="tags">
+          <span class="tag">Aerodynamics</span>
+          <span class="tag">Arduino</span>
+          <span class="tag">Carbon Fibre</span>
+          <span class="tag">Prototyping</span>
+        </div>
+      </div>
     </div>
-  </section>
+ 
+    <!-- 3. SNAKE GAME -->
+    <div class="project" data-tilt data-tilt-max="5" data-tilt-speed="400" onclick="openModal('modal-snake')">
+      <div class="thumb">
+        <img src="snake.jpg" alt="Snake Game on STM32 LCD">
+      </div>
+      <div class="project-content">
+        <h3>Snake Game on ST Nucleo-L476RG</h3>
+        <p>Mar – May 2024<br>Full C++ implementation with joystick, LCD display, and buzzer. Real-time peripheral integration.</p>
+        <div class="tags">
+          <span class="tag">Embedded C</span>
+          <span class="tag">STM32</span>
+          <span class="tag">Peripherals</span>
+        </div>
+      </div>
+    </div>
+ 
+    <!-- 4. FPGA DICE -->
+    <div class="project" data-tilt data-tilt-max="5" data-tilt-speed="400" onclick="openModal('modal-dice')">
+      <div class="thumb">
+        <img src="fpga.jpg" alt="FPGA Electronic Dice Game">
+      </div>
+      <div class="project-content">
+        <h3>FPGA-Based Electronic Dice Game</h3>
+        <p>Mar – May 2024<br>Verilog sequential logic design, ModelSim simulation, Quartus synthesis and deployment.</p>
+        <div class="tags">
+          <span class="tag">Verilog</span>
+          <span class="tag">FPGA</span>
+          <span class="tag">ModelSim</span>
+        </div>
+      </div>
+    </div>
+ 
+    <!-- 5. WASHING MACHINE -->
+    <div class="project" data-tilt data-tilt-max="5" data-tilt-speed="400" onclick="openModal('modal-washer')">
+      <div class="thumb">
+        <img src="washing_machine.jpg" alt="STM32 Washing Machine Prototype">
+      </div>
+      <div class="project-content">
+        <h3>Microcontroller-Controlled Washing Machine Prototype</h3>
+        <p>Mar – May 2023<br>STM32L476RG control system with cycle selection, sensors, power management, and serial monitoring.</p>
+        <div class="tags">
+          <span class="tag">STM32</span>
+          <span class="tag">Embedded Systems</span>
+          <span class="tag">Automation</span>
+        </div>
+      </div>
+    </div>
+ 
+      <!-- 6: MECHANICAL BUGGY -->
+    <div class="project" data-tilt data-tilt-max="5" data-tilt-speed="400" onclick="openModal('modal-buggy')">
+      <div class="thumb">
+        <img src="buggy.jpg" alt="3D Printed Mechanical Buggy with 2kg Payload Capacity">
+      </div>
+      <div class="project-content">
+        <h3>Payload-Capable Mechanical Buggy</h3>
+        <p>April 2024 – May 2024<br>Designed in SolidWorks and fully 3D printed. Vintage-style four-wheeled chassis with large spoked wheels, gear-driven transmission (meshing spur gears), engineered to carry a 2 kg payload reliably.</p>
+        <div class="tags">
+          <span class="tag">SolidWorks</span>
+          <span class="tag">3D Printing</span>
+          <span class="tag">Mechanical Design</span>
+          <span class="tag">Gears & Transmission</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- ALL MODALS (unchanged content) -->
+<div class="modal" id="modal-exo">
+  <div class="modal-content">
+    <button class="modal-close" onclick="closeModal()">×</button>
+    <h3>Intelligent Upper Limb Rehabilitation Exoskeleton</h3>
+    <p><strong>Oct 2024 – May 2025 | Final-Year BEng Project, University of Leeds</strong></p>
+    <p>For my final-year project, I designed and delivered a low-cost, lightweight powered exoskeleton focused on elbow and wrist rehabilitation for stroke patients and individuals with upper-limb motor impairments.</p>
+    <ul>
+      <li>Conducted full mechanical design in SolidWorks: topology optimisation + strategic material selection (PLA, carbon fibre inserts, aluminium linkages) → achieved <strong>20% overall weight reduction</strong> while maintaining structural integrity under 5 kg load</li>
+      <li>Developed closed-loop position and force control algorithms in embedded C running on STM32, with real-time sensor fusion (IMUs + flex sensors)</li>
+      <li>Built a remote therapy interface (Python + serial communication) allowing clinicians to run automated movement assessments, log progress, and adjust therapy parameters remotely</li>
+      <li>3D-printed functional prototype with integrated actuation, tested joint range of motion and control accuracy</li>
+      <li>End-to-end ownership: concept → CAD → firmware → prototyping → testing → documentation</li>
+    </ul>
+  </div>
+</div>
+ 
+<div class="modal" id="modal-a350">
+  <div class="modal-content">
+    <button class="modal-close" onclick="closeModal()">×</button>
+    <h3>7 ft Wingspan Airbus A350 RC Airliner</h3>
+    <p><strong>Mar 2020 – Feb 2021 | Personal Passion Project</strong></p>
+    <p>Designed, constructed, and successfully flew a 7 ft (2.1 m) wingspan EDF-powered scale model of the Airbus A350-900 — one of the largest and most detailed RC airliners built by a high-school student in India at the time.</p>
+    <ul>
+      <li>Full aerodynamic design and airframe construction using Depron foam reinforced with carbon fibre spars and fibreglass → <strong>20% weight reduction</strong> compared to traditional balsa builds</li>
+      <li>Custom flight controller based on ATmega328P (Arduino architecture) with full integration of ailerons, flaps, elevators, rudder, retracts, and dual 70 mm EDF units</li>
+      <li>Applied control surface mixing, expo tuning, and failsafe logic for stable maiden flight</li>
+      <li>Demonstrated advanced skills in prototyping, composite materials, systems integration, and applied aerodynamics from initial sketches to multiple successful flights</li>
+    </ul>
+  </div>
+</div>
+ 
+<div class="modal" id="modal-snake">
+  <div class="modal-content">
+    <button class="modal-close" onclick="closeModal()">×</button>
+    <h3>Snake Game on ST Nucleo-L476RG</h3>
+    <p><strong>Mar – May 2024 | Embedded Systems Course, University of Leeds</strong></p>
+    <p>Implemented the classic Snake game from scratch in C++ on bare-metal STM32L476RG — a complete real-time embedded application with zero external libraries.</p>
+    <ul>
+      <li>Integrated multiple peripherals simultaneously: 4-direction joystick for input, 16×2 LCD for graphics rendering, and buzzer for sound effects</li>
+      <li>Designed clean state-machine architecture with interrupt-driven controls and debouncing</li>
+      <li>Full firmware development cycle using Mbed/Keil Studio: writing drivers, memory management, timing optimisation, and thorough debugging</li>
+      <li>Delivered a responsive, polished game running at 60+ FPS on constrained hardware</li>
+    </ul>
+  </div>
+</div>
+ 
+<div class="modal" id="modal-dice">
+  <div class="modal-content">
+    <button class="modal-close" onclick="closeModal()">×</button>
+    <h3>FPGA-Based Electronic Dice Game</h3>
+    <p><strong>Mar – May 2024 | Digital Systems Course, University of Leeds</strong></p>
+    <p>Designed and implemented a fully functional 1–6 electronic dice roller entirely in Verilog HDL on an Intel FPGA development board.</p>
+    <ul>
+      <li>Created pseudo-random number generation using linear-feedback shift register (LFSR)</li>
+      <li>Built complete sequential logic: button debouncing, seven-segment display driver, roll animation, and hold state</li>
+      <li>Wrote modular testbenches in ModelSim to verify functionality at gate level before synthesis</li>
+      <li>Successfully synthesised, performed timing analysis in Quartus, and deployed on real hardware</li>
+    </ul>
+  </div>
+</div>
+ 
+<div class="modal" id="modal-washer">
+  <div class="modal-content">
+    <button class="modal-close" onclick="closeModal()">×</button>
+    <h3>Microcontroller-Controlled Washing Machine Prototype</h3>
+    <p><strong>Mar – May 2023 | Embedded Systems Course</strong></p>
+    <p>Designed and built a complete washing machine control system using the STM32L476RG microcontroller — simulating a real domestic appliance control panel.</p>
+    <ul>
+      <li>Implemented full feature set: wash cycle selection, water level sensing, temperature control, motor direction/speed control, and door lock safety interlock</li>
+      <li>Real-time serial monitoring interface for diagnostics and parameter tuning</li>
+      <li>Developed robust state machine handling timing, sensor inputs, and fault detection</li>
+      <li>Demonstrated strong embedded systems skills: peripheral configuration, interrupt handling, and hardware-software co-design</li>
+    </ul>
+  </div>
+</div>
 
-  <!-- CONTACT -->
-  <section id="contact" style="padding:140px 6%; text-align:center; background:rgba(0,0,0,0.4);">
-    <h2 class="section-title" style="margin-bottom:60px;">ESTABLISH CONNECTION</h2>
-    <form id="contact-form" style="max-width:700px; margin:0 auto;">
-      <input type="text" name="name" placeholder="OPERATIVE NAME" required style="width:100%; padding:20px; margin:15px 0; background:rgba(255,255,255,0.05); border:1px solid #00f5ff; color:white; font-size:1.1rem;">
-      <input type="email" name="email" placeholder="NEURAL LINK (EMAIL)" required style="width:100%; padding:20px; margin:15px 0; background:rgba(255,255,255,0.05); border:1px solid #00f5ff; color:white; font-size:1.1rem;">
-      <textarea name="message" rows="6" placeholder="TRANSMISSION MESSAGE" required style="width:100%; padding:20px; margin:15px 0; background:rgba(255,255,255,0.05); border:1px solid #00f5ff; color:white; font-size:1.1rem;"></textarea>
-      <button type="submit" style="margin-top:30px; padding:18px 60px; font-size:1.2rem; background:var(--neon); color:black; border:none; border-radius:50px; cursor:pointer;">TRANSMIT MESSAGE</button>
-    </form>
-  </section>
-
-  <!-- MODALS -->
-  <div class="modal" id="modal-exo">
+  <div class="modal" id="modal-buggy">
     <div class="modal-content">
-      <span class="close-btn" onclick="closeModal()">×</span>
-      <h3>UPPER LIMB NEURO-EXOSKELETON</h3>
-      <p><strong>2024 – 2025 | University of Leeds</strong></p>
-      <p>Lightweight powered exoskeleton for stroke rehabilitation with real-time control and remote therapy dashboard.</p>
-      <ul style="margin-top:25px; line-height:2;">
-        <li>20% weight reduction via topology optimization</li>
-        <li>STM32 + sensor fusion closed-loop control</li>
-        <li>Python remote clinician interface</li>
+      <button class="modal-close" onclick="closeModal()">×</button>
+      <h3>Payload-Capable Mechanical Buggy</h3>
+      <p><strong>April 2024 – May 2024 | Individual Design & 3D Printing Project</strong></p>
+      <p>Designed a vintage-style four-wheeled mechanical buggy in SolidWorks and fully 3D printed the complete assembly. The chassis features large spoked wheels, a central gear-driven transmission with meshing spur gears, and structural optimization to support a reliable 2 kg payload.</p>
+      <ul>
+        <li>Full mechanical design and assembly in SolidWorks including chassis frame, axles, bearing blocks, and gear train</li>
+        <li>Engineered for 2 kg payload capacity with focus on structural integrity and gear meshing efficiency</li>
+        <li>Complete 3D printing of all components, material selection, and post-processing for smooth operation</li>
+        <li>Exploded views, motion studies, and detailed BOM generated for fabrication</li>
       </ul>
     </div>
   </div>
-
-  <!-- More modals can be added similarly -->
-
+  <!-- CONTACT -->
+  <h2 class="section-title" id="contact">Contact</h2>
+  <div class="contact">
+    <p>Currently open to robotics, exoskeleton, and high-performance embedded roles.</p>
+    <form id="contact-form">
+      <input type="text" name="name" placeholder="Name" required />
+      <input type="email" name="email" placeholder="Email" required />
+      <textarea name="message" rows="6" placeholder="Message" required></textarea>
+      <button class="btn-primary" type="submit">Launch Message</button>
+    </form>
+    <p id="form-status" style="margin-top:20px;"></p>
+  </div>
+ 
+  <footer>
+    <p><a href="mailto:ansh@duggal.dev">anshduggal10@gmail.com</a> • <a href="https://linkedin.com/in/anshduggal">LinkedIn</a></p>
+    <p style="margin-top:16px;">© 2025 Ansh Duggal</p>
+  </footer>
+ 
   <script>
-    // Neural Particle Background
-    const canvas = document.getElementById('neural-bg');
-    const ctx = canvas.getContext('2d');
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-
-    let particles = [];
-    class Particle {
-      constructor() {
-        this.x = Math.random() * canvas.width;
-        this.y = Math.random() * canvas.height;
-        this.size = Math.random() * 2.5 + 0.5;
-        this.speedX = Math.random() * 0.5 - 0.25;
-        this.speedY = Math.random() * 0.5 - 0.25;
-      }
-      update() {
-        this.x += this.speedX;
-        this.y += this.speedY;
-        if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
-        if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
-      }
-      draw() {
-        ctx.fillStyle = '#00f5ff';
-        ctx.shadowBlur = 15;
-        ctx.shadowColor = '#00f5ff';
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-        ctx.fill();
-      }
-    }
-
-    function initParticles() {
-      particles = [];
-      for (let i = 0; i < 120; i++) particles.push(new Particle());
-    }
-
-    function connectParticles() {
-      for (let a = 0; a < particles.length; a++) {
-        for (let b = a; b < particles.length; b++) {
-          const dx = particles[a].x - particles[b].x;
-          const dy = particles[a].y - particles[b].y;
-          const distance = Math.sqrt(dx*dx + dy*dy);
-          if (distance < 140) {
-            ctx.strokeStyle = `rgba(0,245,255,${1 - distance/140})`;
-            ctx.lineWidth = 0.8;
-            ctx.beginPath();
-            ctx.moveTo(particles[a].x, particles[a].y);
-            ctx.lineTo(particles[b].x, particles[b].y);
-            ctx.stroke();
-          }
-        }
-      }
-    }
-
-    function animate() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      particles.forEach(p => {
-        p.update();
-        p.draw();
+    // === CUSTOM CURSOR ===
+    const cursor = document.getElementById('cursor');
+    const trail = document.createElement('div');
+    trail.className = 'cursor-trail';
+    document.body.appendChild(trail);
+ 
+    document.addEventListener('mousemove', e => {
+      cursor.style.left = e.clientX + 'px';
+      cursor.style.top = e.clientY + 'px';
+ 
+      const newTrail = document.createElement('div');
+      newTrail.className = 'cursor-trail';
+      newTrail.style.left = e.clientX + 'px';
+      newTrail.style.top = e.clientY + 'px';
+      document.body.appendChild(newTrail);
+      setTimeout(() => newTrail.remove(), 800);
+    });
+ 
+    // === PARALLAX LAYER FOLLOW MOUSE ===
+    document.addEventListener('mousemove', e => {
+      const layer = document.querySelector('.parallax-layer');
+      layer.style.setProperty('--x', e.clientX / window.innerWidth * 100 + '%');
+      layer.style.setProperty('--y', e.clientY / window.innerHeight * 100 + '%');
+    });
+ 
+    // === SCROLL REVEAL TITLES ===
+    const titles = document.querySelectorAll('.section-title');
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add('visible');
       });
-      connectParticles();
-      requestAnimationFrame(animate);
-    }
-
-    window.addEventListener('resize', () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-      initParticles();
+    }, { threshold: 0.3 });
+ 
+    titles.forEach(t => observer.observe(t));
+ 
+    // === 3D TILT ON PROJECT CARDS ===
+    VanillaTilt.init(document.querySelectorAll("[data-tilt]"), {
+      max: 8,
+      speed: 400,
+      glare: true,
+      "max-glare": 0.3,
     });
 
-    // Initialize
-    initParticles();
-    animate();
-
-    // Modal Controls
-    function openModal(id) {
-      document.getElementById(id).classList.add('active');
-    }
-    function closeModal() {
-      document.querySelectorAll('.modal').forEach(m => m.classList.remove('active'));
-    }
-
-    // EmailJS (keep your keys)
+    // === SMOOTH MODAL OPEN/CLOSE ===
+   function openModal(id) {
+  const modal = document.getElementById(id);
+  // First make it visible so the transition can start
+  modal.style.display = 'flex';
+  // Let the browser render the display change (tiny delay)
+  requestAnimationFrame(() => {
+    modal.classList.add('active');
+  });
+  document.body.style.overflow = 'hidden';
+}
+   function closeModal() {
+  document.querySelectorAll('.modal.active').forEach(modal => {
+    modal.classList.add('closing');
+    setTimeout(() => {
+      modal.classList.remove('active', 'closing');
+      modal.style.display = 'none';          // Hide only after fade completes
+      document.body.style.overflow = 'auto';
+    }, 850);  // Matches transition duration (0.85s)
+  });
+}
+    // Close modal when clicking outside content
+    document.querySelectorAll('.modal').forEach(modal => {
+      modal.addEventListener('click', function(e) {
+        if (e.target === modal) closeModal();
+      });
+    });
+    // Close with Escape key
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') closeModal();
+    });
+ 
     emailjs.init("mmllGJ-sGdXW_WnEn");
+ 
     document.getElementById('contact-form').addEventListener('submit', function(e) {
       e.preventDefault();
+      const status = document.getElementById('form-status');
+      status.textContent = "Launching...";
+      status.style.color = "#94a3b8";
+ 
       emailjs.sendForm('service_r8qo78y', 'template_aambkaj', this)
-        .then(() => alert("TRANSMISSION SUCCESSFUL ✓"))
-        .catch(() => alert("TRANSMISSION FAILED - Direct email: anshduggal10@gmail.com"));
+        .then(() => {
+          status.style.color = "#00eaff";
+          status.textContent = "Message delivered. I’ll reply within 24h.";
+          this.reset();
+        }, (error) => {
+          console.log('EmailJS error:', error);
+          status.style.color = "#f87171";
+          status.textContent = "Failed. Email me directly: anshduggal10@gmail.com";
+        });
     });
   </script>
 </body>
