@@ -56,6 +56,23 @@
       pointer-events: none;
       opacity: 0.75;
     }
+        /* BACKGROUND GRID + PARALLAX */
+    .bg-grid {
+      position: fixed; inset: 0; z-index: -3;
+      background-image:
+        linear-gradient(rgba(0,234,255,0.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,234,255,0.06) 1px, transparent 1px);
+      background-size: 50px 50px;
+      animation: grid 60s linear infinite;
+    }
+    @keyframes grid { from { transform: translate(0,0); } to { transform: translate(50px,50px); } }
+ 
+    .parallax-layer {
+      position: fixed; inset: 0; pointer-events: none; z-index: -2;
+      background: radial-gradient(circle at var(--x,50%) var(--y,50%), rgba(0,234,255,0.2), transparent 50%);
+      opacity: 0.4;
+    }
+
     /* SCANLINES + GRAIN */
     .scanlines {
       position: fixed; inset: 0; pointer-events: none; z-index: 999;
